@@ -6,6 +6,7 @@ import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {SidebarMenuComponent} from './sidebar-menu/sidebar-menu.component';
 import {SettingsComponent} from './settings/settings.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import {SettingsComponent} from './settings/settings.component';
     HeaderComponent,
     FooterComponent,
     SidebarMenuComponent,
-    SettingsComponent
+    SettingsComponent,
+    DashboardComponent
   ],
   providers: []
 })

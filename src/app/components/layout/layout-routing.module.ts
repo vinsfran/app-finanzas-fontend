@@ -1,7 +1,8 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {LayoutComponent} from './layout.component';
 import {AuthorizationGuard} from '../../authorization/authorization.guard';
+import {DashboardComponent} from './dashboard/dashboard.component';
 
 const dirDependencias = './menu-inventario-infor/mantenimientos/dependencias/';
 const dirMenuInformatica = './menu-informatica/';
@@ -13,13 +14,18 @@ const routes: Routes = [
     children: [
       // { path: '', redirectTo: 'dashboard' },
       // {path: '', redirectTo: 'inicio'},
-      // Rutas para Sima
-      // path: 'menu-sima/panel-de-control/menu-lateral/form-new/:id_padre/:nivel_actual',
+
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        canActivate: [AuthorizationGuard]
+      },
+
       // {
       //   path: '',
-      //   loadChildren: dirMenuInformatica + 'panel-de-control/menu-lateral/menu-lateral.module#MenuLateralModule',
+      //   loadChildren: './dashboard/dashboard.module#DashboardModule',
       //   canActivate: [AuthorizationGuard]
-      // },
+      // }
       // Rutas para Inventario Informatica
       // {
       //   path: '',
