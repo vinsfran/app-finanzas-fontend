@@ -1,0 +1,384 @@
+// Creado: 01/04/2019
+// ------------------
+
+// VARIABLES SKIN     
+// escala de grises
+$white:       #fff;
+$gray-100:    #f8f9fa;
+$gray-200:    #f4f4f4;
+$gray-300:    #EEE;
+$gray-400:    #CCC;
+$gray-500:    #DDD;
+$gray-600:    #999;
+$gray-700:    #5a6268;
+$gray-800:    #333;
+$gray-900:    #222;
+$black:       #000;
+
+// Paleta de colores
+$blue:        #297AFC;
+$indigo:      #6610f2;
+$purple:      #6f42c1;
+$pink:        #EA1E76;
+$red:         #DB2D44;
+$orange:      #ec7000;
+$yellow:      #FDC128;
+$green:       #26A84C;
+$teal:        #20c997;
+$cyan:        #23A3B7;
+$color-brand: #28a745;
+
+// Asignacion de colores
+$primary:       $blue;
+$secondary:     $gray-500;
+$success:       $green;
+$info:          $cyan;
+$warning:       $yellow;
+$danger:        $red;
+$dark:          $gray-800;
+$light:         $gray-300;
+
+// //////////////////
+// botones overrides
+// //////////////////
+.btn-primary{
+  background-color: $primary !important;
+  border-color: darken($color: $primary, $amount: 3) !important; 
+  text-transform: uppercase;
+  &:hover{
+    background-color: darken($color: $primary, $amount: 3) !important;
+  }
+}
+.btn-secondary{
+  text-transform: uppercase;
+}
+.btn-info{
+  background-color: $info !important;
+  border-color: darken($color: $info, $amount: 3) !important;
+  &:hover{
+    background-color: darken($color: $info, $amount: 3) !important;
+  }
+}
+.btn-warning{
+  background-color: $warning !important;
+  border-color: darken($color: $warning, $amount: 3) !important;
+  &:hover{
+    background-color: darken($color: $warning, $amount: 3) !important;
+  }
+}
+.btn-light{
+  background-color: $light !important;
+  border-color: darken($color: $light, $amount: 3) !important;
+  &:hover{
+    background-color: darken($color: $light, $amount: 3) !important;
+  }
+}
+// //////////////////
+// botones overrides
+// //////////////////
+
+// Estilos generales
+body{
+  font-size: 15px;
+}
+
+.content-header > .breadcrumb{
+  font-size: 13px !important;
+}
+
+a{
+  transition-duration: 0.3s;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s; 
+  -ms-transition-duration: 0.3s; 
+  -o-transition-duration: 0.3s;
+}
+label input{
+  font-weight: normal;
+}
+.mb10{
+  margin-bottom: 10px;
+}
+.mt10{
+  margin-top: 10px;
+}
+// Fin Esilos generales
+
+// INICIO SKIM PARA SIMA
+.skin-sima {
+  .main-header {
+    .navbar {
+      background-color: $color-brand;
+      height: 50px;
+
+      .nav {
+        >li>a {
+          color: #FFF !important;
+
+          &:hover,
+          &:active,
+          &:focus {
+            background: rgba(0, 0, 0, 0.1);
+            color: #f6f6f6;
+          }
+        }
+
+        .open>a {
+          background: rgba(0, 0, 0, 0.1);
+          color: #f6f6f6;
+
+          &:hover,
+          &:focus {
+            background: rgba(0, 0, 0, 0.1);
+            color: #f6f6f6;
+          }
+        }
+
+        >.active>a {
+          background: rgba(0, 0, 0, 0.1);
+          color: #f6f6f6;
+        }
+      }
+
+      .sidebar-toggle {
+        color: #FFF !important;
+        padding: 14px 15px 15px 15px;
+
+        &:hover {
+          background-color: darken($color: $color-brand, $amount: 5);
+        }
+
+        color: #fff;
+      }
+    }
+
+    .logo {
+      background-color: darken($color: $color-brand, $amount: 5);
+      color: #ffffff;
+      height: 50px;
+
+      &:hover {
+        background-color: $color-brand;
+      }
+    }
+
+    li.user-menu{
+      .dropdown-menu{
+        box-shadow: 0 6px 12px rgba(0,0,0,.175);
+        li.user-header {
+          background-color: $gray-400;
+          height: auto !important;
+          img{
+            margin-right: 10px;
+            width: 80px;
+            height: 80px;
+          }
+        }
+      }
+    }
+    
+  }
+
+  .isologo{
+    background-color: #FFF;
+    color: $color-brand;
+    border-radius: 9999rem;
+    padding: 5px 10px;
+  }
+
+  .content-header {
+    background: transparent;
+  }
+
+  .wrapper,
+  .main-sidebar,
+  .left-side {
+    background-color: #38434E;
+  }
+  .main-sidebar{
+    box-shadow: 0 14px 28px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.22);
+  }
+
+  .user-panel>.info {
+    color: #fff;
+
+    >a {
+      color: #fff;
+    }
+  }
+
+  .sidebar-menu>li {
+    &.header {
+      color: #4b646f;
+      background: #1a2226;
+    }
+
+    >a {
+      border-left: 3px solid transparent;
+      padding: 11px 5px 12px 15px;
+    }
+
+    &:hover>a,
+    &.active>a {
+      color: #ffffff;
+      background: $green;
+      border-left-color: lighten($color: $green, $amount: 8);
+      
+      .text-success{
+        color: lighten($color: $green, $amount: 8);
+      }
+    }
+
+    >.treeview-menu {
+      margin: 0 1px;
+      background: #2c3b41;
+
+      > li{
+        a{
+          padding: 8px 5px 8px 13px;
+        }
+      }
+    }
+  }
+
+  .sidebar a {
+    color: #b8c7ce;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .treeview-menu>li {
+    >a {
+      color: #8aa4af;
+    }
+
+    &.active>a,
+    >a:hover {
+      color: #ffffff;
+    }
+  }
+
+  .sidebar-form {
+    border-radius: 3px;
+    border: 1px solid #374850;
+    margin: 10px 10px;
+
+    input[type="text"],
+    .btn {
+      box-shadow: none;
+      background-color: #374850;
+      border: 1px solid transparent;
+      height: 35px;
+    }
+
+    input[type="text"] {
+      color: #666;
+      border-top-left-radius: 2px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 2px;
+
+      &:focus {
+        background-color: #fff;
+        color: #666;
+
+        +.input-group-btn .btn {
+          background-color: #fff;
+          color: #666;
+          border-left-color: #fff;
+        }
+      }
+    }
+
+    .btn {
+      color: #999;
+      border-top-left-radius: 0;
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  &.layout-top-nav .main-header>.logo {
+    background-color: $green;
+    color: #ffffff;
+    border-bottom: 0 solid transparent;
+
+    &:hover {
+      background-color: #3b8ab8;
+    }
+  }
+
+  .box{
+    box-shadow: 0 0 1px rgba(0,0,0,.125),0 1px 3px rgba(0,0,0,.2);
+  }
+  
+  .box.box-primary{
+    border-top-color: $primary;
+  }
+  .box-footer{
+    padding: .75rem 1.25rem;
+    background-color: rgba(0,0,0,.03);
+    border-top: 0 solid rgba(0,0,0,.125);
+  }
+
+  .pagination>.active>a{
+    background-color: $primary;
+    border-color: darken($color: $primary, $amount: 5);
+  }
+
+  .form-control{
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+
+    &:focus{
+      border-color: rgba($primary, 0.75);
+      box-shadow: rgba($primary, 0.10) 0px 0px 0px 3px;
+    }
+  }
+}
+// FIN SKIM PARA SIMA
+
+// PAGINA LOGIN
+.login-page{
+  background: url('./assets/images/bg-slide1.png') no-repeat center center fixed !important;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  .login-box-body{
+    border-radius: 3px;
+    -webkit-box-shadow: 0 0 12px 0 rgba(0,0,0,.5);
+    box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.5);
+  }
+  .login-logo{
+    color: #FFF;
+  }
+}
+// FIN PAGINA LOGIN
+
+@media (max-width: 767px) {
+  .skin-sima .main-header .navbar .dropdown-menu li {
+    &.divider {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+.sidebar-mini {
+  .logo-left-inf{
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    opacity: .5;
+  }
+  &.sidebar-collapse{
+    .logo-left-inf{
+      display: none;
+    }
+  }
+}

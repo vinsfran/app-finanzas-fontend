@@ -1,0 +1,106 @@
+<app-content-header
+  [titulo]="titulo"
+  [lista]="lista">
+</app-content-header>
+
+<section class="content">
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Ingrese los datos para el Menu</h3>
+    </div>
+    <!-- /.box-header -->
+    <!-- form start -->
+    <form role="form" [formGroup]="rForm" (ngSubmit)="save(rForm.value)">
+      <div class="box-body">
+
+        <div class="form-group mb10 clearfix">
+          <label for="nombre" class="col-sm-2">Nombre</label>
+          <div class="col-sm-10">
+            <input class="form-control" id="nombre" placeholder="Ingrese el nombre" type="text"
+                   formControlName="nombre">
+            <div class="alert alert-warning mt10" role="alert"
+              *ngIf="!rForm.controls['nombre'].valid  && rForm.controls['nombre'].touched">
+              <span class="glyphicon glyphicon-warning-sign"></span>
+              El campo es requerido y debe tener un mínimo de 3 caracteres.
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-group mb10 clearfix">
+          <label for="permiso" class="col-sm-2">Permiso</label>
+          <div class="col-sm-10">
+            <input class="form-control" id="permiso" placeholder="Ingrese el permiso" type="text"
+                   formControlName="permiso">
+            <div class="alert alert-warning mt10" role="alert"
+              *ngIf="!rForm.controls['permiso'].valid  && rForm.controls['permiso'].touched">
+              <span class="glyphicon glyphicon-warning-sign"></span>
+              El campo es requerido y debe tener un mínimo de 3 caracteres.
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-group mb10 clearfix" *ngIf="menuPadre.nivel === 2">
+          <label for="routerLink" class="col-sm-2">Link</label>
+          <div class="col-sm-10">
+            <input class="form-control" id="routerLink" placeholder="Ingrese el Link" type="text"
+                   formControlName="routerLink">
+            <div class="alert alert-warning mt10" role="alert"
+              *ngIf="!rForm.controls['routerLink'].valid  && rForm.controls['routerLink'].touched">
+              <span class="glyphicon glyphicon-warning-sign"></span>
+              El campo es requerido y debe tener un mínimo de 3 caracteres.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix">
+          <label for="orden" class="col-sm-2">Orden</label>
+          <div class="col-sm-10">
+            <input class="form-control" id="orden" placeholder="Ingrese un orden" type="text" formControlName="orden">
+            <div class="alert alert-warning mt10" role="alert"
+              *ngIf="!rForm.controls['orden'].valid  && rForm.controls['orden'].touched">
+              <span class="glyphicon glyphicon-warning-sign"></span>
+              El campo es requerido y debe tener un mínimo de 3 caracteres.
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-group mb10 clearfix">
+          <label class="col-sm-2">Estado</label>
+          <!--<input class="form-control" id="status" placeholder="Estado" type="text" formControlName="status">-->
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <input id="status1" class="form-check-input" type="radio" name="status" value="true"
+                     formControlName="status" [checked]="menuSeleccionado.status">
+              <label class="form-check-label" for="status1">Activo</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input id="status2" class="form-check-input" type="radio" name="status" value="false"
+                     formControlName="status" [checked]="!menuSeleccionado.status">
+              <label class="form-check-label" for="status2">Inactivo</label>
+            </div>
+            <div class="alert alert-warning mt10" role="alert"
+              *ngIf="!rForm.controls['status'].valid  && rForm.controls['status'].touched">
+              <span class="glyphicon glyphicon-warning-sign"></span>
+              El campo es requerido y debe tener un mínimo de 3 caracteres.
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.box-body -->
+      <div class="box-footer">
+        <button class="btn btn-secondary"
+          (click)="back()"
+                title="Cancelar"
+                style="margin-right: 5px">
+          Cancelar
+        </button>
+        <input type="submit" class="btn btn-primary pull-right" [disabled]="!rForm.valid" value="Guardar"
+               title="Guardar"
+               style="margin-right: 5px"/>
+      </div>
+    </form>
+  </div>
+</section>

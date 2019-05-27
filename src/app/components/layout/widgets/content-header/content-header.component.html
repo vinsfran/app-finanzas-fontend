@@ -1,0 +1,14 @@
+<section class="content-header">
+  <h1>
+    {{titulo}}
+    <!--<small>Version 2.0</small>-->
+  </h1>
+  <ol class="breadcrumb">
+    <li *ngFor="let item of lista; let i = index" [className]="(i+1) == lista.length ? 'active' : 'inactive'">
+      <i *ngIf="i == 0" class="fa fa-dashboard"></i> <a href="#" (click)="back()">{{item}}</a>
+    </li>
+    <!--<li>{{subMenu}}</li>-->
+    <!--<li class="active">{{accion}}</li>-->
+    <!--<li class="active">Agregar</li>-->
+  </ol>
+</section>

@@ -1,0 +1,52 @@
+<div class="col-sm-6">
+  <div class="dataTables_info" role="status" aria-live="polite">
+    Mostrando {{numberOfElements}} de un total de
+    {{totalElements}}
+    registros
+
+    <select (ngModelChange)="changePage()" [(ngModel)]="size" name="example1_length"
+            aria-controls="example1"
+            class="form-control input-sm">
+      <option value="5">5</option>
+      <option value="10" selected>10</option>
+      <option value="15">15</option>
+      <option value="20">20</option>
+    </select>
+
+  </div>
+</div>
+
+<div class="col-sm-6">
+
+  <div class="dataTables_filter">
+
+    <ul class="pagination" *ngIf="page && page.totalPages > 0">
+      <li class="paginate_button previous" [ngClass]="page.first ? 'disabled' : '' ">
+        <a *ngIf="page.first" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+        <a style="cursor: pointer" *ngIf="!page.first" (click)="changePage(page.number-1)"
+           aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+
+      <li class="paginate_button" *ngFor="let pageAux of page.pages"
+          [ngClass]="(pageAux == page.number) ? 'active' : ''"
+          [ngClass]="i == page.number ? 'active' : '' ">
+        <a style="cursor: pointer" (click)="changePage(pageAux)">{{pageAux+1}}</a>
+      </li>
+
+      <li class="paginate_button next" [ngClass]="page.last ? 'disabled' : '' ">
+        <a *ngIf="page.last" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+        <a style="cursor: pointer" *ngIf="!page.last" (click)="changePage(page.number+1)"
+           aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+
+    </ul>
+  </div>
+</div>

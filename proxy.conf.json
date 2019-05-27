@@ -1,0 +1,32 @@
+{
+  "/oauth/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/inventario-info-backend/api/*": {
+    "target": "http://192.168.129.171:9012",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/sima-backend/api/*": {
+    "target": "http://192.168.129.171:9011",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/siacweb-backend/api/*": {
+    "target": "http://192.168.129.171:9002",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
