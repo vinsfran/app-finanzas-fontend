@@ -15,15 +15,10 @@ export class ClientesListComponent implements OnInit {
 
   titulo: string;
   lista: string[];
-
   clientes: ClienteModel[];
   page: PageModel;
-
-
   campo: string;
   orden: string;
-  btnVerSubMenu: boolean;
-  btnVolver: boolean;
 
   constructor(private clientesService: ClientesService, private activatedRoute: ActivatedRoute,
               public authService: AuthService, private router: Router) {
@@ -33,8 +28,6 @@ export class ClientesListComponent implements OnInit {
   ngOnInit() {
     this.titulo = 'Lista de Clientes';
     this.lista = ['Clientes', this.titulo];
-
-
     this.campo = 'id';
     this.orden = 'asc';
     this.getClientes(0, 10, this.campo, this.orden);
@@ -42,14 +35,10 @@ export class ClientesListComponent implements OnInit {
 
   getClientes(page: number, size: number, campo: string, orden: string) {
     this.clientesService.getClientes(page, size, campo, orden).subscribe(
-      res => {
-        console.log(res);
-        if (res.status) {
-          this.page = res.page;
-          this.clientes = this.page.content;
-        } else {
-          swal.fire('Ocurrió un problema al listar los Menus', res.message, 'warning');
-        }
+      response => {
+        console.log(response);
+        this.page = response.page;
+        this.clientes = this.page.content;
       },
       (errors) => {
         swal.fire('Ocurrió un error al listar los Menus', errors.message, 'error');
@@ -79,18 +68,35 @@ export class ClientesListComponent implements OnInit {
     return classes;
   }
 
+  delete(cliente: ClienteModel): void {
+    swal.fire({
+      title: 'Está seguro?',
+      text: `¿Seguro que desea eliminar al cliente ${cliente.nombre} ${cliente.apellido}?`,
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!',
+      cancelButtonText: 'No, cancelar!',
+      confirmButtonClass: 'btn btn-success',
+      cancelButtonClass: 'btn btn-danger',
+      buttonsStyling: false,
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
 
-  // nuevo() {
-  //   this.router.navigateByData({
-  //     url: ['/menu-informatica/panel-de-control/menu-lateral/form-new'],
-  //     data: [this.menuSeleccionado]
-  //   });
-  // }
-  //
-  // edit(menuEdit: MenuFormModel) {
-  //   this.router.navigateByData({
-  //     url: ['/menu-informatica/panel-de-control/menu-lateral/form-edit'],
-  //     data: [menuEdit, this.menuSeleccionado]
-  //   });
-  // }
+        this.clientesService.delete(cliente.id).subscribe(
+          response => {
+            this.clientes = this.clientes.filter(cli => cli !== cliente);
+            swal.fire(
+              'Cliente Eliminado!',
+              `Cliente ${cliente.nombre} eliminado con éxito.`,
+              'success'
+            );
+          }
+        );
+
+      }
+    });
+  }
 }

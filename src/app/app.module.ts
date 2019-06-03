@@ -9,7 +9,6 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {UtilsService} from './services/utils/utils.service';
 import {DataTablesModule} from 'angular-datatables';
 import {InventarioInfoBackendDependenciaService} from './services/inventario-info-backend/inventario-info-backend-dependencia.service';
-import {AppInterceptor} from './Interceptors/app-interceptor.interceptor';
 import {PagareComponent} from './components/modulos/recaudaciones/pagare/pagare.component';
 import {PolizaListComponent} from './components/modulos/contratos/poliza/poliza-list.component';
 import {PolizaFormComponent} from './components/modulos/contratos/poliza/poliza-form.component';
@@ -18,7 +17,9 @@ import {SimaBackendMenuServiceService} from './services/sima-backend/sima-backen
 import {AuthorizationGuard} from './authorization/authorization.guard';
 import 'angular2-navigate-with-data';
 import {ConfigService} from './services/config.service';
-import {SiacwebBackendSessionService} from './services/siacweb-backend/siacweb-backend-session.service';
+import {AuthInterceptor} from './Interceptors/auth.interceptor';
+import {TokenInterceptor} from './Interceptors/token.Interceptor';
+import {ClientesService} from './services/clientes.service';
 
 @NgModule({
   declarations: [
@@ -38,17 +39,14 @@ import {SiacwebBackendSessionService} from './services/siacweb-backend/siacweb-b
     DataTablesModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AppInterceptor,
-      multi: true,
-    },
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     AuthorizationGuard,
     SimaBackendMenuServiceService,
     UtilsService,
     InventarioInfoBackendDependenciaService,
     ConfigService,
-    SiacwebBackendSessionService
+    ClientesService
   ],
   bootstrap: [AppComponent]
 })

@@ -6,10 +6,8 @@ import {ContentHeaderModule} from '../widgets/content-header/content-header.modu
 import {PaginationModule} from '../widgets/pagination/pagination.module';
 import {ClientesRoutingModule} from './clientes-routing.module';
 import {ClientesComponent} from './clientes.component';
-import {ClientesFormEditComponent} from './edit/clientes-form-edit.component';
 import {ClientesListComponent} from './list/clientes-list.component';
-import {ClientesFormNewComponent} from './new/clientes-form-new.component';
-import {ClientesService} from '../../../services/clientes.service';
+import {ClientesFormComponent} from './form/clientes-form.component';
 
 @NgModule({
   imports: [
@@ -22,13 +20,10 @@ import {ClientesService} from '../../../services/clientes.service';
   ],
   declarations: [
     ClientesComponent,
-    ClientesFormEditComponent,
-    ClientesListComponent,
-    ClientesFormNewComponent
+    ClientesFormComponent,
+    ClientesListComponent
   ],
-  providers: [
-    ClientesService
-  ]
+  providers: []
 })
 
 export class ClientesModule {

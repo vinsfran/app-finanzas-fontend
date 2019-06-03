@@ -11,7 +11,7 @@
           <div class="col-sm-6">
             <button *ngIf="authService.hasRole('ROLE_ADMIN')"
                     class="btn btn-primary float-left"
-                    (click)="nuevo()"
+                    [routerLink]="['/clientes/form']"
                     title="Agregar nuevo"
                     style="margin-right: 5px">
               <i class="fa fa-plus"></i>
@@ -41,16 +41,16 @@
                     [ngClass]="setClasses('nombre')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                     aria-label="Nombre: activate to sort column ascending">Nombre
                 </th>
-                <th (click)="sortingPage('nombre')"
-                    [ngClass]="setClasses('nombre')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                <th (click)="sortingPage('apellido')"
+                    [ngClass]="setClasses('aombre')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                     aria-label="Apellido: activate to sort column ascending">Apellido
                 </th>
-                <th (click)="sortingPage('status')"
-                    [ngClass]="setClasses('status')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                <th (click)="sortingPage('email')"
+                    [ngClass]="setClasses('email')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                     aria-label="Email: activate to sort column ascending">Email
                 </th>
-                <th (click)="sortingPage('orden')"
-                    [ngClass]="setClasses('orden')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                <th (click)="sortingPage('createAt')"
+                    [ngClass]="setClasses('createAt')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                     aria-label="Fecha: activate to sort column ascending">Fecha
                 </th>
                 <th width="20%">
@@ -64,7 +64,7 @@
                 <td>{{cliente.nombre}}</td>
                 <td>{{cliente.apellido }}</td>
                 <td>{{cliente.email}}</td>
-                <td>{{ cliente.createAt | date:"EEEE dd, MMMM yyyy" }}</td>
+                <td>{{ cliente.createAt | date:"dd/MM/yyyy" }}</td>
                 <td class="text-right">
                   <button *ngIf="authService.hasRole('ROLE_ADMIN')"
                           [routerLink]="['/clientes/form', cliente.id]"
@@ -79,6 +79,7 @@
                           type="button"
                           class="btn btn-sm btn-danger"
                           title="Eliminar"
+                          (click)='delete(cliente)'
                           style="margin-right: 5px">
                     <i class="fa fa-eye"></i>
                     Eliminar
