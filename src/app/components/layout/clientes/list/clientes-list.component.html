@@ -1,0 +1,101 @@
+<app-content-header
+  [titulo]="titulo"
+  [lista]="lista">
+</app-content-header>
+<section class="content">
+
+  <div class="box">
+    <div class="box-body">
+      <div class="dataTables_wrapper form-inline dt-bootstrap">
+        <div class="row" style="padding-bottom: 5px">
+          <div class="col-sm-6">
+            <button *ngIf="authService.hasRole('ROLE_ADMIN')"
+                    class="btn btn-primary float-left"
+                    (click)="nuevo()"
+                    title="Agregar nuevo"
+                    style="margin-right: 5px">
+              <i class="fa fa-plus"></i>
+              Nuevo cliente
+            </button>
+          </div>
+          <div class="col-sm-6">
+            <div id="example1_filter" class="dataTables_filter">
+              <label>Buscar:
+                <input class="form-control input-sm" placeholder="" aria-controls="example1" type="search">
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="table table-bordered table-striped dataTable" *ngIf="clientes?.length > 0">
+              <thead>
+              <tr role="row">
+                <th (click)="sortingPage('id')"
+                    [ngClass]="setClasses('id')"
+                    tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-sort="ascending"
+                    aria-label="ID: activate to sort column descending">ID
+                </th>
+                <th (click)="sortingPage('nombre')"
+                    [ngClass]="setClasses('nombre')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Nombre: activate to sort column ascending">Nombre
+                </th>
+                <th (click)="sortingPage('nombre')"
+                    [ngClass]="setClasses('nombre')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Apellido: activate to sort column ascending">Apellido
+                </th>
+                <th (click)="sortingPage('status')"
+                    [ngClass]="setClasses('status')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Email: activate to sort column ascending">Email
+                </th>
+                <th (click)="sortingPage('orden')"
+                    [ngClass]="setClasses('orden')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Fecha: activate to sort column ascending">Fecha
+                </th>
+                <th width="20%">
+                  Acciones
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr class="odd" role="row" *ngFor="let cliente of clientes; let i=index">
+                <td>{{cliente.id}}</td>
+                <td>{{cliente.nombre}}</td>
+                <td>{{cliente.apellido }}</td>
+                <td>{{cliente.email}}</td>
+                <td>{{ cliente.createAt | date:"EEEE dd, MMMM yyyy" }}</td>
+                <td class="text-right">
+                  <button *ngIf="authService.hasRole('ROLE_ADMIN')"
+                          [routerLink]="['/clientes/form', cliente.id]"
+                          type="button"
+                          class="btn btn-sm btn-light"
+                          title="Editar"
+                          style="margin-right: 5px">
+                    <i class="fa fa-pencil"></i>
+                    Editar
+                  </button>
+                  <button *ngIf="authService.hasRole('ROLE_ADMIN')"
+                          type="button"
+                          class="btn btn-sm btn-danger"
+                          title="Eliminar"
+                          style="margin-right: 5px">
+                    <i class="fa fa-eye"></i>
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <app-pagination [page]="page" (paginationEvent)="changePage($event)"></app-pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

@@ -20,12 +20,11 @@ const routes: Routes = [
         component: DashboardComponent,
         canActivate: [AuthorizationGuard]
       },
-
-      // {
-      //   path: '',
-      //   loadChildren: './dashboard/dashboard.module#DashboardModule',
-      //   canActivate: [AuthorizationGuard]
-      // }
+      {
+        path: '',
+        loadChildren: './clientes/clientes.module#ClientesModule',
+        canActivate: [AuthorizationGuard]
+      }
       // Rutas para Inventario Informatica
       // {
       //   path: '',
