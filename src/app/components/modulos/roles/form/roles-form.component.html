@@ -1,0 +1,71 @@
+<app-content-header
+  [titulo]="titulo"
+  [lista]="lista">
+</app-content-header>
+
+<section class="content">
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Datos del rol</h3>
+    </div>
+    <!-- /.box-header -->
+    <!-- form start -->
+    <form role="form" #rolForm="ngForm">
+      <div class="box-body">
+
+        <div class="form-group mb10 clearfix">
+          <label for="nombre" class="col-sm-2">Nombre</label>
+          <div class="col-sm-10">
+
+            <input id="nombre"
+                   placeholder="Ingrese el nombre"
+                   type="text"
+                   class="form-control"
+                   [(ngModel)]="rolModel.nombre"
+                   name="nombre"
+                   #nombre="ngModel"
+                   required minlength="4">
+
+            <div class="alert alert-warning mt10" role="alert"
+                 *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+              <div *ngIf="nombre.errors.required">
+                Nombre es requerido
+              </div>
+              <div *ngIf="nombre.errors.minlength">
+                Nombre debe tener al menos 4 caracteres
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /.box-body -->
+      <div class="box-footer">
+        <button class="btn btn-secondary"
+                (click)="back()"
+                title="Cancelar"
+                style="margin-right: 5px">
+          Cancelar
+        </button>
+
+        <button class="btn btn-primary pull-right"
+                role="button"
+                (click)='create()'
+                *ngIf="!rolModel.id else elseBlock"
+                [disabled]="!rolForm.form.valid"
+                style="margin-right: 5px">
+          Guardar
+        </button>
+        <ng-template #elseBlock>
+          <button class="btn btn-primary pull-right"
+                  role="button"
+                  (click)='update()'
+                  [disabled]="!rolForm.form.valid"
+                  style="margin-right: 5px">
+            Editar
+          </button>
+        </ng-template>
+      </div>
+    </form>
+  </div>
+</section>
