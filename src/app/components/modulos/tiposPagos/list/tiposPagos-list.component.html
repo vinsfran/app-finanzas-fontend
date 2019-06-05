@@ -1,0 +1,88 @@
+<app-content-header
+  [titulo]="titulo"
+  [lista]="lista">
+</app-content-header>
+<section class="content">
+
+  <div class="box">
+    <div class="box-body">
+      <div class="dataTables_wrapper form-inline dt-bootstrap">
+        <div class="row" style="padding-bottom: 5px">
+          <div class="col-sm-6">
+            <button *ngIf="authService.hasRole('ROLE_ADMIN')"
+                    class="btn btn-primary float-left"
+                    [routerLink]="['/tipos-pagos/form']"
+                    title="Agregar nuevo"
+                    style="margin-right: 5px">
+              <i class="fa fa-plus"></i>
+              Nuevo Tipo de Pago
+            </button>
+          </div>
+          <div class="col-sm-6">
+            <div id="example1_filter" class="dataTables_filter">
+              <label>Buscar:
+                <input class="form-control input-sm" placeholder="" aria-controls="example1" type="search">
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="table table-bordered table-striped dataTable" *ngIf="tiposPagos?.length > 0">
+              <thead>
+              <tr role="row">
+                <th (click)="sortingPage('id')"
+                    [ngClass]="setClasses('id')"
+                    tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-sort="ascending"
+                    aria-label="ID: activate to sort column descending">ID
+                </th>
+                <th (click)="sortingPage('descripcion')"
+                    [ngClass]="setClasses('descripcion')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Descripcion: activate to sort column ascending">Descripcion
+                </th>
+
+                <th width="20%">
+                  Acciones
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr class="odd" role="row" *ngFor="let tipoPago of tiposPagos; let i=index">
+                <td>{{tipoPago.id}}</td>
+                <td>{{tipoPago.descripcion}}</td>
+                <td class="text-right">
+                  <button *ngIf="authService.hasRole('ROLE_ADMIN')"
+                          [routerLink]="['/tipos-pagos/form', tipoPago.id]"
+                          type="button"
+                          class="btn btn-sm btn-light"
+                          title="Editar"
+                          style="margin-right: 5px">
+                    <i class="fa fa-pencil"></i>
+                    Editar
+                  </button>
+                  <button *ngIf="authService.hasRole('ROLE_ADMIN')"
+                          type="button"
+                          class="btn btn-sm btn-danger"
+                          title="Eliminar"
+                          (click)='delete(tipoPago)'
+                          style="margin-right: 5px">
+                    <i class="fa fa-eye"></i>
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <app-pagination [page]="page" (paginationEvent)="changePage($event)"></app-pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

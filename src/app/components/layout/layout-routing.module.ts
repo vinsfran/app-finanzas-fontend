@@ -46,6 +46,12 @@ const routes: Routes = [
         loadChildren: '../modulos/tiposCobros/tiposCobros.module#TiposCobrosModule',
         canActivate: [AuthorizationGuard]
       },
+      // Ruta para Tipos de Cobros
+      {
+        path: '',
+        loadChildren: '../modulos/tiposPagos/tiposPagos.module#TiposPagosModule',
+        canActivate: [AuthorizationGuard]
+      },
     ]
 
   }
