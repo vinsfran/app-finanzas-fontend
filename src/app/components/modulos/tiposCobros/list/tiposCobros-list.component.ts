@@ -1,53 +1,53 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import swal from 'sweetalert2';
-import {ClientesService} from '../../../../services/clientes.service';
 import {AuthService} from '../../../../services/auth.service';
-import {ClienteModel} from '../cliente.model';
+import {TipoCobroModel} from '../tipoCobro.model';
 import {PageModel} from '../../../../models/new/page.model';
+import {TiposCobrosService} from '../../../../services/tiposCobros.service';
 
 @Component({
-  selector: 'app-clientes-list',
-  templateUrl: './clientes-list.component.html',
-  styleUrls: ['./clientes-list.component.css']
+  selector: 'app-tipos-cobros-list',
+  templateUrl: './tiposCobros-list.component.html',
+  styleUrls: ['./tiposCobros-list.component.css']
 })
-export class ClientesListComponent implements OnInit {
+export class TiposCobrosListComponent implements OnInit {
 
   titulo: string;
   lista: string[];
-  clientes: ClienteModel[];
+  tiposCobros: TipoCobroModel[];
   page: PageModel;
   campo: string;
   orden: string;
 
-  constructor(private clientesService: ClientesService, private activatedRoute: ActivatedRoute,
+  constructor(private tiposCobrosService: TiposCobrosService, private activatedRoute: ActivatedRoute,
               public authService: AuthService, private router: Router) {
 
   }
 
   ngOnInit() {
-    this.titulo = 'Lista de Clientes';
-    this.lista = ['Clientes', this.titulo];
+    this.titulo = 'Lista de Tipos de Cobros';
+    this.lista = ['Tipos de Cobros', this.titulo];
     this.campo = 'id';
     this.orden = 'asc';
-    this.getClientes(0, 10, this.campo, this.orden);
+    this.getTiposCobros(0, 10, this.campo, this.orden);
   }
 
-  getClientes(page: number, size: number, campo: string, orden: string) {
-    this.clientesService.getClientes(page, size, campo, orden).subscribe(
+  getTiposCobros(page: number, size: number, campo: string, orden: string) {
+    this.tiposCobrosService.getTiposCobros(page, size, campo, orden).subscribe(
       response => {
         console.log(response);
         this.page = response.page;
-        this.clientes = this.page.content;
+        this.tiposCobros = this.page.content;
       },
       (errors) => {
-        swal.fire('Ocurrió un error al listar los Menus', errors.message, 'error');
+        swal.fire('Ocurrió un error al listar los Tipos de Cobros', errors.message, 'error');
       }
     );
   }
 
   changePage(event) {
-    this.getClientes(event.page, event.size, this.campo, this.orden);
+    this.getTiposCobros(event.page, event.size, this.campo, this.orden);
   }
 
   sortingPage(campo: string) {
@@ -57,7 +57,7 @@ export class ClientesListComponent implements OnInit {
     } else {
       this.orden = 'asc';
     }
-    this.getClientes(this.page.number, this.page.size, this.campo, this.orden);
+    this.getTiposCobros(this.page.number, this.page.size, this.campo, this.orden);
   }
 
   setClasses(campo: string) {
@@ -68,10 +68,10 @@ export class ClientesListComponent implements OnInit {
     return classes;
   }
 
-  delete(cliente: ClienteModel): void {
+  delete(tipoCobro: TipoCobroModel): void {
     swal.fire({
       title: 'Está seguro?',
-      text: `¿Seguro que desea eliminar al cliente ${cliente.nombre} ${cliente.apellido}?`,
+      text: `¿Seguro que desea eliminar el Tipo de Cobro ${tipoCobro.descripcion}?`,
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -85,12 +85,12 @@ export class ClientesListComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
 
-        this.clientesService.delete(cliente.id).subscribe(
+        this.tiposCobrosService.delete(tipoCobro.id).subscribe(
           response => {
-            this.clientes = this.clientes.filter(cli => cli !== cliente);
+            this.tiposCobros = this.tiposCobros.filter(cli => cli !== tipoCobro);
             swal.fire(
-              'Cliente Eliminado!',
-              `Cliente ${cliente.nombre} eliminado con éxito.`,
+              'Tipo de Cobro Eliminado!',
+              `Tipo de Cobro ${tipoCobro.descripcion} eliminado con éxito.`,
               'success'
             );
           }

@@ -1,0 +1,97 @@
+<app-content-header
+  [titulo]="titulo"
+  [lista]="lista">
+</app-content-header>
+
+<section class="content">
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Datos del Tipo de Ahorro</h3>
+    </div>
+    <!-- /.box-header -->
+    <!-- form start -->
+    <form role="form" #tipoAhorroForm="ngForm">
+      <div class="box-body">
+
+        <div class="form-group mb10 clearfix">
+          <label for="descripcion" class="col-sm-2">Descripcion</label>
+          <div class="col-sm-10">
+
+            <input id="descripcion"
+                   placeholder="Ingrese una descripcion"
+                   type="text"
+                   class="form-control"
+                   [(ngModel)]="tipoAhorroModel.descripcion"
+                   name="descripcion"
+                   #descripcion="ngModel"
+                   required minlength="4">
+
+            <div class="alert alert-warning mt10" role="alert"
+                 *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
+              <div *ngIf="descripcion.errors.required">
+                Descripcion es requerido
+              </div>
+              <div *ngIf="descripcion.errors.minlength">
+                Descripcion debe tener al menos 4 caracteres
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-group mb10 clearfix">
+          <label for="nombre" class="col-sm-2">Nombre</label>
+          <div class="col-sm-10">
+
+            <input id="nombre"
+                   placeholder="Ingrese un codigo"
+                   type="text"
+                   class="form-control"
+                   [(ngModel)]="tipoAhorroModel.nombre"
+                   name="nombre"
+                   #nombre="ngModel"
+                   required minlength="4">
+
+            <div class="alert alert-warning mt10" role="alert"
+                 *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+              <div *ngIf="codigo.errors.required">
+                Codigo es requerido
+              </div>
+              <div *ngIf="nombre.errors.minlength">
+                Nombre debe tener al menos 4 caracteres
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /.box-body -->
+      <div class="box-footer">
+        <button class="btn btn-secondary"
+                (click)="back()"
+                title="Cancelar"
+                style="margin-right: 5px">
+          Cancelar
+        </button>
+
+        <button class="btn btn-primary pull-right"
+                role="button"
+                (click)='create()'
+                *ngIf="!tipoAhorroModel.id else elseBlock"
+                [disabled]="!tipoAhorroForm.form.valid"
+                style="margin-right: 5px">
+          Guardar
+        </button>
+        <ng-template #elseBlock>
+          <button class="btn btn-primary pull-right"
+                  role="button"
+                  (click)='update()'
+                  [disabled]="!tipoAhorroForm.form.valid"
+                  style="margin-right: 5px">
+            Editar
+          </button>
+        </ng-template>
+      </div>
+    </form>
+  </div>
+</section>

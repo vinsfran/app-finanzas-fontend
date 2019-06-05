@@ -15,8 +15,6 @@ import 'angular2-navigate-with-data';
 import {ConfigService} from './services/config.service';
 import {AuthInterceptor} from './Interceptors/auth.interceptor';
 import {TokenInterceptor} from './Interceptors/token.Interceptor';
-import {ClientesService} from './services/clientes.service';
-import {RolesService} from './services/roles.service';
 
 @NgModule({
   declarations: [
@@ -38,9 +36,7 @@ import {RolesService} from './services/roles.service';
     SimaBackendMenuServiceService,
     UtilsService,
     InventarioInfoBackendDependenciaService,
-    ConfigService,
-    ClientesService,
-    RolesService
+    ConfigService
   ],
   bootstrap: [AppComponent]
 })

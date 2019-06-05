@@ -4,11 +4,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {ContentHeaderModule} from '../widgets/content-header/content-header.module';
 import {PaginationModule} from '../widgets/pagination/pagination.module';
-import {ClientesRoutingModule} from './clientes-routing.module';
-import {ClientesComponent} from './clientes.component';
-import {ClientesListComponent} from './list/clientes-list.component';
-import {ClientesFormComponent} from './form/clientes-form.component';
-import {ClientesService} from '../../../services/clientes.service';
+import {MonedasRoutingModule} from './monedas-routing.module';
+import {MonedasComponent} from './monedas.component';
+import {MonedasListComponent} from './list/monedas-list.component';
+import {MonedasFormComponent} from './form/monedas-form.component';
+import {MonedasService} from '../../../services/monedas.service';
 
 @NgModule({
   imports: [
@@ -17,17 +17,17 @@ import {ClientesService} from '../../../services/clientes.service';
     ReactiveFormsModule,
     ContentHeaderModule,
     PaginationModule,
-    ClientesRoutingModule
+    MonedasRoutingModule
   ],
   declarations: [
-    ClientesComponent,
-    ClientesFormComponent,
-    ClientesListComponent
+    MonedasComponent,
+    MonedasFormComponent,
+    MonedasListComponent
   ],
   providers: [
-    ClientesService
+    MonedasService
   ]
 })
 
-export class ClientesModule {
+export class MonedasModule {
 }

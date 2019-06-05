@@ -28,11 +28,24 @@ const routes: Routes = [
         loadChildren: '../modulos/roles/roles.module#RolesModule',
         canActivate: [AuthorizationGuard]
       },
-      // {
-      //   path: '',
-      //   loadChildren: dirDependencias + 'dependencia-form-new/dependencia-form-new.module#DependenciaFormNewModule',
-      //   canActivate: [AuthorizationGuard]
-      // }
+      // Ruta para Monedas
+      {
+        path: '',
+        loadChildren: '../modulos/monedas/monedas.module#MonedasModule',
+        canActivate: [AuthorizationGuard]
+      },
+      // Ruta para Tipos de Ahorros
+      {
+        path: '',
+        loadChildren: '../modulos/tiposAhorros/tiposAhorros.module#TiposAhorrosModule',
+        canActivate: [AuthorizationGuard]
+      },
+      // Ruta para Tipos de Cobros
+      {
+        path: '',
+        loadChildren: '../modulos/tiposCobros/tiposCobros.module#TiposCobrosModule',
+        canActivate: [AuthorizationGuard]
+      },
     ]
 
   }

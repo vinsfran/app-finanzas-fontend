@@ -8,6 +8,7 @@ import {RolesRoutingModule} from './roles-routing.module';
 import {RolesComponent} from './roles.component';
 import {RolesListComponent} from './list/roles-list.component';
 import {RolesFormComponent} from './form/roles-form.component';
+import {RolesService} from '../../../services/roles.service';
 
 @NgModule({
   imports: [
@@ -23,7 +24,9 @@ import {RolesFormComponent} from './form/roles-form.component';
     RolesFormComponent,
     RolesListComponent
   ],
-  providers: []
+  providers: [
+    RolesService
+  ]
 })
 
 export class RolesModule {
