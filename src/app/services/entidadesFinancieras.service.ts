@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
 import {Observable, throwError} from 'rxjs';
 import {HttpClient, HttpEvent, HttpHeaders, HttpRequest} from '@angular/common/http';
-import {catchError, map} from 'rxjs/operators';
+import {catchError, map, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
+import {EntidadFinancieraModel} from '../components/modulos/entidadesFinancieras/entidadFinanciera.model';
 import {ResponseBasePageModel} from '../models/new/responseBasePage.model';
-import {RolModel} from '../components/modulos/roles/rol.model';
 
 
 @Injectable()
-export class RolesService {
+export class EntidadesFinancierasService {
 
-  private urlEndPoint: string = 'http://localhost:8080/api/roles';
+  private urlEndPoint: string = 'http://localhost:8080/api/entidadesFinancieras';
 
   private httpHeaders: HttpHeaders;
 
@@ -38,7 +38,7 @@ export class RolesService {
   //
   //   if (e.status === 403) {
   //     swal.fire('Acceso denegado', `Hola ${this.authService.usuario.username}, no tienes acceso a este recurso!`, 'warning');
-  //     this.router.navigate(['/roles']);
+  //     this.router.navigate(['/entidadesFinancieras']);
   //     return true;
   //   }
   //   return false;
@@ -49,23 +49,21 @@ export class RolesService {
   // }
 
   getAll() {
-    // return of(ROLES);
     this.httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.get<RolModel[]>(
+    return this.http.get<EntidadFinancieraModel[]>(
       this.urlEndPoint + '/', {headers: this.httpHeaders});
   }
 
-  getRoles(page: number, size: number, campo: string, orden: string) {
-    // return of(CLIENTES);
+  getEntidadesFinancieras(page: number, size: number, campo: string, orden: string) {
     this.httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.get<ResponseBasePageModel>(
       this.urlEndPoint + `/page?page=${page}&size=${size}&sort=${campo},${orden}`, {headers: this.httpHeaders});
   }
 
-  create(rol: RolModel): Observable<RolModel> {
-    // return this.http.post<Cliente>(this.urlEndPoint, rol, {headers: this.agregarAuthorizarionHeader()}).pipe(
-    return this.http.post<RolModel>(this.urlEndPoint, rol).pipe(
-      map((response: any) => response.rol as RolModel),
+  create(entidadFinanciera: EntidadFinancieraModel): Observable<EntidadFinancieraModel> {
+    // return this.http.post<EntidadFinanciera>(this.urlEndPoint, entidadFinanciera, {headers: this.agregarAuthorizarionHeader()}).pipe(
+    return this.http.post<EntidadFinancieraModel>(this.urlEndPoint, entidadFinanciera).pipe(
+      map((response: any) => response.entidadFinanciera as EntidadFinancieraModel),
       catchError(e => {
         if (e.status === 400) {
           return throwError(e);
@@ -78,12 +76,12 @@ export class RolesService {
     );
   }
 
-  getRol(id): Observable<RolModel> {
-    // return this.http.get<Cliente>(`${this.urlEndPoint}/${id}`, {headers: this.agregarAuthorizarionHeader()}).pipe(
-    return this.http.get<RolModel>(`${this.urlEndPoint}/${id}`).pipe(
+  getEntidadFinanciera(id): Observable<EntidadFinancieraModel> {
+    // return this.http.get<EntidadFinanciera>(`${this.urlEndPoint}/${id}`, {headers: this.agregarAuthorizarionHeader()}).pipe(
+    return this.http.get<EntidadFinancieraModel>(`${this.urlEndPoint}/${id}`).pipe(
       catchError(e => {
         if (e.status !== 401 && e.error.mensaje) {
-          this.router.navigate(['/roles']);
+          this.router.navigate(['/entidadesFinancieras']);
           console.error(e.error.mensaje);
         }
         return throwError(e);
@@ -91,9 +89,8 @@ export class RolesService {
     );
   }
 
-  update(rol: RolModel): Observable<any> {
-    // return this.http.put<any>(`${this.urlEndPoint}/${rol.id}`, rol, {headers: this.agregarAuthorizarionHeader()}).pipe(
-    return this.http.put<any>(`${this.urlEndPoint}/${rol.id}`, rol).pipe(
+  update(entidadFinanciera: EntidadFinancieraModel): Observable<any> {
+    return this.http.put<any>(`${this.urlEndPoint}/${entidadFinanciera.id}`, entidadFinanciera).pipe(
       catchError(e => {
         if (e.status === 400) {
           return throwError(e);
@@ -106,9 +103,9 @@ export class RolesService {
     );
   }
 
-  delete(id: number): Observable<RolModel> {
-    // return this.http.delete<Cliente>(`${this.urlEndPoint}/${id}`, {headers: this.agregarAuthorizarionHeader()}).pipe(
-    return this.http.delete<RolModel>(`${this.urlEndPoint}/${id}`).pipe(
+  delete(id: number): Observable<EntidadFinancieraModel> {
+    // return this.http.delete<EntidadFinanciera>(`${this.urlEndPoint}/${id}`, {headers: this.agregarAuthorizarionHeader()}).pipe(
+    return this.http.delete<EntidadFinancieraModel>(`${this.urlEndPoint}/${id}`).pipe(
       catchError(e => {
         if (e.error.mensaje) {
           console.error(e.error.mensaje);

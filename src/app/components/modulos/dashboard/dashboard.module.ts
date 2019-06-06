@@ -3,6 +3,8 @@ import {CommonModule} from '@angular/common';
 
 import {DashboardRoutingModule} from './dashboard-routing.module';
 import {DashboardComponent} from './dashboard.component';
+import {ClientesService} from '../../../services/clientes.service';
+import {RolesService} from '../../../services/roles.service';
 
 @NgModule({
   imports: [
@@ -12,7 +14,10 @@ import {DashboardComponent} from './dashboard.component';
   declarations: [
     DashboardComponent
   ],
-  providers: []
+  providers: [
+    ClientesService,
+    RolesService
+  ]
 })
 
 export class DashboardModule {

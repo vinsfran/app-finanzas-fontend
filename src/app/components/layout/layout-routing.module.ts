@@ -52,6 +52,12 @@ const routes: Routes = [
         loadChildren: '../modulos/tiposPagos/tiposPagos.module#TiposPagosModule',
         canActivate: [AuthorizationGuard]
       },
+      // Ruta para Entidades Financieras
+      {
+        path: '',
+        loadChildren: '../modulos/entidadesFinancieras/entidadesFinancieras.module#EntidadesFinancierasModule',
+        canActivate: [AuthorizationGuard]
+      },
     ]
 
   }
