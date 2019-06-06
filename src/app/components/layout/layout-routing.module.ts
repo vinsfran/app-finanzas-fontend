@@ -58,6 +58,12 @@ const routes: Routes = [
         loadChildren: '../modulos/entidadesFinancieras/entidadesFinancieras.module#EntidadesFinancierasModule',
         canActivate: [AuthorizationGuard]
       },
+      // Ruta para Creditos
+      {
+        path: '',
+        loadChildren: '../modulos/creditos/creditos.module#CreditosModule',
+        canActivate: [AuthorizationGuard]
+      },
     ]
 
   }
