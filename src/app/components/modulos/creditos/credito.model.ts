@@ -1,4 +1,5 @@
 export class CreditoModel {
+  id: number;
   nroCredito: number;
   montoDesembolsado: number;
   totalCapital: number;
@@ -12,6 +13,9 @@ export class CreditoModel {
   productoDescripcion: string;
   destinoCredito: string;
   estado: boolean;
-  entidadeFinancieraId: number;
+  entidadFinancieraId: number;
+  entidadFinancieraNombre: string;
   monedaId: number;
+  monedaDescripcion: string;
+  monedaCodigo: string;
 }

@@ -62,10 +62,10 @@ export class CreditosFormComponent implements OnInit {
 
   cargarCredito(): void {
     this.activatedRoute.params.subscribe(params => {
-      const nroCredito = params['nroCredito'];
-      if (nroCredito) {
-        this.titulo = 'Editar Credito Nro: ' + nroCredito;
-        this.creditosService.getCredito(nroCredito)
+      const id = params['id'];
+      if (id) {
+        this.titulo = 'Editar Credito Nro: ' + id;
+        this.creditosService.getCredito(id)
           .subscribe((creditoModel) => {
             this.creditoModel = creditoModel;
           });

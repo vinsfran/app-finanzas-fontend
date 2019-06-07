@@ -21,11 +21,17 @@
           <div class="col-sm-6">
             <div id="example1_filter" class="dataTables_filter">
               <label>Buscar:
-                <input class="form-control input-sm" placeholder="" aria-controls="example1" type="search">
+                <input class="form-control input-sm"
+                       placeholder=""
+                       aria-controls="example1"
+                       type="search"
+                       [(ngModel)]="inputDeBuscar"
+                       (keyup.enter)="buscar()">
               </label>
             </div>
           </div>
         </div>
+<!--        {{inputDeBuscar | json}}-->
         <div class="row">
           <div class="col-sm-12">
             <table class="table table-bordered table-striped dataTable" *ngIf="creditos?.length > 0">
@@ -41,6 +47,14 @@
                     [ngClass]="setClasses('destinoCredito')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                     aria-label="Destino Credito: activate to sort column ascending">Destino Credito
                 </th>
+                <th (click)="sortingPage('entidadFinancieraNombre')"
+                    [ngClass]="setClasses('entidadFinancieraNombre')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Entidad Financiera: activate to sort column ascending">Entidad Financiera
+                </th>
+                <th (click)="sortingPage('monedaDescripcion')"
+                    [ngClass]="setClasses('monedaDescripcion')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Tipo Moneda: activate to sort column ascending">Tipo Moneda
+                </th>
                 <th width="20%">
                   Acciones
                 </th>
@@ -50,9 +64,11 @@
               <tr class="odd" role="row" *ngFor="let credito of creditos; let i=index">
                 <td>{{credito.nroCredito}}</td>
                 <td>{{credito.destinoCredito}}</td>
+                <td>{{credito.entidadFinancieraNombre}}</td>
+                <td>{{credito.monedaDescripcion}}</td>
                 <td class="text-right">
                   <button *ngIf="authService.hasRole('ROLE_ADMIN')"
-                          [routerLink]="['/creditos/form', credito.nroCredito]"
+                          [routerLink]="['/creditos/form', credito.id]"
                           type="button"
                           class="btn btn-sm btn-light"
                           title="Editar"

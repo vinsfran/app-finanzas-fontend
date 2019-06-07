@@ -20,6 +20,8 @@ export class CreditosListComponent implements OnInit {
   campo: string;
   orden: string;
 
+  inputDeBuscar: string;
+
   constructor(private creditosService: CreditosService, private activatedRoute: ActivatedRoute,
               public authService: AuthService, private router: Router) {
 
@@ -71,7 +73,7 @@ export class CreditosListComponent implements OnInit {
   delete(creditos: CreditoModel): void {
     swal.fire({
       title: 'Está seguro?',
-      text: `¿Seguro que desea eliminar el Credito Nro ${creditos.nroCredito}?`,
+      text: `¿Seguro que desea eliminar el Credito Nro ${creditos.id}?`,
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -85,12 +87,12 @@ export class CreditosListComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
 
-        this.creditosService.delete(creditos.nroCredito).subscribe(
+        this.creditosService.delete(creditos.id).subscribe(
           response => {
             this.creditos = this.creditos.filter(ro => ro !== creditos);
             swal.fire(
               'Credito Eliminado!',
-              `Credito Nro ${creditos.nroCredito} eliminado con éxito.`,
+              `Credito Nro ${creditos.id} eliminado con éxito.`,
               'success'
             );
           }
@@ -98,5 +100,9 @@ export class CreditosListComponent implements OnInit {
 
       }
     });
+  }
+
+  buscar() {
+    console.log('Valor en inputDeBuscar: ' + this.inputDeBuscar);
   }
 }

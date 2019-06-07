@@ -18,7 +18,7 @@ const routes: Routes = [
         component: CreditosFormComponent
       },
       {
-        path: 'creditos/form/:nroCredito',
+        path: 'creditos/form/:id',
         component: CreditosFormComponent
       }
     ]

@@ -186,13 +186,13 @@
           <!--<input class="form-control" id="status" placeholder="Estado" type="text" formControlName="status">-->
           <div class="col-sm-10">
             <div class="form-check form-check-inline">
-              <input id="status1" class="form-check-input" type="radio" name="status" value="true"
-                     [(ngModel)]="creditoModel.estado" checked>
+              <input id="status1" class="form-check-input" type="radio" name="status" [value]="true"
+                     [(ngModel)]="creditoModel.estado" >
               <label class="form-check-label" for="status1">Activo</label>
             </div>
             <div class="form-check form-check-inline">
-              <input id="status2" class="form-check-input" type="radio" name="status" value="false"
-                     [(ngModel)]="creditoModel.estado">
+              <input id="status2" class="form-check-input" type="radio" name="status" [value]="false"
+                     [(ngModel)]="creditoModel.estado" >
               <label class="form-check-label" for="status2">Inactivo</label>
             </div>
           </div>
@@ -203,7 +203,7 @@
           <label for="entidadFinanciera" class="col-sm-2">Entidad Financiera</label>
           <div class="col-sm-10">
             <select class="form-control" id="entidadFinanciera"
-                    [(ngModel)]="creditoModel.entidadeFinancieraId"
+                    [(ngModel)]="creditoModel.entidadFinancieraId"
                     [ngModelOptions]="{standalone: true}">
               <option *ngFor="let entidadFinanciera of entidadesFinancieras"
                       [value]="entidadFinanciera.id">
@@ -226,7 +226,7 @@
             </select>
           </div>
         </div>
-        {{creditoModel | json}}
+<!--        {{creditoModel | json}}-->
       </div>
 
       <!-- /.box-body -->
