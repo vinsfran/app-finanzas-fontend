@@ -75,8 +75,8 @@ export class CreditosService {
     );
   }
 
-  getCredito(id): Observable<CreditoModel> {
-    return this.http.get<CreditoModel>(`${this.urlEndPoint}/${id}`).pipe(
+  getCredito(nroCredito): Observable<CreditoModel> {
+    return this.http.get<CreditoModel>(`${this.urlEndPoint}/${nroCredito}`).pipe(
       catchError(e => {
         if (e.status !== 401 && e.error.mensaje) {
           this.router.navigate(['/creditos']);
@@ -88,7 +88,7 @@ export class CreditosService {
   }
 
   update(credito: CreditoModel): Observable<any> {
-    return this.http.put<any>(`${this.urlEndPoint}/${credito.id}`, credito).pipe(
+    return this.http.put<any>(`${this.urlEndPoint}/${credito.nroCredito}`, credito).pipe(
       catchError(e => {
         if (e.status === 400) {
           return throwError(e);

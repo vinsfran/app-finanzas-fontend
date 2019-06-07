@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import swal from 'sweetalert2';
-import {EntidadesFinancierasService} from '../../../../services/entidadesFinancieras.service';
+import {CreditosService} from '../../../../services/creditos.service';
 import {AuthService} from '../../../../services/auth.service';
 import {CreditoModel} from '../credito.model';
 import {PageModel} from '../../../../models/new/page.model';
@@ -15,39 +15,39 @@ export class CreditosListComponent implements OnInit {
 
   titulo: string;
   lista: string[];
-  entidadesFinancieras: CreditoModel[];
+  creditos: CreditoModel[];
   page: PageModel;
   campo: string;
   orden: string;
 
-  constructor(private entidadesFinancierasService: EntidadesFinancierasService, private activatedRoute: ActivatedRoute,
+  constructor(private creditosService: CreditosService, private activatedRoute: ActivatedRoute,
               public authService: AuthService, private router: Router) {
 
   }
 
   ngOnInit() {
-    this.titulo = 'Lista de Entidades Financieras';
-    this.lista = ['Entidades Financieras', this.titulo];
-    this.campo = 'id';
+    this.titulo = 'Lista de Creditos';
+    this.lista = ['Creditos', this.titulo];
+    this.campo = 'nroCredito';
     this.orden = 'asc';
-    this.getEntidadesFinancieras(0, 10, this.campo, this.orden);
+    this.getCreditos(0, 10, this.campo, this.orden);
   }
 
-  getEntidadesFinancieras(page: number, size: number, campo: string, orden: string) {
-    this.entidadesFinancierasService.getEntidadesFinancieras(page, size, campo, orden).subscribe(
+  getCreditos(page: number, size: number, campo: string, orden: string) {
+    this.creditosService.getCreditos(page, size, campo, orden).subscribe(
       response => {
         console.log(response);
         this.page = response.page;
-        this.entidadesFinancieras = this.page.content;
+        this.creditos = this.page.content;
       },
       (errors) => {
-        swal.fire('Ocurrió un error al listar las Entidades Financieras', errors.message, 'error');
+        swal.fire('Ocurrió un error al listar los Creditos', errors.message, 'error');
       }
     );
   }
 
   changePage(event) {
-    this.getEntidadesFinancieras(event.page, event.size, this.campo, this.orden);
+    this.getCreditos(event.page, event.size, this.campo, this.orden);
   }
 
   sortingPage(campo: string) {
@@ -57,7 +57,7 @@ export class CreditosListComponent implements OnInit {
     } else {
       this.orden = 'asc';
     }
-    this.getEntidadesFinancieras(this.page.number, this.page.size, this.campo, this.orden);
+    this.getCreditos(this.page.number, this.page.size, this.campo, this.orden);
   }
 
   setClasses(campo: string) {
@@ -68,10 +68,10 @@ export class CreditosListComponent implements OnInit {
     return classes;
   }
 
-  delete(entidadFinanciera: CreditoModel): void {
+  delete(creditos: CreditoModel): void {
     swal.fire({
       title: 'Está seguro?',
-      text: `¿Seguro que desea eliminar la Entidad Financiera ${entidadFinanciera.nombre}?`,
+      text: `¿Seguro que desea eliminar el Credito Nro ${creditos.nroCredito}?`,
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -85,12 +85,12 @@ export class CreditosListComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
 
-        this.entidadesFinancierasService.delete(entidadFinanciera.id).subscribe(
+        this.creditosService.delete(creditos.nroCredito).subscribe(
           response => {
-            this.entidadesFinancieras = this.entidadesFinancieras.filter(ro => ro !== entidadFinanciera);
+            this.creditos = this.creditos.filter(ro => ro !== creditos);
             swal.fire(
-              'Entidad Financiera Eliminada!',
-              `Rol ${entidadFinanciera.nombre} eliminado con éxito.`,
+              'Credito Eliminado!',
+              `Credito Nro ${creditos.nroCredito} eliminado con éxito.`,
               'success'
             );
           }

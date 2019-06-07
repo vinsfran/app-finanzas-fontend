@@ -6,7 +6,7 @@
 <section class="content">
   <div class="box box-primary">
     <div class="box-header with-border">
-      <h3 class="box-title">Datos del Creditos</h3>
+      <h3 class="box-title">Datos del Credito</h3>
     </div>
     <!-- /.box-header -->
     <!-- form start -->
@@ -14,29 +14,219 @@
       <div class="box-body">
 
         <div class="form-group mb10 clearfix">
-          <label for="nombre" class="col-sm-2">Nombre</label>
+          <label for="nroCredito" class="col-sm-2">Nro. Credito</label>
           <div class="col-sm-10">
 
-            <input id="nombre"
-                   placeholder="Ingrese el nombre"
+            <input id="nroCredito"
+                   placeholder="Ingrese el Nro. Credito"
+                   type="number"
+                   class="form-control"
+                   [(ngModel)]="creditoModel.nroCredito"
+                   name="nroCredito"
+                   #nroCredito="ngModel">
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix">
+          <label for="montoDesembolsado" class="col-sm-2">Monto Desembolsado</label>
+          <div class="col-sm-10">
+
+            <input id="montoDesembolsado"
+                   placeholder="Ingrese el Monto Desembolsado"
+                   type="number"
+                   class="form-control"
+                   [(ngModel)]="creditoModel.montoDesembolsado"
+                   name="montoDesembolsado"
+                   #montoDesembolsado="ngModel">
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix">
+          <label for="totalCapital" class="col-sm-2">TotalCapital</label>
+          <div class="col-sm-10">
+
+            <input id="totalCapital"
+                   placeholder="Ingrese el Total Capital"
+                   type="number"
+                   class="form-control"
+                   [(ngModel)]="creditoModel.totalCapital"
+                   name="totalCapital"
+                   #totalCapital="ngModel">
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix">
+          <label for="totalInteres" class="col-sm-2">Total Interes</label>
+          <div class="col-sm-10">
+
+            <input id="totalInteres"
+                   placeholder="Ingrese el Total Interes"
+                   type="number"
+                   class="form-control"
+                   [(ngModel)]="creditoModel.totalInteres"
+                   name="totalInteres"
+                   #totalInteres="ngModel">
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix">
+          <label for="tazaTan" class="col-sm-2">Taza Tan</label>
+          <div class="col-sm-10">
+
+            <input id="tazaTan"
+                   placeholder="Ingrese la Taza Tan"
+                   type="number"
+                   class="form-control"
+                   [(ngModel)]="creditoModel.tazaTan"
+                   name="tazaTan"
+                   #tazaTan="ngModel">
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix">
+          <label for="tazaTae" class="col-sm-2">Taza Tae</label>
+          <div class="col-sm-10">
+
+            <input id="tazaTae"
+                   placeholder="Ingrese la Taza Tae"
+                   type="number"
+                   class="form-control"
+                   [(ngModel)]="creditoModel.tazaTae"
+                   name="tazaTae"
+                   #tazaTae="ngModel">
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix">
+          <label for="fechaDesembolso" class="col-sm-2">Fecha Desembolso</label>
+          <div class="col-sm-10">
+
+            <input id="fechaDesembolso"
+                   placeholder="Ingrese la Fecha Desembolso"
+                   type="date"
+                   class="form-control"
+                   [(ngModel)]="creditoModel.fechaDesembolso"
+                   name="fechaDesembolso"
+                   #fechaDesembolso="ngModel">
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix">
+          <label for="fechaVencimiento" class="col-sm-2">Fecha Vencimiento</label>
+          <div class="col-sm-10">
+
+            <input id="fechaVencimiento"
+                   placeholder="Ingrese la Fecha Vencimiento"
+                   type="date"
+                   class="form-control"
+                   [(ngModel)]="creditoModel.fechaVencimiento"
+                   name="fechaVencimiento"
+                   #fechaVencimiento="ngModel">
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix">
+          <label for="plazoTotal" class="col-sm-2">Plazo Total</label>
+          <div class="col-sm-10">
+
+            <input id="plazoTotal"
+                   placeholder="Ingrese el Plazo Total"
+                   type="number"
+                   class="form-control"
+                   [(ngModel)]="creditoModel.plazoTotal"
+                   name="plazoTotal"
+                   #plazoTotal="ngModel">
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix">
+          <label for="cantidadCuotas" class="col-sm-2">Cantidad Cuotas</label>
+          <div class="col-sm-10">
+
+            <input id="cantidadCuotas"
+                   placeholder="Ingrese la Cantidad Cuotas"
+                   type="number"
+                   class="form-control"
+                   [(ngModel)]="creditoModel.cantidadCuotas"
+                   name="cantidadCuotas"
+                   #cantidadCuotas="ngModel">
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix">
+          <label for="productoDescripcion" class="col-sm-2">Producto Descripcion</label>
+          <div class="col-sm-10">
+
+            <input id="productoDescripcion"
+                   placeholder="Ingrese Producto Descripcion"
                    type="text"
                    class="form-control"
-                   [(ngModel)]="creditoModel.nombre"
-                   name="nombre"
-                   #nombre="ngModel"
-                   required minlength="4">
+                   [(ngModel)]="creditoModel.productoDescripcion"
+                   name="productoDescripcion"
+                   #productoDescripcion="ngModel">
+          </div>
+        </div>
 
-            <div class="alert alert-warning mt10" role="alert"
-                 *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
-              <div *ngIf="nombre.errors.required">
-                Nombre es requerido
-              </div>
-              <div *ngIf="nombre.errors.minlength">
-                Nombre debe tener al menos 4 caracteres
-              </div>
+        <div class="form-group mb10 clearfix">
+          <label for="destinoCredito" class="col-sm-2">Destino Credito</label>
+          <div class="col-sm-10">
+
+            <input id="destinoCredito"
+                   placeholder="Ingrese Destino Credito"
+                   type="text"
+                   class="form-control"
+                   [(ngModel)]="creditoModel.destinoCredito"
+                   name="destinoCredito"
+                   #destinoCredito="ngModel">
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix">
+          <label class="col-sm-2">Estado</label>
+          <!--<input class="form-control" id="status" placeholder="Estado" type="text" formControlName="status">-->
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <input id="status1" class="form-check-input" type="radio" name="status" value="true"
+                     [(ngModel)]="creditoModel.estado" checked>
+              <label class="form-check-label" for="status1">Activo</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input id="status2" class="form-check-input" type="radio" name="status" value="false"
+                     [(ngModel)]="creditoModel.estado">
+              <label class="form-check-label" for="status2">Inactivo</label>
             </div>
           </div>
         </div>
+
+
+        <div class="form-group mb10 clearfix">
+          <label for="entidadFinanciera" class="col-sm-2">Entidad Financiera</label>
+          <div class="col-sm-10">
+            <select class="form-control" id="entidadFinanciera"
+                    [(ngModel)]="creditoModel.entidadeFinancieraId"
+                    [ngModelOptions]="{standalone: true}">
+              <option *ngFor="let entidadFinanciera of entidadesFinancieras"
+                      [value]="entidadFinanciera.id">
+                {{entidadFinanciera.nombre}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+
+        <div class="form-group mb10 clearfix">
+          <label for="moneda" class="col-sm-2">Moneda</label>
+          <div class="col-sm-10">
+            <select class="form-control" id="moneda"
+                    [(ngModel)]="creditoModel.monedaId"
+                    [ngModelOptions]="{standalone: true}">
+              <option *ngFor="let moneda of monedas" [value]="moneda.id">
+                {{moneda.descripcion }} - {{moneda.codigo}}
+              </option>
+            </select>
+          </div>
+        </div>
+        {{creditoModel | json}}
       </div>
 
       <!-- /.box-body -->

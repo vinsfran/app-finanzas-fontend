@@ -9,6 +9,8 @@ import {CreditosComponent} from './creditos.component';
 import {CreditosListComponent} from './list/creditos-list.component';
 import {CreditosFormComponent} from './form/creditos-form.component';
 import {CreditosService} from '../../../services/creditos.service';
+import {MonedasService} from '../../../services/monedas.service';
+import {EntidadesFinancierasService} from '../../../services/entidadesFinancieras.service';
 
 @NgModule({
   imports: [
@@ -25,7 +27,9 @@ import {CreditosService} from '../../../services/creditos.service';
     CreditosListComponent
   ],
   providers: [
-    CreditosService
+    CreditosService,
+    EntidadesFinancierasService,
+    MonedasService
   ]
 })
 

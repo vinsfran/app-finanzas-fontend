@@ -11,11 +11,11 @@
           <div class="col-sm-6">
             <button *ngIf="authService.hasRole('ROLE_ADMIN')"
                     class="btn btn-primary float-left"
-                    [routerLink]="['/entidades-financieras/form']"
+                    [routerLink]="['/creditos/form']"
                     title="Agregar nuevo"
                     style="margin-right: 5px">
               <i class="fa fa-plus"></i>
-              Nueva Entidad Financiera
+              Nuevo Credito
             </button>
           </div>
           <div class="col-sm-6">
@@ -28,18 +28,18 @@
         </div>
         <div class="row">
           <div class="col-sm-12">
-            <table class="table table-bordered table-striped dataTable" *ngIf="entidadesFinancieras?.length > 0">
+            <table class="table table-bordered table-striped dataTable" *ngIf="creditos?.length > 0">
               <thead>
               <tr role="row">
-                <th (click)="sortingPage('id')"
-                    [ngClass]="setClasses('id')"
+                <th (click)="sortingPage('nroCredito')"
+                    [ngClass]="setClasses('nroCredito')"
                     tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                     aria-sort="ascending"
-                    aria-label="ID: activate to sort column descending">ID
+                    aria-label="Nro. Credito: activate to sort column descending">Nro. Credito
                 </th>
-                <th (click)="sortingPage('nombre')"
-                    [ngClass]="setClasses('nombre')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                    aria-label="Nombre: activate to sort column ascending">Nombre
+                <th (click)="sortingPage('destinoCredito')"
+                    [ngClass]="setClasses('destinoCredito')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Destino Credito: activate to sort column ascending">Destino Credito
                 </th>
                 <th width="20%">
                   Acciones
@@ -47,12 +47,12 @@
               </tr>
               </thead>
               <tbody>
-              <tr class="odd" role="row" *ngFor="let entidadFinanciera of entidadesFinancieras; let i=index">
-                <td>{{entidadFinanciera.id}}</td>
-                <td>{{entidadFinanciera.nombre}}</td>
+              <tr class="odd" role="row" *ngFor="let credito of creditos; let i=index">
+                <td>{{credito.nroCredito}}</td>
+                <td>{{credito.destinoCredito}}</td>
                 <td class="text-right">
                   <button *ngIf="authService.hasRole('ROLE_ADMIN')"
-                          [routerLink]="['/entidades-financieras/form', entidadFinanciera.id]"
+                          [routerLink]="['/creditos/form', credito.nroCredito]"
                           type="button"
                           class="btn btn-sm btn-light"
                           title="Editar"
@@ -64,7 +64,7 @@
                           type="button"
                           class="btn btn-sm btn-danger"
                           title="Eliminar"
-                          (click)='delete(entidadFinanciera)'
+                          (click)='delete(credito)'
                           style="margin-right: 5px">
                     <i class="fa fa-eye"></i>
                     Eliminar
