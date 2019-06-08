@@ -10,7 +10,7 @@ import {ResponseBasePageModel} from '../models/new/responseBasePage.model';
 @Injectable()
 export class EntidadesFinancierasService {
 
-  private urlEndPoint: string = 'http://localhost:8080/api/entidadesFinancieras';
+  private urlEndPoint: string = '/api/entidadesFinancieras';
 
   private httpHeaders: HttpHeaders;
 

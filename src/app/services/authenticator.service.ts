@@ -1,10 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import 'rxjs/add/operator/map';
-import {Login} from '../models/login.model';
-import {InvalidateToken} from '../models/invalidateToken.model';
 import {ConfigService} from './config.service';
-import {TokenAppId} from '../models/tokenAppId.model';
 
 @Injectable({
   providedIn: 'root'

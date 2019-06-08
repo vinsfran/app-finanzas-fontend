@@ -10,7 +10,7 @@ import {ResponseBasePageModel} from '../models/new/responseBasePage.model';
 @Injectable()
 export class CreditosService {
 
-  private urlEndPoint: string = 'http://localhost:8080/api/creditos';
+  private urlEndPoint: string = '/api/creditos';
 
   private httpHeaders: HttpHeaders;
 

@@ -1,6 +1,5 @@
 import {Injectable, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {TokenAppId} from '../models/tokenAppId.model';
 import {ConfigService} from './config.service';
 
 @Injectable({

@@ -10,7 +10,7 @@ import {TipoPagoModel} from '../components/modulos/tiposPagos/tipoPago.model';
 @Injectable()
 export class TiposPagosService {
 
-  private urlEndPoint: string = 'http://localhost:8080/api/tipoPagos';
+  private urlEndPoint: string = '/api/tipoPagos';
 
   private httpHeaders: HttpHeaders;
 
