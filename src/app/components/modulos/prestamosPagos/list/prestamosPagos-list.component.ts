@@ -1,53 +1,55 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import swal from 'sweetalert2';
+import {PrestamosService} from '../../../../services/prestamos.service';
 import {AuthService} from '../../../../services/auth.service';
-import {MonedaModel} from '../moneda.model';
+import {PrestamoPagoModel} from '../prestamoPago.model';
 import {PageModel} from '../../../../models/new/page.model';
-import {MonedasService} from '../../../../services/monedas.service';
 
 @Component({
-  selector: 'app-monedas-list',
-  templateUrl: './monedas-list.component.html',
-  styleUrls: ['./monedas-list.component.css']
+  selector: 'app-prestamos-pagos-list',
+  templateUrl: './prestamosPagos-list.component.html',
+  styleUrls: ['./prestamosPagos-list.component.css']
 })
-export class MonedasListComponent implements OnInit {
+export class PrestamosPagosListComponent implements OnInit {
 
   titulo: string;
   lista: string[];
-  monedas: MonedaModel[];
+  prestamos: PrestamoPagoModel[];
   page: PageModel;
   campo: string;
   orden: string;
 
-  constructor(private monedasService: MonedasService, private activatedRoute: ActivatedRoute,
+  inputDeBuscar: string;
+
+  constructor(private prestamosService: PrestamosService, private activatedRoute: ActivatedRoute,
               public authService: AuthService, private router: Router) {
 
   }
 
   ngOnInit() {
-    this.titulo = 'Lista de Monedas';
-    this.lista = ['Monedas', this.titulo];
+    this.titulo = 'Lista de Prestamos';
+    this.lista = ['Prestamos', this.titulo];
     this.campo = 'id';
     this.orden = 'asc';
-    this.getMonedas(0, 10, this.campo, this.orden);
+    this.getPrestamos(0, 10, this.campo, this.orden);
   }
 
-  getMonedas(page: number, size: number, campo: string, orden: string) {
-    this.monedasService.getMonedas(page, size, campo, orden).subscribe(
+  getPrestamos(page: number, size: number, campo: string, orden: string) {
+    this.prestamosService.getPrestamos(page, size, campo, orden).subscribe(
       response => {
         console.log(response);
         this.page = response.page;
-        this.monedas = this.page.content;
+        this.prestamos = this.page.content;
       },
       (errors) => {
-        swal.fire('Ocurrió un error al listar los Menus', errors.message, 'error');
+        swal.fire('Ocurrió un error al listar los Prestamos', errors.message, 'error');
       }
     );
   }
 
   changePage(event) {
-    this.getMonedas(event.page, event.size, this.campo, this.orden);
+    this.getPrestamos(event.page, event.size, this.campo, this.orden);
   }
 
   sortingPage(campo: string) {
@@ -57,7 +59,7 @@ export class MonedasListComponent implements OnInit {
     } else {
       this.orden = 'asc';
     }
-    this.getMonedas(this.page.number, this.page.size, this.campo, this.orden);
+    this.getPrestamos(this.page.number, this.page.size, this.campo, this.orden);
   }
 
   setClasses(campo: string) {
@@ -68,10 +70,10 @@ export class MonedasListComponent implements OnInit {
     return classes;
   }
 
-  delete(moneda: MonedaModel): void {
+  delete(prestamo: PrestamoPagoModel): void {
     swal.fire({
       title: 'Está seguro?',
-      text: `¿Seguro que desea eliminar la moneda ${moneda.nombre}?`,
+      text: `¿Seguro que desea eliminar el Prestamo Nro ${prestamo.id}?`,
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -85,12 +87,12 @@ export class MonedasListComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
 
-        this.monedasService.delete(moneda.id).subscribe(
+        this.prestamosService.delete(prestamo.id).subscribe(
           response => {
-            this.monedas = this.monedas.filter(cli => cli !== moneda);
+            this.prestamos = this.prestamos.filter(ro => ro !== prestamo);
             swal.fire(
-              'Moneda Eliminado!',
-              `Moneda ${moneda.nombre} eliminada con éxito.`,
+              'Prestamo Eliminado!',
+              `Prestamo Nro ${prestamo.id} eliminado con éxito.`,
               'success'
             );
           }
@@ -98,5 +100,9 @@ export class MonedasListComponent implements OnInit {
 
       }
     });
+  }
+
+  buscar() {
+    console.log('Valor en inputDeBuscar: ' + this.inputDeBuscar);
   }
 }

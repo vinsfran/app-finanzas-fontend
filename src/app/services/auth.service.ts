@@ -56,6 +56,7 @@ export class AuthService {
   guardarUsuario(accessToken: string): void {
     const payload = this.obtenerDatosToken(accessToken);
     this._usuario = new UsuarioModel();
+    this._usuario.id = payload.id;
     this._usuario.nombre = payload.nombre;
     this._usuario.apellido = payload.apellido;
     this._usuario.email = payload.email;

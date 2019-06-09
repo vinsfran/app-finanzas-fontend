@@ -1,24 +1,25 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import swal from 'sweetalert2';
-import {CreditoModel} from '../credito.model';
-import {CreditosService} from '../../../../services/creditos.service';
+import {PrestamoModel} from '../prestamo.model';
+import {PrestamosService} from '../../../../services/prestamos.service';
 import {MonedaModel} from '../../monedas/moneda.model';
 import {MonedasService} from '../../../../services/monedas.service';
 import {EntidadFinancieraModel} from '../../entidadesFinancieras/entidadFinanciera.model';
 import {EntidadesFinancierasService} from '../../../../services/entidadesFinancieras.service';
+import {AuthService} from '../../../../services/auth.service';
 
 @Component({
-  selector: 'app-creditos-form',
-  templateUrl: './creditos-form.component.html',
-  styleUrls: ['./creditos-form.component.css']
+  selector: 'app-prestamos-form',
+  templateUrl: './prestamos-form.component.html',
+  styleUrls: ['./prestamos-form.component.css']
 })
-export class CreditosFormComponent implements OnInit {
+export class PrestamosFormComponent implements OnInit {
   titulo: string;
   lista: string[];
   public errores: string[];
 
-  creditoModel: CreditoModel;
+  prestamoModel: PrestamoModel;
 
   entidadesFinancieras: EntidadFinancieraModel[];
 
@@ -26,15 +27,17 @@ export class CreditosFormComponent implements OnInit {
   monedaModel: MonedaModel;
 
 
-  constructor(private creditosService: CreditosService,
+  constructor(private authService: AuthService,
+              private prestamosService: PrestamosService,
               private entidadesFinancierasService: EntidadesFinancierasService,
               private monedasService: MonedasService,
-              private router: Router, private activatedRoute: ActivatedRoute) {
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.monedaModel = new MonedaModel();
-    this.creditoModel = new CreditoModel();
+    this.prestamoModel = new PrestamoModel();
     this.entidadesFinancierasService.getAll().subscribe(getAll => {
         this.entidadesFinancieras = getAll;
       },
@@ -53,32 +56,34 @@ export class CreditosFormComponent implements OnInit {
         console.error(err.error.errors);
       }
     );
-    this.titulo = 'Crear Credito';
-    this.cargarCredito();
-    this.lista = ['Creditos'];
+    this.titulo = 'Crear Prestamo';
+    this.cargarPrestamo();
+    this.lista = ['Prestamos'];
     this.lista.push(this.titulo);
   }
 
 
-  cargarCredito(): void {
+  cargarPrestamo(): void {
     this.activatedRoute.params.subscribe(params => {
       const id = params['id'];
       if (id) {
-        this.titulo = 'Editar Credito Nro: ' + id;
-        this.creditosService.getCredito(id)
-          .subscribe((creditoModel) => {
-            this.creditoModel = creditoModel;
+        this.titulo = 'Editar Prestamo Nro: ' + id;
+        this.prestamosService.getPrestamo(id)
+          .subscribe((prestamoModel) => {
+            this.prestamoModel = prestamoModel;
           });
       }
     });
   }
 
   create(): void {
-    console.log(JSON.stringify(this.creditoModel).toString());
-    this.creditosService.create(this.creditoModel)
-      .subscribe(credito => {
-          this.router.navigate(['/creditos']);
-          swal.fire('Nuevo Credito', `El Credito: ${credito.nroCredito} ha sido creado con exito`, 'success');
+    this.prestamoModel.usuarioId = this.authService.usuario.id;
+    this.prestamoModel.estado = true;
+    console.log(JSON.stringify(this.prestamoModel).toString());
+    this.prestamosService.create(this.prestamoModel)
+      .subscribe(prestamo => {
+          this.router.navigate(['/prestamos']);
+          swal.fire('Nuevo Prestamo', `El Prestamo: ${prestamo.id} ha sido creado con exito`, 'success');
         },
         err => {
           this.errores = err.error.errors as string[];
@@ -89,11 +94,11 @@ export class CreditosFormComponent implements OnInit {
   }
 
   update(): void {
-    this.creditosService.update(this.creditoModel)
+    this.prestamosService.update(this.prestamoModel)
       .subscribe(json => {
           console.error(json);
-          this.router.navigate(['/creditos']);
-          swal.fire(json.mensaje, `Credito: ${json.credito.nroCredito}`, 'success');
+          this.router.navigate(['/prestamos']);
+          swal.fire(json.mensaje, `Prestamo: ${json.prestamo.nroPrestamo}`, 'success');
         },
         err => {
           this.errores = err.error.errors as string[];
@@ -104,7 +109,7 @@ export class CreditosFormComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(['/creditos']);
+    this.router.navigate(['/prestamos']);
   }
 
 

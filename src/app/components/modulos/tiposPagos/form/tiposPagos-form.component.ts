@@ -40,7 +40,7 @@ export class TiposPagosFormComponent implements OnInit {
     this.tiposPagosService.create(this.tipoPagoModel)
       .subscribe(tipoPago => {
           this.router.navigate(['/tipos-pagos']);
-          swal.fire('Nuevo Tipo de Pago', `El Tipo de Pago: ${tipoPago.descripcion} ha sido creado con exito`, 'success');
+          swal.fire('Nuevo Tipo de Pago', `El Tipo de Pago: ${tipoPago.nombre} ha sido creado con exito`, 'success');
         },
         err => {
           this.errores = err.error.errors as string[];

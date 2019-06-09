@@ -1,0 +1,233 @@
+<app-content-header
+  [titulo]="titulo"
+  [lista]="lista">
+</app-content-header>
+
+<section class="content">
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Datos del Credito</h3>
+    </div>
+    <!-- /.box-header -->
+    <!-- form start -->
+    <form role="form" #prestamoForm="ngForm">
+      <div class="box-body">
+
+        <div class="form-group mb10 clearfix">
+          <label for="montoDesembolsado" class="col-sm-2">Monto del Prestamo</label>
+          <div class="col-sm-10">
+
+            <input id="montoDesembolsado"
+                   placeholder="Ingrese el Monto del Prestamo"
+                   type="number"
+                   class="form-control"
+                   [(ngModel)]="prestamoModel.montoPrestamo"
+                   name="montoDesembolsado"
+                   #montoDesembolsado="ngModel">
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix">
+          <label for="moneda" class="col-sm-2">Tipo de Moneda</label>
+          <div class="col-sm-10">
+            <select class="form-control" id="moneda"
+                    [(ngModel)]="prestamoModel.monedaId"
+                    [ngModelOptions]="{standalone: true}">
+              <option *ngFor="let moneda of monedas" [value]="moneda.id">
+                {{moneda.nombre }} - {{moneda.codigo}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix">
+          <label for="fechaDesembolso" class="col-sm-2">Fecha Desembolso</label>
+          <div class="col-sm-10">
+
+            <input id="fechaDesembolso"
+                   placeholder="Ingrese la Fecha Desembolso"
+                   type="date"
+                   class="form-control"
+                   [(ngModel)]="prestamoModel.fechaDesembolso"
+                   name="fechaDesembolso"
+                   #fechaDesembolso="ngModel">
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix">
+          <label for="fechaVencimiento" class="col-sm-2">Fecha Vencimiento</label>
+          <div class="col-sm-10">
+
+            <input id="fechaVencimiento"
+                   placeholder="Ingrese la Fecha Vencimiento"
+                   type="date"
+                   class="form-control"
+                   [(ngModel)]="prestamoModel.fechaVencimiento"
+                   name="fechaVencimiento"
+                   #fechaVencimiento="ngModel">
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix">
+          <label for="interes" class="col-sm-2">Interes</label>
+          <div class="col-sm-10">
+
+            <input id="interes"
+                   placeholder="Ingrese el Interes"
+                   type="number"
+                   class="form-control"
+                   [(ngModel)]="prestamoModel.interes"
+                   name="interes"
+                   #interes="ngModel">
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix">
+          <label for="tasa" class="col-sm-2">Tasa</label>
+          <div class="col-sm-10">
+
+            <input id="tasa"
+                   placeholder="Ingrese la Tasa"
+                   type="number"
+                   class="form-control"
+                   [(ngModel)]="prestamoModel.tasa"
+                   name="tasa"
+                   #tasa="ngModel">
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix">
+          <label for="entidadFinanciera" class="col-sm-2">Entidad Financiera</label>
+          <div class="col-sm-10">
+            <select class="form-control" id="entidadFinanciera"
+                    [(ngModel)]="prestamoModel.entidadFinancieraId"
+                    [ngModelOptions]="{standalone: true}">
+              <option *ngFor="let entidadFinanciera of entidadesFinancieras"
+                      [value]="entidadFinanciera.id">
+                {{entidadFinanciera.nombre}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix">
+          <label for="cantidadCuotas" class="col-sm-2">Cantidad Cuotas</label>
+          <div class="col-sm-10">
+
+            <input id="cantidadCuotas"
+                   placeholder="Ingrese la Cantidad Cuotas"
+                   type="number"
+                   class="form-control"
+                   [(ngModel)]="prestamoModel.cantidadCuotas"
+                   name="cantidadCuotas"
+                   #cantidadCuotas="ngModel">
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix">
+          <label for="montoCuota" class="col-sm-2">Monto de Cuota</label>
+          <div class="col-sm-10">
+
+            <input id="montoCuota"
+                   placeholder="Ingrese el Monto de Cuota"
+                   type="number"
+                   class="form-control"
+                   [(ngModel)]="prestamoModel.montoCuota"
+                   name="montoCuota"
+                   #montoCuota="ngModel">
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix">
+          <label for="montoPagado" class="col-sm-2">Monto Pagado</label>
+          <div class="col-sm-10">
+
+            <input id="montoPagado"
+                   placeholder="Ingrese el Monto Pagado"
+                   type="number"
+                   class="form-control"
+                   [(ngModel)]="prestamoModel.montoPagado"
+                   name="montoPagado"
+                   #montoPagado="ngModel">
+          </div>
+        </div>
+
+
+        <div class="form-group mb10 clearfix">
+          <label for="cantidadCuotasPagadas" class="col-sm-2">Cuotas Pagadas</label>
+          <div class="col-sm-10">
+
+            <input id="cantidadCuotasPagadas"
+                   placeholder="Ingrese las Cuotas Pagadas"
+                   type="number"
+                   class="form-control"
+                   [(ngModel)]="prestamoModel.cantidadCuotasPagadas"
+                   name="tazaTae"
+                   #tazaTae="ngModel">
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix">
+          <label for="destinoCredito" class="col-sm-2">Destino del Prestamo</label>
+          <div class="col-sm-10">
+
+            <input id="destinoCredito"
+                   placeholder="Ingrese el Destino del Prestamo"
+                   type="text"
+                   class="form-control"
+                   [(ngModel)]="prestamoModel.destinoPrestamo"
+                   name="destinoCredito"
+                   #destinoCredito="ngModel">
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix" *ngIf="prestamoModel.id">
+          <label class="col-sm-2">Estado</label>
+          <!--<input class="form-control" id="status" placeholder="Estado" type="text" formControlName="status">-->
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <input id="status1" class="form-check-input" type="radio" name="status" [value]="true"
+                     [(ngModel)]="prestamoModel.estado">
+              <label class="form-check-label" for="status1">Activo</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input id="status2" class="form-check-input" type="radio" name="status" [value]="false"
+                     [(ngModel)]="prestamoModel.estado">
+              <label class="form-check-label" for="status2">Inactivo</label>
+            </div>
+          </div>
+        </div>
+
+        <!--        {{prestamoModel | json}}-->
+      </div>
+
+      <!-- /.box-body -->
+      <div class="box-footer">
+        <button class="btn btn-secondary"
+                (click)="back()"
+                title="Cancelar"
+                style="margin-right: 5px">
+          Cancelar
+        </button>
+
+        <button class="btn btn-primary pull-right"
+                role="button"
+                (click)='create()'
+                *ngIf="!prestamoModel.id else elseBlock"
+                [disabled]="!prestamoForm.form.valid"
+                style="margin-right: 5px">
+          Guardar
+        </button>
+        <ng-template #elseBlock>
+          <button class="btn btn-primary pull-right"
+                  role="button"
+                  (click)='update()'
+                  [disabled]="!prestamoForm.form.valid"
+                  style="margin-right: 5px">
+            Editar
+          </button>
+        </ng-template>
+      </div>
+    </form>
+  </div>
+</section>

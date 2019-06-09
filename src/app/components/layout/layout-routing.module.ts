@@ -58,10 +58,16 @@ const routes: Routes = [
         loadChildren: '../modulos/entidadesFinancieras/entidadesFinancieras.module#EntidadesFinancierasModule',
         canActivate: [AuthorizationGuard]
       },
-      // Ruta para Creditos
+      // Ruta para Prestamos
       {
         path: '',
-        loadChildren: '../modulos/creditos/creditos.module#CreditosModule',
+        loadChildren: '../modulos/prestamos/prestamos.module#PrestamosModule',
+        canActivate: [AuthorizationGuard]
+      },
+      // Ruta para Prestamos Pagos
+      {
+        path: '',
+        loadChildren: '../modulos/prestamosPagos/prestamosPagos.module#PrestamosPagosModule',
         canActivate: [AuthorizationGuard]
       },
     ]

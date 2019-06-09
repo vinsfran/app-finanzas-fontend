@@ -11,11 +11,11 @@
           <div class="col-sm-6">
             <button *ngIf="authService.hasRole('ROLE_ADMIN')"
                     class="btn btn-primary float-left"
-                    [routerLink]="['/creditos/form']"
+                    [routerLink]="['/prestamos/form']"
                     title="Agregar nuevo"
                     style="margin-right: 5px">
               <i class="fa fa-plus"></i>
-              Nuevo Credito
+              Nuevo Prestamo
             </button>
           </div>
           <div class="col-sm-6">
@@ -34,26 +34,25 @@
 <!--        {{inputDeBuscar | json}}-->
         <div class="row">
           <div class="col-sm-12">
-            <table class="table table-bordered table-striped dataTable" *ngIf="creditos?.length > 0">
+            <table class="table table-bordered table-striped dataTable" *ngIf="prestamos?.length > 0">
               <thead>
               <tr role="row">
-                <th (click)="sortingPage('nroCredito')"
-                    [ngClass]="setClasses('nroCredito')"
+                <th (click)="sortingPage('entidadFinancieraNombre')"
+                    [ngClass]="setClasses('entidadFinancieraNombre')"
                     tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                     aria-sort="ascending"
-                    aria-label="Nro. Credito: activate to sort column descending">Nro. Credito
+                    aria-label="Entidad Financiera: activate to sort column descending">Entidad Financiera
                 </th>
-                <th (click)="sortingPage('destinoCredito')"
-                    [ngClass]="setClasses('destinoCredito')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                    aria-label="Destino Credito: activate to sort column ascending">Destino Credito
+                <th (click)="sortingPage('montoCuota')"
+                    [ngClass]="setClasses('montoCuota')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Cuota: activate to sort column ascending">Cuota
                 </th>
-                <th (click)="sortingPage('entidadFinancieraNombre')"
-                    [ngClass]="setClasses('entidadFinancieraNombre')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                    aria-label="Entidad Financiera: activate to sort column ascending">Entidad Financiera
+                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Saldo: activate to sort column ascending">Saldo
                 </th>
-                <th (click)="sortingPage('monedaDescripcion')"
-                    [ngClass]="setClasses('monedaDescripcion')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                    aria-label="Tipo Moneda: activate to sort column ascending">Tipo Moneda
+                <th (click)="sortingPage('monedaCodigo')"
+                    [ngClass]="setClasses('monedaCodigo')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Moneda: activate to sort column ascending">Moneda
                 </th>
                 <th width="20%">
                   Acciones
@@ -61,14 +60,14 @@
               </tr>
               </thead>
               <tbody>
-              <tr class="odd" role="row" *ngFor="let credito of creditos; let i=index">
-                <td>{{credito.nroCredito}}</td>
-                <td>{{credito.destinoCredito}}</td>
-                <td>{{credito.entidadFinancieraNombre}}</td>
-                <td>{{credito.monedaDescripcion}}</td>
+              <tr class="odd" role="row" *ngFor="let prestamo of prestamos; let i=index">
+                <td>{{prestamo.entidadFinancieraNombre}}</td>
+                <td>{{prestamo.montoCuota}}</td>
+                <td>{{prestamo.montoPrestamo - prestamo.montoPagado}}</td>
+                <td>{{prestamo.monedaCodigo}}</td>
                 <td class="text-right">
                   <button *ngIf="authService.hasRole('ROLE_ADMIN')"
-                          [routerLink]="['/creditos/form', credito.id]"
+                          [routerLink]="['/prestamos/form', prestamo.id]"
                           type="button"
                           class="btn btn-sm btn-light"
                           title="Editar"
@@ -80,7 +79,7 @@
                           type="button"
                           class="btn btn-sm btn-danger"
                           title="Eliminar"
-                          (click)='delete(credito)'
+                          (click)='delete(prestamo)'
                           style="margin-right: 5px">
                     <i class="fa fa-eye"></i>
                     Eliminar

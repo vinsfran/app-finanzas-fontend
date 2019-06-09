@@ -14,25 +14,25 @@
       <div class="box-body">
 
         <div class="form-group mb10 clearfix">
-          <label for="descripcion" class="col-sm-2">Descripcion</label>
+          <label for="nombre" class="col-sm-2">Nombre</label>
           <div class="col-sm-10">
 
-            <input id="descripcion"
-                   placeholder="Ingrese una descripcion"
+            <input id="nombre"
+                   placeholder="Ingrese un Nombre"
                    type="text"
                    class="form-control"
-                   [(ngModel)]="tipoPagoModel.descripcion"
-                   name="descripcion"
-                   #descripcion="ngModel"
+                   [(ngModel)]="tipoPagoModel.nombre"
+                   name="nombre"
+                   #nombre="ngModel"
                    required minlength="4">
 
             <div class="alert alert-warning mt10" role="alert"
-                 *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
-              <div *ngIf="descripcion.errors.required">
-                Descripcion es requerido
+                 *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+              <div *ngIf="nombre.errors.required">
+                Nombre es requerido
               </div>
-              <div *ngIf="descripcion.errors.minlength">
-                Descripcion debe tener al menos 4 caracteres
+              <div *ngIf="nombre.errors.minlength">
+                Nombre debe tener al menos 4 caracteres
               </div>
             </div>
           </div>

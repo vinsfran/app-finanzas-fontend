@@ -11,54 +11,63 @@
           <div class="col-sm-6">
             <button *ngIf="authService.hasRole('ROLE_ADMIN')"
                     class="btn btn-primary float-left"
-                    [routerLink]="['/monedas/form']"
+                    [routerLink]="['/prestamos/form']"
                     title="Agregar nuevo"
                     style="margin-right: 5px">
               <i class="fa fa-plus"></i>
-              Nueva moneda
+              Nuevo Prestamo
             </button>
           </div>
           <div class="col-sm-6">
             <div id="example1_filter" class="dataTables_filter">
               <label>Buscar:
-                <input class="form-control input-sm" placeholder="" aria-controls="example1" type="search">
+                <input class="form-control input-sm"
+                       placeholder=""
+                       aria-controls="example1"
+                       type="search"
+                       [(ngModel)]="inputDeBuscar"
+                       (keyup.enter)="buscar()">
               </label>
             </div>
           </div>
         </div>
+<!--        {{inputDeBuscar | json}}-->
         <div class="row">
           <div class="col-sm-12">
-            <table class="table table-bordered table-striped dataTable" *ngIf="monedas?.length > 0">
+            <table class="table table-bordered table-striped dataTable" *ngIf="prestamos?.length > 0">
               <thead>
               <tr role="row">
-                <th (click)="sortingPage('id')"
-                    [ngClass]="setClasses('id')"
+                <th (click)="sortingPage('entidadFinancieraNombre')"
+                    [ngClass]="setClasses('entidadFinancieraNombre')"
                     tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                     aria-sort="ascending"
-                    aria-label="ID: activate to sort column descending">ID
+                    aria-label="Entidad Financiera: activate to sort column descending">Entidad Financiera
                 </th>
-                <th (click)="sortingPage('descripcion')"
-                    [ngClass]="setClasses('descripcion')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                    aria-label="Nombre: activate to sort column ascending">Nombre
+                <th (click)="sortingPage('montoCuota')"
+                    [ngClass]="setClasses('montoCuota')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Cuota: activate to sort column ascending">Cuota
                 </th>
-                <th (click)="sortingPage('codigo')"
-                    [ngClass]="setClasses('codigo')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                    aria-label="Codigo: activate to sort column ascending">Descripcion
+                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Saldo: activate to sort column ascending">Saldo
                 </th>
-
+                <th (click)="sortingPage('monedaCodigo')"
+                    [ngClass]="setClasses('monedaCodigo')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Moneda: activate to sort column ascending">Moneda
+                </th>
                 <th width="20%">
                   Acciones
                 </th>
               </tr>
               </thead>
               <tbody>
-              <tr class="odd" role="row" *ngFor="let moneda of monedas; let i=index">
-                <td>{{moneda.id}}</td>
-                <td>{{moneda.nombre}}</td>
-                <td>{{moneda.codigo }}</td>
+              <tr class="odd" role="row" *ngFor="let prestamo of prestamos; let i=index">
+                <td>{{prestamo.entidadFinancieraNombre}}</td>
+                <td>{{prestamo.montoCuota}}</td>
+                <td>{{prestamo.montoPrestamo - prestamo.montoPagado}}</td>
+                <td>{{prestamo.monedaCodigo}}</td>
                 <td class="text-right">
                   <button *ngIf="authService.hasRole('ROLE_ADMIN')"
-                          [routerLink]="['/monedas/form', moneda.id]"
+                          [routerLink]="['/prestamos/form', prestamo.id]"
                           type="button"
                           class="btn btn-sm btn-light"
                           title="Editar"
@@ -70,7 +79,7 @@
                           type="button"
                           class="btn btn-sm btn-danger"
                           title="Eliminar"
-                          (click)='delete(moneda)'
+                          (click)='delete(prestamo)'
                           style="margin-right: 5px">
                     <i class="fa fa-eye"></i>
                     Eliminar

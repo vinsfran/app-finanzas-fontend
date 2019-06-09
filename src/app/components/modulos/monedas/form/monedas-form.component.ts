@@ -44,7 +44,7 @@ export class MonedasFormComponent implements OnInit {
     this.monedasService.create(this.monedaModel)
       .subscribe(moneda => {
           this.router.navigate(['/monedas']);
-          swal.fire('Nueva moneda', `La moneda: ${moneda.descripcion} ha sido creada con exito`, 'success');
+          swal.fire('Nueva moneda', `La moneda: ${moneda.nombre} ha sido creada con exito`, 'success');
         },
         err => {
           this.errores = err.error.errors as string[];
