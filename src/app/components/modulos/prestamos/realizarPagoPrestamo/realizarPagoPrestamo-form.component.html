@@ -6,37 +6,35 @@
 <section class="content">
   <div class="box box-primary">
     <div class="box-header with-border">
-      <h3 class="box-title">Datos del Prestamo Pago</h3>
+      <h3 class="box-title">Datos del Pago</h3>
     </div>
+
+
     <!-- /.box-header -->
     <!-- form start -->
     <form role="form" #prestamoForm="ngForm">
       <div class="box-body">
 
         <div class="form-group mb10 clearfix">
-          <label for="prestamo" class="col-sm-2">Prestamo</label>
+          <label for="destinoPrestamo" class="col-sm-2 col-form-label">Destino del Prestamo</label>
           <div class="col-sm-10">
-            <select class="form-control" id="prestamo"
-                    [(ngModel)]="prestamoPagoModel.prestamoId"
-                    [ngModelOptions]="{standalone: true}">
-              <option *ngFor="let prestamo of prestamos" [value]="prestamo.id">
-                {{prestamo.destinoPrestamo}}
-              </option>
-            </select>
+            <span class="form-control-plaintext" id="destinoPrestamo">{{prestamo.destinoPrestamo}}</span>
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix">
+          <label for="entidadFinancieraNombre" class="col-sm-2 col-form-label">Entidad FinancieraNombre</label>
+          <div class="col-sm-10">
+            <span class="form-control-plaintext" id="entidadFinancieraNombre">{{prestamo.entidadFinancieraNombre}}</span>
           </div>
         </div>
 
         <div class="form-group mb10 clearfix">
           <label for="numeroCuota" class="col-sm-2">Numero de Cuota</label>
           <div class="col-sm-10">
-
-            <input id="numeroCuota"
-                   placeholder="Ingrese el Numero de Cuota"
-                   type="number"
-                   class="form-control"
-                   [(ngModel)]="prestamoPagoModel.numeroCuota"
-                   name="numeroCuota"
-                   #numeroCuota="ngModel">
+            <div class="col-sm-10">
+              <span class="form-control-plaintext" id="numeroCuota">{{prestamo.cantidadCuotasPagadas + 1}} / {{prestamo.cantidadCuotas}}</span>
+            </div>
           </div>
         </div>
 
@@ -95,13 +93,13 @@
           Cancelar
         </button>
 
-        <button class="btn btn-primary pull-right"
+        <button class="btn btn-success pull-right"
                 role="button"
                 (click)='create()'
                 *ngIf="!prestamoPagoModel.id else elseBlock"
                 [disabled]="!prestamoForm.form.valid"
                 style="margin-right: 5px">
-          Guardar
+          Pagar
         </button>
         <ng-template #elseBlock>
           <button class="btn btn-primary pull-right"

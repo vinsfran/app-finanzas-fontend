@@ -8,9 +8,9 @@ import {PrestamosPagosRoutingModule} from './prestamosPagos-routing.module';
 import {PrestamosPagosComponent} from './prestamosPagos.component';
 import {PrestamosPagosListComponent} from './list/prestamosPagos-list.component';
 import {PrestamosPagosFormComponent} from './form/prestamosPagos-form.component';
+import {PrestamosPagosService} from '../../../services/prestamosPagos.service';
 import {PrestamosService} from '../../../services/prestamos.service';
-import {MonedasService} from '../../../services/monedas.service';
-import {EntidadesFinancierasService} from '../../../services/entidadesFinancieras.service';
+import {TiposPagosService} from '../../../services/tiposPagos.service';
 
 @NgModule({
   imports: [
@@ -27,9 +27,9 @@ import {EntidadesFinancierasService} from '../../../services/entidadesFinanciera
     PrestamosPagosListComponent
   ],
   providers: [
+    PrestamosPagosService,
     PrestamosService,
-    EntidadesFinancierasService,
-    MonedasService
+    TiposPagosService
   ]
 })
 

@@ -19,6 +19,8 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.clientes = new Array();
+    this.roles = new Array();
     this.getAllClientes();
     this.getAllRoles();
   }

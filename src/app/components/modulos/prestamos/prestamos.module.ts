@@ -11,6 +11,9 @@ import {PrestamosFormComponent} from './form/prestamos-form.component';
 import {PrestamosService} from '../../../services/prestamos.service';
 import {MonedasService} from '../../../services/monedas.service';
 import {EntidadesFinancierasService} from '../../../services/entidadesFinancieras.service';
+import {RealizarPagoPrestamoFormComponent} from './realizarPagoPrestamo/realizarPagoPrestamo-form.component';
+import {PrestamosPagosService} from '../../../services/prestamosPagos.service';
+import {TiposPagosService} from '../../../services/tiposPagos.service';
 
 @NgModule({
   imports: [
@@ -24,12 +27,15 @@ import {EntidadesFinancierasService} from '../../../services/entidadesFinanciera
   declarations: [
     PrestamosComponent,
     PrestamosFormComponent,
-    PrestamosListComponent
+    PrestamosListComponent,
+    RealizarPagoPrestamoFormComponent
   ],
   providers: [
     PrestamosService,
     EntidadesFinancierasService,
-    MonedasService
+    MonedasService,
+    PrestamosPagosService,
+    TiposPagosService
   ]
 })
 

@@ -1,24 +1,24 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import swal from 'sweetalert2';
-import {PrestamoPagoModel} from '../prestamoPago.model';
 import {PrestamosPagosService} from '../../../../services/prestamosPagos.service';
 import {AuthService} from '../../../../services/auth.service';
-import {PrestamosService} from '../../../../services/prestamos.service';
 import {PrestamoModel} from '../../prestamos/prestamo.model';
 import {TiposPagosService} from '../../../../services/tiposPagos.service';
 import {TipoPagoModel} from '../../tiposPagos/tipoPago.model';
+import {PrestamoPagoModel} from '../../prestamosPagos/prestamoPago.model';
 
 @Component({
-  selector: 'app-prestamos-pagos-form',
-  templateUrl: './prestamosPagos-form.component.html',
-  styleUrls: ['./prestamosPagos-form.component.css']
+  selector: 'app-realizar-pago-prestamo-form',
+  templateUrl: './realizarPagoPrestamo-form.component.html',
+  styleUrls: ['./realizarPagoPrestamo-form.component.css']
 })
-export class PrestamosPagosFormComponent implements OnInit {
+export class RealizarPagoPrestamoFormComponent implements OnInit {
   titulo: string;
   lista: string[];
   public errores: string[];
 
+  prestamo: PrestamoModel;
   prestamoPagoModel: PrestamoPagoModel;
 
   prestamos: PrestamoModel[];
@@ -27,23 +27,18 @@ export class PrestamosPagosFormComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private prestamosPagosService: PrestamosPagosService,
-              private prestamosService: PrestamosService,
               private tiposPagosService: TiposPagosService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.prestamo = new PrestamoModel();
+    const datosRetorno = this.router.getNavigatedData();
+    this.prestamo = datosRetorno[0];
+    console.log(this.prestamo.destinoPrestamo);
     this.prestamoPagoModel = new PrestamoPagoModel();
-    this.prestamosService.getAll().subscribe(getAll => {
-        this.prestamos = getAll;
-      },
-      err => {
-        this.errores = err.error.errors as string[];
-        console.error('Codigo del error desde el backend: ' + err.status);
-        console.error(err.error.errors);
-      }
-    );
+
     this.tiposPagosService.getAll().subscribe(getAll => {
         this.tiposPagos = getAll;
       },
@@ -53,7 +48,7 @@ export class PrestamosPagosFormComponent implements OnInit {
         console.error(err.error.errors);
       }
     );
-    this.titulo = 'Crear Prestamo Pago';
+    this.titulo = 'Realizar Pago';
     this.cargar();
     this.lista = ['Prestamos Pago'];
     this.lista.push(this.titulo);
@@ -75,6 +70,8 @@ export class PrestamosPagosFormComponent implements OnInit {
 
   create(): void {
     this.prestamoPagoModel.usuarioId = this.authService.usuario.id;
+    this.prestamoPagoModel.prestamoId = this.prestamo.id;
+    this.prestamoPagoModel.numeroCuota = this.prestamo.cantidadCuotasPagadas + 1;
     console.log(JSON.stringify(this.prestamoPagoModel).toString());
     this.prestamosPagosService.create(this.prestamoPagoModel)
       .subscribe(prestamoPago => {
@@ -106,7 +103,7 @@ export class PrestamosPagosFormComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(['/prestamos-pagos']);
+    this.router.navigate(['/prestamos']);
   }
 
 

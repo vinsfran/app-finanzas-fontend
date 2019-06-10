@@ -1,20 +1,11 @@
 export class PrestamoPagoModel {
   id: number;
-  montoPrestamo: number;
-  fechaDesembolso: Date;
-  fechaVencimiento: Date;
-  interes: number;
-  tasa: number;
-  cantidadCuotas: number;
-  cantidadCuotasPagadas: number;
-  montoCuota: number;
+  numeroCuota: number;
+  fechaPago: Date;
   montoPagado: number;
+  prestamoId: number;
   destinoPrestamo: string;
-  estado: boolean;
-  monedaId: number;
-  monedaNombre: string;
-  monedaCodigo: string;
-  entidadFinancieraId: number;
-  entidadFinancieraNombre: string;
+  tipoPagoId: number;
+  tipoPagoNombre: string;
   usuarioId: number;
 }

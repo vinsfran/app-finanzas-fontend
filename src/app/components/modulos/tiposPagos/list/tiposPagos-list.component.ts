@@ -30,11 +30,11 @@ export class TiposPagosListComponent implements OnInit {
     this.lista = ['Tipos de Pagos', this.titulo];
     this.campo = 'id';
     this.orden = 'asc';
-    this.getTiposPagos(0, 10, this.campo, this.orden);
+    this.getPage(0, 10, this.campo, this.orden);
   }
 
-  getTiposPagos(page: number, size: number, campo: string, orden: string) {
-    this.tiposPagosService.getTiposPagos(page, size, campo, orden).subscribe(
+  getPage(page: number, size: number, campo: string, orden: string) {
+    this.tiposPagosService.getPage(page, size, campo, orden).subscribe(
       response => {
         console.log(response);
         this.page = response.page;
@@ -47,7 +47,7 @@ export class TiposPagosListComponent implements OnInit {
   }
 
   changePage(event) {
-    this.getTiposPagos(event.page, event.size, this.campo, this.orden);
+    this.getPage(event.page, event.size, this.campo, this.orden);
   }
 
   sortingPage(campo: string) {
@@ -57,7 +57,7 @@ export class TiposPagosListComponent implements OnInit {
     } else {
       this.orden = 'asc';
     }
-    this.getTiposPagos(this.page.number, this.page.size, this.campo, this.orden);
+    this.getPage(this.page.number, this.page.size, this.campo, this.orden);
   }
 
   setClasses(campo: string) {
@@ -71,7 +71,7 @@ export class TiposPagosListComponent implements OnInit {
   delete(tipoPago: TipoPagoModel): void {
     swal.fire({
       title: 'Está seguro?',
-      text: `¿Seguro que desea eliminar el Tipo de Pago ${tipoPago.descripcion}?`,
+      text: `¿Seguro que desea eliminar el Tipo de Pago ${tipoPago.nombre}?`,
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -90,7 +90,7 @@ export class TiposPagosListComponent implements OnInit {
             this.tiposPagos = this.tiposPagos.filter(cli => cli !== tipoPago);
             swal.fire(
               'Tipo de Pago Eliminado!',
-              `Tipo de Pago ${tipoPago.descripcion} eliminado con éxito.`,
+              `Tipo de Pago ${tipoPago.nombre} eliminado con éxito.`,
               'success'
             );
           }

@@ -102,6 +102,13 @@ export class PrestamosListComponent implements OnInit {
     });
   }
 
+  pagar(prestamoModel: PrestamoModel) {
+    this.router.navigateByData({
+      url: ['/prestamos/pagar'],
+      data: [prestamoModel]
+    });
+  }
+
   buscar() {
     console.log('Valor en inputDeBuscar: ' + this.inputDeBuscar);
   }

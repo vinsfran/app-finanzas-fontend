@@ -21,17 +21,17 @@ export class TiposPagosFormComponent implements OnInit {
   ngOnInit() {
     this.tipoPagoModel = new TipoPagoModel();
     this.titulo = 'Crear Tipo de Pago';
-    this.cargarTipoPago();
+    this.cargar();
     this.lista = ['Tipos de Pagos'];
     this.lista.push(this.titulo);
   }
 
-  cargarTipoPago(): void {
+  cargar(): void {
     this.activatedRoute.params.subscribe(params => {
       const id = params['id'];
       if (id) {
         this.titulo = 'Editar Tipo de Pago Nro: ' + id;
-        this.tiposPagosService.getTipoPago(id).subscribe((tipoPagoModel) => this.tipoPagoModel = tipoPagoModel);
+        this.tiposPagosService.get(id).subscribe((tipoPagoModel) => this.tipoPagoModel = tipoPagoModel);
       }
     });
   }

@@ -31,15 +31,19 @@
             </div>
           </div>
         </div>
-<!--        {{inputDeBuscar | json}}-->
+        <!--        {{inputDeBuscar | json}}-->
         <div class="row">
           <div class="col-sm-12">
             <table class="table table-bordered table-striped dataTable" *ngIf="prestamos?.length > 0">
               <thead>
               <tr role="row">
-                <th (click)="sortingPage('entidadFinancieraNombre')"
-                    [ngClass]="setClasses('entidadFinancieraNombre')"
+                <th (click)="sortingPage('destinoPrestamo')"
+                    [ngClass]="setClasses('destinoPrestamo')"
                     tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-sort="ascending"
+                    aria-label="Destino del Prestamo: activate to sort column descending">Destino del Prestamo
+                </th>
+                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                     aria-sort="ascending"
                     aria-label="Entidad Financiera: activate to sort column descending">Entidad Financiera
                 </th>
@@ -61,19 +65,35 @@
               </thead>
               <tbody>
               <tr class="odd" role="row" *ngFor="let prestamo of prestamos; let i=index">
+                <td>{{prestamo.destinoPrestamo}}</td>
                 <td>{{prestamo.entidadFinancieraNombre}}</td>
                 <td>{{prestamo.montoCuota}}</td>
                 <td>{{prestamo.montoPrestamo - prestamo.montoPagado}}</td>
                 <td>{{prestamo.monedaCodigo}}</td>
                 <td class="text-right">
                   <button *ngIf="authService.hasRole('ROLE_ADMIN')"
+                          (click)='pagar(prestamo)'
+                          type="button"
+                          class="btn btn-sm btn-success"
+                          title="Realizar Pago"
+                          style="margin-right: 5px">
+                    <i class="fa fa-money"></i>
+                  </button>
+                  <button *ngIf="authService.hasRole('ROLE_ADMIN')"
                           [routerLink]="['/prestamos/form', prestamo.id]"
                           type="button"
-                          class="btn btn-sm btn-light"
+                          class="btn btn-sm btn-info"
+                          title="Ver Detalles"
+                          style="margin-right: 5px">
+                    <i class="fa fa-eye"></i>
+                  </button>
+                  <button *ngIf="authService.hasRole('ROLE_ADMIN')"
+                          [routerLink]="['/prestamos/form', prestamo.id]"
+                          type="button"
+                          class="btn btn-sm btn-warning"
                           title="Editar"
                           style="margin-right: 5px">
                     <i class="fa fa-pencil"></i>
-                    Editar
                   </button>
                   <button *ngIf="authService.hasRole('ROLE_ADMIN')"
                           type="button"
@@ -81,8 +101,7 @@
                           title="Eliminar"
                           (click)='delete(prestamo)'
                           style="margin-right: 5px">
-                    <i class="fa fa-eye"></i>
-                    Eliminar
+                    <i class="fa fa-trash"></i>
                   </button>
                 </td>
               </tr>

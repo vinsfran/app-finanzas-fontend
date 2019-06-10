@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import swal from 'sweetalert2';
-import {PrestamosService} from '../../../../services/prestamos.service';
+import {PrestamosPagosService} from '../../../../services/prestamosPagos.service';
 import {AuthService} from '../../../../services/auth.service';
 import {PrestamoPagoModel} from '../prestamoPago.model';
 import {PageModel} from '../../../../models/new/page.model';
@@ -15,41 +15,41 @@ export class PrestamosPagosListComponent implements OnInit {
 
   titulo: string;
   lista: string[];
-  prestamos: PrestamoPagoModel[];
+  prestamosPagos: PrestamoPagoModel[];
   page: PageModel;
   campo: string;
   orden: string;
 
   inputDeBuscar: string;
 
-  constructor(private prestamosService: PrestamosService, private activatedRoute: ActivatedRoute,
+  constructor(private prestamosPagosService: PrestamosPagosService, private activatedRoute: ActivatedRoute,
               public authService: AuthService, private router: Router) {
 
   }
 
   ngOnInit() {
-    this.titulo = 'Lista de Prestamos';
-    this.lista = ['Prestamos', this.titulo];
+    this.titulo = 'Lista de Prestamos Pagos';
+    this.lista = ['Prestamos Pagos', this.titulo];
     this.campo = 'id';
     this.orden = 'asc';
-    this.getPrestamos(0, 10, this.campo, this.orden);
+    this.getPage(0, 10, this.campo, this.orden);
   }
 
-  getPrestamos(page: number, size: number, campo: string, orden: string) {
-    this.prestamosService.getPrestamos(page, size, campo, orden).subscribe(
+  getPage(page: number, size: number, campo: string, orden: string) {
+    this.prestamosPagosService.getPage(page, size, campo, orden).subscribe(
       response => {
         console.log(response);
         this.page = response.page;
-        this.prestamos = this.page.content;
+        this.prestamosPagos = this.page.content;
       },
       (errors) => {
-        swal.fire('Ocurrió un error al listar los Prestamos', errors.message, 'error');
+        swal.fire('Ocurrió un error al listar los Prestamos Pagos', errors.message, 'error');
       }
     );
   }
 
   changePage(event) {
-    this.getPrestamos(event.page, event.size, this.campo, this.orden);
+    this.getPage(event.page, event.size, this.campo, this.orden);
   }
 
   sortingPage(campo: string) {
@@ -59,7 +59,7 @@ export class PrestamosPagosListComponent implements OnInit {
     } else {
       this.orden = 'asc';
     }
-    this.getPrestamos(this.page.number, this.page.size, this.campo, this.orden);
+    this.getPage(this.page.number, this.page.size, this.campo, this.orden);
   }
 
   setClasses(campo: string) {
@@ -70,10 +70,10 @@ export class PrestamosPagosListComponent implements OnInit {
     return classes;
   }
 
-  delete(prestamo: PrestamoPagoModel): void {
+  delete(prestamoPago: PrestamoPagoModel): void {
     swal.fire({
       title: 'Está seguro?',
-      text: `¿Seguro que desea eliminar el Prestamo Nro ${prestamo.id}?`,
+      text: `¿Seguro que desea eliminar el Prestamo Pago Nro ${prestamoPago.id}?`,
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -86,13 +86,12 @@ export class PrestamosPagosListComponent implements OnInit {
       reverseButtons: true
     }).then((result) => {
       if (result.value) {
-
-        this.prestamosService.delete(prestamo.id).subscribe(
+        this.prestamosPagosService.delete(prestamoPago.id).subscribe(
           response => {
-            this.prestamos = this.prestamos.filter(ro => ro !== prestamo);
+            this.prestamosPagos = this.prestamosPagos.filter(ro => ro !== prestamoPago);
             swal.fire(
-              'Prestamo Eliminado!',
-              `Prestamo Nro ${prestamo.id} eliminado con éxito.`,
+              'Prestamo Pago Eliminado!',
+              `Prestamo Nro ${prestamoPago.id} eliminado con éxito.`,
               'success'
             );
           }

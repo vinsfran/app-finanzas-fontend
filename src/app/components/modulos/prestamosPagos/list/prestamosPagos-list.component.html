@@ -11,11 +11,11 @@
           <div class="col-sm-6">
             <button *ngIf="authService.hasRole('ROLE_ADMIN')"
                     class="btn btn-primary float-left"
-                    [routerLink]="['/prestamos/form']"
+                    [routerLink]="['/prestamos-pagos/form']"
                     title="Agregar nuevo"
                     style="margin-right: 5px">
               <i class="fa fa-plus"></i>
-              Nuevo Prestamo
+              Nuevo Prestamo Pago
             </button>
           </div>
           <div class="col-sm-6">
@@ -34,25 +34,30 @@
 <!--        {{inputDeBuscar | json}}-->
         <div class="row">
           <div class="col-sm-12">
-            <table class="table table-bordered table-striped dataTable" *ngIf="prestamos?.length > 0">
+            <table class="table table-bordered table-striped dataTable" *ngIf="prestamosPagos?.length > 0">
               <thead>
               <tr role="row">
-                <th (click)="sortingPage('entidadFinancieraNombre')"
-                    [ngClass]="setClasses('entidadFinancieraNombre')"
+                <th (click)="sortingPage('id')"
+                    [ngClass]="setClasses('id')"
                     tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                     aria-sort="ascending"
-                    aria-label="Entidad Financiera: activate to sort column descending">Entidad Financiera
+                    aria-label="Id: activate to sort column descending">Id
                 </th>
-                <th (click)="sortingPage('montoCuota')"
-                    [ngClass]="setClasses('montoCuota')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                    aria-label="Cuota: activate to sort column ascending">Cuota
+                <th (click)="sortingPage('destinoPrestamo')"
+                    [ngClass]="setClasses('destinoPrestamo')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="DestinoPrestamo: activate to sort column ascending">DestinoPrestamo
                 </th>
                 <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                    aria-label="Saldo: activate to sort column ascending">Saldo
+                    aria-label="Saldo: activate to sort column ascending">Cuota
                 </th>
-                <th (click)="sortingPage('monedaCodigo')"
-                    [ngClass]="setClasses('monedaCodigo')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                    aria-label="Moneda: activate to sort column ascending">Moneda
+                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Numero de Cuota: activate to sort column ascending">Fecha de pago
+                </th>
+                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Monto Pagado: activate to sort column ascending">Monto Pagado
+                </th>
+                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Tipo de Pago: activate to sort column ascending">Tipo de Pago
                 </th>
                 <th width="20%">
                   Acciones
@@ -60,14 +65,16 @@
               </tr>
               </thead>
               <tbody>
-              <tr class="odd" role="row" *ngFor="let prestamo of prestamos; let i=index">
-                <td>{{prestamo.entidadFinancieraNombre}}</td>
-                <td>{{prestamo.montoCuota}}</td>
-                <td>{{prestamo.montoPrestamo - prestamo.montoPagado}}</td>
-                <td>{{prestamo.monedaCodigo}}</td>
+              <tr class="odd" role="row" *ngFor="let prestamoPago of prestamosPagos; let i=index">
+                <td>{{prestamoPago.id}}</td>
+                <td>{{prestamoPago.destinoPrestamo}}</td>
+                <td>{{prestamoPago.numeroCuota}}</td>
+                <td>{{prestamoPago.fechaPago}}</td>
+                <td>{{prestamoPago.montoPagado}}</td>
+                <td>{{prestamoPago.tipoPagoNombre}}</td>
                 <td class="text-right">
                   <button *ngIf="authService.hasRole('ROLE_ADMIN')"
-                          [routerLink]="['/prestamos/form', prestamo.id]"
+                          [routerLink]="['/prestamos-pagos/form', prestamoPago.id]"
                           type="button"
                           class="btn btn-sm btn-light"
                           title="Editar"
@@ -79,7 +86,7 @@
                           type="button"
                           class="btn btn-sm btn-danger"
                           title="Eliminar"
-                          (click)='delete(prestamo)'
+                          (click)='delete(prestamoPago)'
                           style="margin-right: 5px">
                     <i class="fa fa-eye"></i>
                     Eliminar
