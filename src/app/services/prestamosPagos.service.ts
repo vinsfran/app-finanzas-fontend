@@ -30,6 +30,13 @@ export class PrestamosPagosService {
       this.urlEndPoint + `/page?page=${page}&size=${size}&sort=${campo},${orden}`, {headers: this.httpHeaders});
   }
 
+  getPagosPageByPrestamoId(page: number, size: number, campo: string, orden: string, prestamoId: number) {
+    this.httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.get<ResponseBasePageModel>(
+      this.urlEndPoint + `/page/by-prestamo-id?prestamoId=${prestamoId}&page=${page}&size=${size}&sort=${campo},${orden}`,
+      {headers: this.httpHeaders});
+  }
+
   create(prestamoPagoModel: PrestamoPagoModel): Observable<PrestamoPagoModel> {
     return this.http.post<PrestamoPagoModel>(this.urlEndPoint, prestamoPagoModel).pipe(
       map((response: any) => response.prestamoPago as PrestamoPagoModel),

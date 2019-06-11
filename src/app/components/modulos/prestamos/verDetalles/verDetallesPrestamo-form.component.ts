@@ -22,6 +22,7 @@ export class VerDetallesPrestamoFormComponent implements OnInit {
 
   prestamo: PrestamoModel;
   prestamoPagoModel: PrestamoPagoModel;
+  prestamoId: number;
 
   prestamos: PrestamoModel[];
   tiposPagos: TipoPagoModel[];
@@ -71,15 +72,16 @@ export class VerDetallesPrestamoFormComponent implements OnInit {
           .subscribe((prestamoModel) => {
             this.prestamo = prestamoModel;
             this.prestamoPagoModel.montoPagado = this.prestamo.montoCuota;
+            this.prestamoId = this.prestamo.id;
             this.prestamoPagoModel.fechaPago = new Date();
-            this.getPagosPage(0, 10, this.campo, this.orden);
+            this.getPagosPageByPrestamoId(0, 10, this.campo, this.orden, this.prestamoId);
           });
       }
     });
   }
 
-  getPagosPage(page: number, size: number, campo: string, orden: string) {
-    this.prestamosPagosService.getPage(page, size, campo, orden).subscribe(
+  getPagosPageByPrestamoId(page: number, size: number, campo: string, orden: string, prestamoId: number) {
+    this.prestamosPagosService.getPagosPageByPrestamoId(page, size, campo, orden, prestamoId).subscribe(
       response => {
         console.log(response);
         this.page = response.page;
@@ -92,7 +94,7 @@ export class VerDetallesPrestamoFormComponent implements OnInit {
   }
 
   changePage(event) {
-    this.getPagosPage(event.page, event.size, this.campo, this.orden);
+    this.getPagosPageByPrestamoId(0, 10, this.campo, this.orden, this.prestamoId);
   }
 
   create(): void {

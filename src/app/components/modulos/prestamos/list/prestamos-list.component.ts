@@ -86,7 +86,6 @@ export class PrestamosListComponent implements OnInit {
       reverseButtons: true
     }).then((result) => {
       if (result.value) {
-
         this.prestamosService.delete(prestamo.id).subscribe(
           response => {
             this.prestamos = this.prestamos.filter(ro => ro !== prestamo);

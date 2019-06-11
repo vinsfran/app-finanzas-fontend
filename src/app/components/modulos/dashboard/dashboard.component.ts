@@ -4,6 +4,8 @@ import {ClientesService} from '../../../services/clientes.service';
 import swal from 'sweetalert2';
 import {RolModel} from '../roles/rol.model';
 import {RolesService} from '../../../services/roles.service';
+import {PrestamoModel} from '../prestamos/prestamo.model';
+import {PrestamosService} from '../../../services/prestamos.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,18 +14,36 @@ import {RolesService} from '../../../services/roles.service';
 })
 export class DashboardComponent implements OnInit {
 
+  prestamos: PrestamoModel[];
   clientes: ClienteModel[];
   roles: RolModel[];
 
-  constructor(private clientesService: ClientesService, private rolesService: RolesService) {
+  constructor(private prestamosService: PrestamosService,
+              private clientesService: ClientesService,
+              private rolesService: RolesService) {
   }
 
   ngOnInit() {
+    this.prestamos = new Array();
     this.clientes = new Array();
     this.roles = new Array();
+    this.getAllPrestamos();
     this.getAllClientes();
     this.getAllRoles();
   }
+
+  getAllPrestamos() {
+    this.prestamosService.getAll().subscribe(
+      response => {
+        console.log(response);
+        this.prestamos = response;
+      },
+      (errors) => {
+        swal.fire('Ocurrió un error al Obtener los prestamos', errors.message, 'error');
+      }
+    );
+  }
+
 
   getAllClientes() {
     this.clientesService.getAll().subscribe(
