@@ -1,5 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
+import {DatePipe, registerLocaleData} from '@angular/common';
+import localeEsPy from '@angular/common/locales/es-PY';
 
 import {AppComponent} from './app.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -16,6 +18,8 @@ import {ConfigService} from './services/config.service';
 import {AuthInterceptor} from './Interceptors/auth.interceptor';
 import {TokenInterceptor} from './Interceptors/token.Interceptor';
 
+registerLocaleData(localeEsPy);
+
 @NgModule({
   declarations: [
     AppComponent
@@ -30,6 +34,8 @@ import {TokenInterceptor} from './Interceptors/token.Interceptor';
     DataTablesModule
   ],
   providers: [
+    DatePipe,
+    {provide: LOCALE_ID, useValue: 'es_PY'},
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     AuthorizationGuard,

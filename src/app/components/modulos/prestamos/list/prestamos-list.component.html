@@ -47,6 +47,10 @@
                     aria-sort="ascending"
                     aria-label="Entidad Financiera: activate to sort column descending">Entidad Financiera
                 </th>
+                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-sort="ascending"
+                    aria-label="Monto del Prestamo: activate to sort column descending">Monto del Prestamo
+                </th>
                 <th (click)="sortingPage('montoCuota')"
                     [ngClass]="setClasses('montoCuota')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                     aria-label="Cuota: activate to sort column ascending">Cuota
@@ -67,12 +71,13 @@
               <tr class="odd" role="row" *ngFor="let prestamo of prestamos; let i=index">
                 <td>{{prestamo.destinoPrestamo}}</td>
                 <td>{{prestamo.entidadFinancieraNombre}}</td>
+                <td>{{prestamo.montoPrestamo}}</td>
                 <td>{{prestamo.montoCuota}}</td>
                 <td>{{prestamo.montoPrestamo - prestamo.montoPagado}}</td>
                 <td>{{prestamo.monedaCodigo}}</td>
                 <td class="text-right">
                   <button *ngIf="authService.hasRole('ROLE_ADMIN')"
-                          (click)='pagar(prestamo)'
+                          [routerLink]="['/prestamos/pagar', prestamo.id]"
                           type="button"
                           class="btn btn-sm btn-success"
                           title="Realizar Pago"
@@ -80,7 +85,7 @@
                     <i class="fa fa-money"></i>
                   </button>
                   <button *ngIf="authService.hasRole('ROLE_ADMIN')"
-                          [routerLink]="['/prestamos/form', prestamo.id]"
+                          [routerLink]="['/prestamos/detalles', prestamo.id]"
                           type="button"
                           class="btn btn-sm btn-info"
                           title="Ver Detalles"

@@ -4,6 +4,7 @@ import {PrestamosListComponent} from './list/prestamos-list.component';
 import {PrestamosComponent} from './prestamos.component';
 import {PrestamosFormComponent} from './form/prestamos-form.component';
 import {RealizarPagoPrestamoFormComponent} from './realizarPagoPrestamo/realizarPagoPrestamo-form.component';
+import {VerDetallesPrestamoFormComponent} from './verDetalles/verDetallesPrestamo-form.component';
 
 const routes: Routes = [
   {
@@ -23,8 +24,12 @@ const routes: Routes = [
         component: PrestamosFormComponent
       },
       {
-        path: 'prestamos/pagar',
+        path: 'prestamos/pagar/:id',
         component: RealizarPagoPrestamoFormComponent
+      },
+      {
+        path: 'prestamos/detalles/:id',
+        component: VerDetallesPrestamoFormComponent
       }
 
     ]

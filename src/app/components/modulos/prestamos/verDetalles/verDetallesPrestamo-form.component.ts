@@ -8,14 +8,14 @@ import {TiposPagosService} from '../../../../services/tiposPagos.service';
 import {TipoPagoModel} from '../../tiposPagos/tipoPago.model';
 import {PrestamoPagoModel} from '../../prestamosPagos/prestamoPago.model';
 import {PrestamosService} from '../../../../services/prestamos.service';
-import {DatePipe} from '@angular/common';
+import {PageModel} from '../../../../models/new/page.model';
 
 @Component({
-  selector: 'app-realizar-pago-prestamo-form',
-  templateUrl: './realizarPagoPrestamo-form.component.html',
-  styleUrls: ['./realizarPagoPrestamo-form.component.css']
+  selector: 'app-detalles-prestamo-form',
+  templateUrl: './verDetallesPrestamo-form.component.html',
+  styleUrls: ['./verDetallesPrestamo-form.component.css']
 })
-export class RealizarPagoPrestamoFormComponent implements OnInit {
+export class VerDetallesPrestamoFormComponent implements OnInit {
   titulo: string;
   lista: string[];
   public errores: string[];
@@ -25,21 +25,23 @@ export class RealizarPagoPrestamoFormComponent implements OnInit {
 
   prestamos: PrestamoModel[];
   tiposPagos: TipoPagoModel[];
-  dateString: string;
+  prestamosPagos: PrestamoPagoModel[];
+
+  campo: string;
+  orden: string;
+  page: PageModel;
 
   constructor(private authService: AuthService,
               private prestamosPagosService: PrestamosPagosService,
               private prestamosService: PrestamosService,
               private tiposPagosService: TiposPagosService,
               private router: Router,
-              private activatedRoute: ActivatedRoute,
-              private datePipe: DatePipe) {
+              private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
-
-    this.dateString = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
-
+    this.campo = 'id';
+    this.orden = 'asc';
     this.prestamo = new PrestamoModel();
     this.cargarPrestamo();
 
@@ -55,7 +57,7 @@ export class RealizarPagoPrestamoFormComponent implements OnInit {
         console.error(err.error.errors);
       }
     );
-    this.titulo = 'Realizar Pago';
+    this.titulo = 'Ver Detalles';
     this.lista = ['Prestamos Pago'];
     this.lista.push(this.titulo);
   }
@@ -70,25 +72,28 @@ export class RealizarPagoPrestamoFormComponent implements OnInit {
             this.prestamo = prestamoModel;
             this.prestamoPagoModel.montoPagado = this.prestamo.montoCuota;
             this.prestamoPagoModel.fechaPago = new Date();
-            console.log('ENTRA: ' + this.prestamoPagoModel.fechaPago);
-            console.log('ENTRA2: ' + this.dateString);
+            this.getPagosPage(0, 10, this.campo, this.orden);
           });
       }
     });
   }
 
-  // cargar(): void {
-  //   this.activatedRoute.params.subscribe(params => {
-  //     const id = params['id'];
-  //     if (id) {
-  //       this.titulo = 'Editar Prestamo Pago Nro: ' + id;
-  //       this.prestamosPagosService.get(id)
-  //         .subscribe((prestamoPagoModel) => {
-  //           this.prestamoPagoModel = prestamoPagoModel;
-  //         });
-  //     }
-  //   });
-  // }
+  getPagosPage(page: number, size: number, campo: string, orden: string) {
+    this.prestamosPagosService.getPage(page, size, campo, orden).subscribe(
+      response => {
+        console.log(response);
+        this.page = response.page;
+        this.prestamosPagos = this.page.content;
+      },
+      (errors) => {
+        swal.fire('Ocurrió un error al listar los Prestamos Pagos', errors.message, 'error');
+      }
+    );
+  }
+
+  changePage(event) {
+    this.getPagosPage(event.page, event.size, this.campo, this.orden);
+  }
 
   create(): void {
     this.prestamoPagoModel.usuarioId = this.authService.usuario.id;
