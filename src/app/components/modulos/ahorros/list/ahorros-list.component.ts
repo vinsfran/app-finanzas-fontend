@@ -1,53 +1,55 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import swal from 'sweetalert2';
+import {AhorrosService} from '../../../../services/ahorros.service';
 import {AuthService} from '../../../../services/auth.service';
-import {TipoAhorroModel} from '../tipoAhorro.model';
+import {AhorroModel} from '../ahorro.model';
 import {PageModel} from '../../../../models/new/page.model';
-import {TiposAhorrosService} from '../../../../services/tiposAhorros.service';
 
 @Component({
-  selector: 'app-tipos-ahorros-list',
-  templateUrl: './tiposAhorros-list.component.html',
-  styleUrls: ['./tiposAhorros-list.component.css']
+  selector: 'app-ahorros-list',
+  templateUrl: './ahorros-list.component.html',
+  styleUrls: ['./ahorros-list.component.css']
 })
-export class TiposAhorrosListComponent implements OnInit {
+export class AhorrosListComponent implements OnInit {
 
   titulo: string;
   lista: string[];
-  tiposAhorros: TipoAhorroModel[];
+  ahorros: AhorroModel[];
   page: PageModel;
   campo: string;
   orden: string;
 
-  constructor(private tiposAhorrosService: TiposAhorrosService, private activatedRoute: ActivatedRoute,
+  inputDeBuscar: string;
+
+  constructor(private ahorrosService: AhorrosService, private activatedRoute: ActivatedRoute,
               public authService: AuthService, private router: Router) {
 
   }
 
   ngOnInit() {
-    this.titulo = 'Lista de Tipos de Ahorros';
-    this.lista = ['Tipos de Ahorros', this.titulo];
+    this.titulo = 'Lista de Ahorros';
+    this.lista = ['Ahorros', this.titulo];
     this.campo = 'id';
     this.orden = 'asc';
-    this.getTiposAhorros(0, 10, this.campo, this.orden);
+    this.getAhorros(0, 10, this.campo, this.orden);
   }
 
-  getTiposAhorros(page: number, size: number, campo: string, orden: string) {
-    this.tiposAhorrosService.getTiposAhorros(page, size, campo, orden).subscribe(
+  getAhorros(page: number, size: number, campo: string, orden: string) {
+    this.ahorrosService.getAhorros(page, size, campo, orden).subscribe(
       response => {
         console.log(response);
         this.page = response.page;
-        this.tiposAhorros = this.page.content;
+        this.ahorros = this.page.content;
       },
       (errors) => {
-        swal.fire('Ocurrió un error al listar los Tipos de Ahorros', errors.message, 'error');
+        swal.fire('Ocurrió un error al listar los Ahorros', errors.message, 'error');
       }
     );
   }
 
   changePage(event) {
-    this.getTiposAhorros(event.page, event.size, this.campo, this.orden);
+    this.getAhorros(event.page, event.size, this.campo, this.orden);
   }
 
   sortingPage(campo: string) {
@@ -57,7 +59,7 @@ export class TiposAhorrosListComponent implements OnInit {
     } else {
       this.orden = 'asc';
     }
-    this.getTiposAhorros(this.page.number, this.page.size, this.campo, this.orden);
+    this.getAhorros(this.page.number, this.page.size, this.campo, this.orden);
   }
 
   setClasses(campo: string) {
@@ -68,10 +70,10 @@ export class TiposAhorrosListComponent implements OnInit {
     return classes;
   }
 
-  delete(tipoAhorro: TipoAhorroModel): void {
+  delete(ahorro: AhorroModel): void {
     swal.fire({
       title: 'Está seguro?',
-      text: `¿Seguro que desea eliminar el Tipo de Ahorro ${tipoAhorro.nombre}?`,
+      text: `¿Seguro que desea eliminar el Ahorro Nro ${ahorro.id}?`,
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -84,13 +86,12 @@ export class TiposAhorrosListComponent implements OnInit {
       reverseButtons: true
     }).then((result) => {
       if (result.value) {
-
-        this.tiposAhorrosService.delete(tipoAhorro.id).subscribe(
+        this.ahorrosService.delete(ahorro.id).subscribe(
           response => {
-            this.tiposAhorros = this.tiposAhorros.filter(cli => cli !== tipoAhorro);
+            this.ahorros = this.ahorros.filter(ro => ro !== ahorro);
             swal.fire(
-              'Tipo de Ahorro Eliminado!',
-              `Tipo de Ahorro ${tipoAhorro.nombre} eliminado con éxito.`,
+              'Ahorro Eliminado!',
+              `Ahorro Nro ${ahorro.id} eliminado con éxito.`,
               'success'
             );
           }
@@ -98,5 +99,16 @@ export class TiposAhorrosListComponent implements OnInit {
 
       }
     });
+  }
+
+  pagar(ahorroModel: AhorroModel) {
+    this.router.navigateByData({
+      url: ['/ahorros/pagar'],
+      data: [ahorroModel]
+    });
+  }
+
+  buscar() {
+    console.log('Valor en inputDeBuscar: ' + this.inputDeBuscar);
   }
 }

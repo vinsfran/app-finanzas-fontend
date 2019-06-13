@@ -10,7 +10,7 @@ import {ResponseBasePageModel} from '../models/new/responseBasePage.model';
 @Injectable()
 export class MonedasService {
 
-  private urlEndPoint: string = '/api/monedas';
+  readonly urlEndPoint = '/api/monedas';
 
   private httpHeaders: HttpHeaders;
 

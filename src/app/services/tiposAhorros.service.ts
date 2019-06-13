@@ -10,7 +10,7 @@ import {TipoAhorroModel} from '../components/modulos/tiposAhorros/tipoAhorro.mod
 @Injectable()
 export class TiposAhorrosService {
 
-  private urlEndPoint: string = '/api/tipoAhorros';
+  readonly urlEndPoint = '/api/tipoAhorros';
 
   private httpHeaders: HttpHeaders;
 

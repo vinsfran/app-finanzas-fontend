@@ -40,7 +40,7 @@ export class TiposCobrosFormComponent implements OnInit {
     this.tiposCobrosService.create(this.tipoCobroModel)
       .subscribe(tipoCobro => {
           this.router.navigate(['/tipos-cobros']);
-          swal.fire('Nuevo Tipo de Cobro', `El Tipo de Cobro: ${tipoCobro.descripcion} ha sido creado con exito`, 'success');
+          swal.fire('Nuevo Tipo de Cobro', `El Tipo de Cobro: ${tipoCobro.nombre} ha sido creado con exito`, 'success');
         },
         err => {
           this.errores = err.error.errors as string[];

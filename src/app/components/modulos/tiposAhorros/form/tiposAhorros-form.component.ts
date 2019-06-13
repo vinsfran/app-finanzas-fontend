@@ -40,7 +40,7 @@ export class TiposAhorrosFormComponent implements OnInit {
     this.tiposAhorrosService.create(this.tipoAhorroModel)
       .subscribe(tipoAhorro => {
           this.router.navigate(['/tipos-ahorros']);
-          swal.fire('Nuevo Tipo de Ahorro', `El Tipo de Ahorro: ${tipoAhorro.descripcion} ha sido creado con exito`, 'success');
+          swal.fire('Nuevo Tipo de Ahorro', `El Tipo de Ahorro: ${tipoAhorro.nombre} ha sido creado con exito`, 'success');
         },
         err => {
           this.errores = err.error.errors as string[];

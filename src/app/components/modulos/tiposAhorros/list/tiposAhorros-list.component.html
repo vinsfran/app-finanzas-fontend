@@ -37,10 +37,6 @@
                     aria-sort="ascending"
                     aria-label="ID: activate to sort column descending">ID
                 </th>
-                <th (click)="sortingPage('descripcion')"
-                    [ngClass]="setClasses('descripcion')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                    aria-label="Descripcion: activate to sort column ascending">Descripcion
-                </th>
                 <th (click)="sortingPage('nombre')"
                     [ngClass]="setClasses('nombre')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                     aria-label="Codigo: activate to sort column ascending">Nombre
@@ -54,7 +50,6 @@
               <tbody>
               <tr class="odd" role="row" *ngFor="let tipoAhorro of tiposAhorros; let i=index">
                 <td>{{tipoAhorro.id}}</td>
-                <td>{{tipoAhorro.descripcion}}</td>
                 <td>{{tipoAhorro.nombre}}</td>
                 <td class="text-right">
                   <button *ngIf="authService.hasRole('ROLE_ADMIN')"

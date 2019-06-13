@@ -10,7 +10,7 @@ import {TipoCobroModel} from '../components/modulos/tiposCobros/tipoCobro.model'
 @Injectable()
 export class TiposCobrosService {
 
-  private urlEndPoint: string = '/api/tipoCobros';
+  readonly urlEndPoint = '/api/tipoCobros';
 
   private httpHeaders: HttpHeaders;
 
@@ -48,7 +48,7 @@ export class TiposCobrosService {
   //   return this.http.get<Region[]>(this.urlEndPoint + '/regiones');
   // }
 
-  getAll() {
+  getAll(): Observable<TipoCobroModel[]> {
     this.httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.get<TipoCobroModel[]>(
       this.urlEndPoint + '/', {headers: this.httpHeaders});

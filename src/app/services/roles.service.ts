@@ -10,7 +10,7 @@ import {RolModel} from '../components/modulos/roles/rol.model';
 @Injectable()
 export class RolesService {
 
-  private urlEndPoint: string = '/api/roles';
+  readonly urlEndPoint = '/api/roles';
 
   private httpHeaders: HttpHeaders;
 

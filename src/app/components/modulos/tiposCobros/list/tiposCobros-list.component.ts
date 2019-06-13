@@ -71,7 +71,7 @@ export class TiposCobrosListComponent implements OnInit {
   delete(tipoCobro: TipoCobroModel): void {
     swal.fire({
       title: 'Está seguro?',
-      text: `¿Seguro que desea eliminar el Tipo de Cobro ${tipoCobro.descripcion}?`,
+      text: `¿Seguro que desea eliminar el Tipo de Cobro ${tipoCobro.nombre}?`,
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -90,7 +90,7 @@ export class TiposCobrosListComponent implements OnInit {
             this.tiposCobros = this.tiposCobros.filter(cli => cli !== tipoCobro);
             swal.fire(
               'Tipo de Cobro Eliminado!',
-              `Tipo de Cobro ${tipoCobro.descripcion} eliminado con éxito.`,
+              `Tipo de Cobro ${tipoCobro.nombre} eliminado con éxito.`,
               'success'
             );
           }

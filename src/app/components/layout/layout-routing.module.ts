@@ -8,8 +8,6 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent,
     children: [
-      // { path: '', redirectTo: 'dashboard' },
-      // {path: '', redirectTo: 'inicio'},
       // Ruta para Dashboard
       {
         path: '',
@@ -68,6 +66,12 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: '../modulos/prestamosPagos/prestamosPagos.module#PrestamosPagosModule',
+        canActivate: [AuthorizationGuard]
+      },
+      // Ruta para Ahorros
+      {
+        path: '',
+        loadChildren: '../modulos/ahorros/ahorros.module#AhorrosModule',
         canActivate: [AuthorizationGuard]
       },
     ]

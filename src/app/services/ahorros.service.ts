@@ -3,14 +3,14 @@ import {Observable, throwError} from 'rxjs';
 import {HttpClient, HttpEvent, HttpHeaders, HttpRequest} from '@angular/common/http';
 import {catchError, map, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
+import {AhorroModel} from '../components/modulos/ahorros/ahorro.model';
 import {ResponseBasePageModel} from '../models/new/responseBasePage.model';
-import {TipoPagoModel} from '../components/modulos/tiposPagos/tipoPago.model';
 
 
 @Injectable()
-export class TiposPagosService {
+export class AhorrosService {
 
-  readonly urlEndPoint = '/api/tipos-pagos';
+  readonly urlEndPoint = '/api/ahorros';
 
   private httpHeaders: HttpHeaders;
 
@@ -19,21 +19,19 @@ export class TiposPagosService {
 
   getAll() {
     this.httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.get<TipoPagoModel[]>(
-      this.urlEndPoint + '/', {headers: this.httpHeaders});
+    return this.http.get<AhorroModel[]>(
+      this.urlEndPoint, {headers: this.httpHeaders});
   }
 
-  getPage(page: number, size: number, campo: string, orden: string) {
-    // return of(CLIENTES);
+  getAhorros(page: number, size: number, campo: string, orden: string) {
     this.httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.get<ResponseBasePageModel>(
       this.urlEndPoint + `/page?page=${page}&size=${size}&sort=${campo},${orden}`, {headers: this.httpHeaders});
   }
 
-  create(tipoPago: TipoPagoModel): Observable<TipoPagoModel> {
-    // return this.http.post<TiposPago>(this.urlEndPoint, tipoPago, {headers: this.agregarAuthorizarionHeader()}).pipe(
-    return this.http.post<TipoPagoModel>(this.urlEndPoint, tipoPago).pipe(
-      map((response: any) => response.tipoPago as TipoPagoModel),
+  create(ahorro: AhorroModel): Observable<AhorroModel> {
+    return this.http.post<AhorroModel>(this.urlEndPoint, ahorro).pipe(
+      map((response: any) => response.ahorro as AhorroModel),
       catchError(e => {
         if (e.status === 400) {
           return throwError(e);
@@ -46,12 +44,11 @@ export class TiposPagosService {
     );
   }
 
-  get(id): Observable<TipoPagoModel> {
-    // return this.http.get<TiposPago>(`${this.urlEndPoint}/${id}`, {headers: this.agregarAuthorizarionHeader()}).pipe(
-    return this.http.get<TipoPagoModel>(`${this.urlEndPoint}/${id}`).pipe(
+  getAhorro(id: number): Observable<AhorroModel> {
+    return this.http.get<AhorroModel>(`${this.urlEndPoint}/${id}`).pipe(
       catchError(e => {
         if (e.status !== 401 && e.error.mensaje) {
-          this.router.navigate(['/tipos-pagos']);
+          this.router.navigate(['/ahorros']);
           console.error(e.error.mensaje);
         }
         return throwError(e);
@@ -59,9 +56,8 @@ export class TiposPagosService {
     );
   }
 
-  update(tipoPago: TipoPagoModel): Observable<any> {
-    // return this.http.put<any>(`${this.urlEndPoint}/${tipoPago.id}`, tipoPago, {headers: this.agregarAuthorizarionHeader()}).pipe(
-    return this.http.put<any>(`${this.urlEndPoint}/${tipoPago.id}`, tipoPago).pipe(
+  update(ahorro: AhorroModel): Observable<any> {
+    return this.http.put<any>(this.urlEndPoint, ahorro).pipe(
       catchError(e => {
         if (e.status === 400) {
           return throwError(e);
@@ -74,9 +70,8 @@ export class TiposPagosService {
     );
   }
 
-  delete(id: number): Observable<TipoPagoModel> {
-    // return this.http.delete<TiposPago>(`${this.urlEndPoint}/${id}`, {headers: this.agregarAuthorizarionHeader()}).pipe(
-    return this.http.delete<TipoPagoModel>(`${this.urlEndPoint}/${id}`).pipe(
+  delete(id: number): Observable<AhorroModel> {
+    return this.http.delete<AhorroModel>(`${this.urlEndPoint}/${id}`).pipe(
       catchError(e => {
         if (e.error.mensaje) {
           console.error(e.error.mensaje);

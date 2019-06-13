@@ -10,7 +10,7 @@ import {ResponseBasePageModel} from '../models/new/responseBasePage.model';
 @Injectable()
 export class ClientesService {
 
-  private urlEndPoint: string = '/api/clientes';
+  readonly urlEndPoint = '/api/clientes';
 
   private httpHeaders: HttpHeaders;
 

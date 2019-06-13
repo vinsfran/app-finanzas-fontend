@@ -6,6 +6,8 @@ import {RolModel} from '../roles/rol.model';
 import {RolesService} from '../../../services/roles.service';
 import {PrestamoModel} from '../prestamos/prestamo.model';
 import {PrestamosService} from '../../../services/prestamos.service';
+import {AhorroModel} from '../ahorros/ahorro.model';
+import {AhorrosService} from '../../../services/ahorros.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,22 +16,38 @@ import {PrestamosService} from '../../../services/prestamos.service';
 })
 export class DashboardComponent implements OnInit {
 
+  ahorros: AhorroModel[];
   prestamos: PrestamoModel[];
   clientes: ClienteModel[];
   roles: RolModel[];
 
-  constructor(private prestamosService: PrestamosService,
+  constructor(private ahorrosService: AhorrosService,
+              private prestamosService: PrestamosService,
               private clientesService: ClientesService,
               private rolesService: RolesService) {
   }
 
   ngOnInit() {
+    this.ahorros = new Array();
     this.prestamos = new Array();
     this.clientes = new Array();
     this.roles = new Array();
+    this.getAllAhorros();
     this.getAllPrestamos();
     this.getAllClientes();
     this.getAllRoles();
+  }
+
+  getAllAhorros() {
+    this.ahorrosService.getAll().subscribe(
+      response => {
+        console.log(response);
+        this.ahorros = response;
+      },
+      (errors) => {
+        swal.fire('Ocurrió un error al Obtener los ahorros', errors.message, 'error');
+      }
+    );
   }
 
   getAllPrestamos() {
@@ -43,7 +61,6 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
-
 
   getAllClientes() {
     this.clientesService.getAll().subscribe(

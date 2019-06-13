@@ -1,0 +1,126 @@
+<app-content-header
+  [titulo]="titulo"
+  [lista]="lista">
+</app-content-header>
+<section class="content">
+
+  <div class="box">
+    <div class="box-body">
+      <div class="dataTables_wrapper form-inline dt-bootstrap">
+        <div class="row" style="padding-bottom: 5px">
+          <div class="col-sm-6">
+            <button *ngIf="authService.hasRole('ROLE_ADMIN')"
+                    class="btn btn-primary float-left"
+                    [routerLink]="['/ahorros/form']"
+                    title="Agregar nuevo"
+                    style="margin-right: 5px">
+              <i class="fa fa-plus"></i>
+              Nuevo Prestamo
+            </button>
+          </div>
+          <div class="col-sm-6">
+            <div id="example1_filter" class="dataTables_filter">
+              <label>Buscar:
+                <input class="form-control input-sm"
+                       placeholder=""
+                       aria-controls="example1"
+                       type="search"
+                       [(ngModel)]="inputDeBuscar"
+                       (keyup.enter)="buscar()">
+              </label>
+            </div>
+          </div>
+        </div>
+        <!--        {{inputDeBuscar | json}}-->
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="table table-bordered table-striped dataTable" *ngIf="ahorros?.length > 0">
+              <thead>
+              <tr role="row">
+                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-sort="ascending"
+                    aria-label="Tipo Ahorro: activate to sort column descending">Tipo Ahorro
+                </th>
+                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-sort="ascending"
+                    aria-label="Capital: activate to sort column descending">Capital
+                </th>
+                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-sort="ascending"
+                    aria-label="Moneda: activate to sort column descending">Moneda
+                </th>
+                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Tipo de Cobro: activate to sort column ascending">Tipo de Cobro
+                </th>
+                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Tasa: activate to sort column ascending">Tasa
+                </th>
+                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Cuota: activate to sort column ascending">Cuota
+                </th>
+                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Moneda: activate to sort column ascending">Vencimiento
+                </th>
+                <th width="20%">
+                  Acciones
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr class="odd" role="row" *ngFor="let ahorro of ahorros; let i=index">
+                <td>{{ahorro.tipoAhorroNombre}}</td>
+                <td>{{ahorro.montoCapital}}</td>
+                <td>{{ahorro.monedaCodigo}}</td>
+                <td>{{ahorro.tipoCobroNombre}}</td>
+                <td>{{ahorro.tasa}}</td>
+                <td>{{ahorro.montoCuota}}</td>
+                <td>{{ahorro.fechaVencimiento}}</td>
+                <td class="text-right">
+                  <button *ngIf="authService.hasRole('ROLE_ADMIN')"
+                          [routerLink]="['/ahorros/pagar', ahorro.id]"
+                          type="button"
+                          class="btn btn-sm btn-success"
+                          title="Realizar Pago"
+                          style="margin-right: 5px">
+                    <i class="fa fa-money"></i>
+                  </button>
+                  <button *ngIf="authService.hasRole('ROLE_ADMIN')"
+                          [routerLink]="['/ahorros/detalles', ahorro.id]"
+                          type="button"
+                          class="btn btn-sm btn-info"
+                          title="Ver Detalles"
+                          style="margin-right: 5px">
+                    <i class="fa fa-eye"></i>
+                  </button>
+                  <button *ngIf="authService.hasRole('ROLE_ADMIN')"
+                          [routerLink]="['/ahorros/form', ahorro.id]"
+                          type="button"
+                          class="btn btn-sm btn-warning"
+                          title="Editar"
+                          style="margin-right: 5px">
+                    <i class="fa fa-pencil"></i>
+                  </button>
+                  <button *ngIf="authService.hasRole('ROLE_ADMIN')"
+                          type="button"
+                          class="btn btn-sm btn-danger"
+                          title="Eliminar"
+                          (click)='delete(ahorro)'
+                          style="margin-right: 5px">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <app-pagination [page]="page" (paginationEvent)="changePage($event)"></app-pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
