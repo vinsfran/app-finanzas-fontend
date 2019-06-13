@@ -74,6 +74,12 @@ const routes: Routes = [
         loadChildren: '../modulos/ahorros/ahorros.module#AhorrosModule',
         canActivate: [AuthorizationGuard]
       },
+      // Ruta para Conceptos
+      {
+        path: '',
+        loadChildren: '../modulos/conceptos/conceptos.module#ConceptosModule',
+        canActivate: [AuthorizationGuard]
+      },
     ]
 
   }
