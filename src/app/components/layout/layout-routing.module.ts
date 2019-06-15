@@ -80,6 +80,12 @@ const routes: Routes = [
         loadChildren: '../modulos/conceptos/conceptos.module#ConceptosModule',
         canActivate: [AuthorizationGuard]
       },
+      // Ruta para Movimientos
+      {
+        path: '',
+        loadChildren: '../modulos/movimientos/movimientos.module#MovimientosModule',
+        canActivate: [AuthorizationGuard]
+      },
     ]
 
   }

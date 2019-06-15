@@ -2,52 +2,52 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import swal from 'sweetalert2';
 import {AuthService} from '../../../../services/auth.service';
-import {MonedaModel} from '../moneda.model';
+import {MovimientoModel} from '../movimiento.model';
 import {PageModel} from '../../../../models/new/page.model';
-import {MonedasService} from '../../../../services/monedas.service';
+import {MovimientosService} from '../../../../services/movimientos.service';
 
 @Component({
-  selector: 'app-monedas-list',
-  templateUrl: './monedas-list.component.html',
-  styleUrls: ['./monedas-list.component.css']
+  selector: 'app-movimientos-list',
+  templateUrl: './movimientos-list.component.html',
+  styleUrls: ['./movimientos-list.component.css']
 })
-export class MonedasListComponent implements OnInit {
+export class MovimientosListComponent implements OnInit {
 
   titulo: string;
   lista: string[];
-  monedas: MonedaModel[];
+  movimientos: MovimientoModel[];
   page: PageModel;
   campo: string;
   orden: string;
 
-  constructor(private monedasService: MonedasService, private activatedRoute: ActivatedRoute,
+  constructor(private movimientosService: MovimientosService, private activatedRoute: ActivatedRoute,
               public authService: AuthService, private router: Router) {
 
   }
 
   ngOnInit() {
-    this.titulo = 'Lista de Monedas';
-    this.lista = ['Monedas', this.titulo];
+    this.titulo = 'Lista de Movimientos';
+    this.lista = ['Movimientos', this.titulo];
     this.campo = 'id';
     this.orden = 'asc';
-    this.getMonedas(0, 10, this.campo, this.orden);
+    this.getMovimientos(0, 10, this.campo, this.orden);
   }
 
-  getMonedas(page: number, size: number, campo: string, orden: string) {
-    this.monedasService.getMonedas(page, size, campo, orden).subscribe(
+  getMovimientos(page: number, size: number, campo: string, orden: string) {
+    this.movimientosService.getPage(page, size, campo, orden).subscribe(
       response => {
         console.log(response);
         this.page = response.page;
-        this.monedas = this.page.content;
+        this.movimientos = this.page.content;
       },
       (errors) => {
-        swal.fire('Ocurrió un error al listar las Monedas', errors.message, 'error');
+        swal.fire('Ocurrió un error al listar los Movimientos', errors.message, 'error');
       }
     );
   }
 
   changePage(event) {
-    this.getMonedas(event.page, event.size, this.campo, this.orden);
+    this.getMovimientos(event.page, event.size, this.campo, this.orden);
   }
 
   sortingPage(campo: string) {
@@ -57,7 +57,7 @@ export class MonedasListComponent implements OnInit {
     } else {
       this.orden = 'asc';
     }
-    this.getMonedas(this.page.number, this.page.size, this.campo, this.orden);
+    this.getMovimientos(this.page.number, this.page.size, this.campo, this.orden);
   }
 
   setClasses(campo: string) {
@@ -68,10 +68,10 @@ export class MonedasListComponent implements OnInit {
     return classes;
   }
 
-  delete(moneda: MonedaModel): void {
+  delete(movimiento: MovimientoModel): void {
     swal.fire({
       title: 'Está seguro?',
-      text: `¿Seguro que desea eliminar la moneda ${moneda.nombre}?`,
+      text: `¿Seguro que desea eliminar el movimiento ${movimiento.id}?`,
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -85,12 +85,12 @@ export class MonedasListComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
 
-        this.monedasService.delete(moneda.id).subscribe(
+        this.movimientosService.delete(movimiento.id).subscribe(
           response => {
-            this.monedas = this.monedas.filter(cli => cli !== moneda);
+            this.movimientos = this.movimientos.filter(cli => cli !== movimiento);
             swal.fire(
-              'Moneda Eliminado!',
-              `Moneda ${moneda.nombre} eliminada con éxito.`,
+              'Movimiento Eliminado!',
+              `Movimiento ${movimiento.id} eliminado con éxito.`,
               'success'
             );
           }

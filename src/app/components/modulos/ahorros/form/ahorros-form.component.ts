@@ -103,7 +103,6 @@ export class AhorrosFormComponent implements OnInit {
 
   create(): void {
     this.ahorroModel.usuarioId = this.authService.usuario.id;
-    console.log(JSON.stringify(this.ahorroModel).toString());
     this.ahorrosService.create(this.ahorroModel)
       .subscribe(ahorro => {
           this.router.navigate(['/ahorros']);
