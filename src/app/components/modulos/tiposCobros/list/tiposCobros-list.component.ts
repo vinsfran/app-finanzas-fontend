@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import swal from 'sweetalert2';
 import {AuthService} from '../../../../services/auth.service';
 import {TipoCobroModel} from '../tipoCobro.model';
-import {PageModel} from '../../../../models/new/page.model';
+import {PageModel} from '../../widgets/page.model';
 import {TiposCobrosService} from '../../../../services/tiposCobros.service';
 
 @Component({
@@ -36,7 +36,6 @@ export class TiposCobrosListComponent implements OnInit {
   getTiposCobros(page: number, size: number, campo: string, orden: string) {
     this.tiposCobrosService.getTiposCobros(page, size, campo, orden).subscribe(
       response => {
-        console.log(response);
         this.page = response.page;
         this.tiposCobros = this.page.content;
       },

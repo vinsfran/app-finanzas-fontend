@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import swal from 'sweetalert2';
 import {AuthService} from '../../../../services/auth.service';
 import {TipoPagoModel} from '../tipoPago.model';
-import {PageModel} from '../../../../models/new/page.model';
+import {PageModel} from '../../widgets/page.model';
 import {TiposPagosService} from '../../../../services/tiposPagos.service';
 
 @Component({
@@ -36,7 +36,6 @@ export class TiposPagosListComponent implements OnInit {
   getPage(page: number, size: number, campo: string, orden: string) {
     this.tiposPagosService.getPage(page, size, campo, orden).subscribe(
       response => {
-        console.log(response);
         this.page = response.page;
         this.tiposPagos = this.page.content;
       },

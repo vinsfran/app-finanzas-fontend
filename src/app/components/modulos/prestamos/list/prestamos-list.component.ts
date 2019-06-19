@@ -4,7 +4,7 @@ import swal from 'sweetalert2';
 import {PrestamosService} from '../../../../services/prestamos.service';
 import {AuthService} from '../../../../services/auth.service';
 import {PrestamoModel} from '../prestamo.model';
-import {PageModel} from '../../../../models/new/page.model';
+import {PageModel} from '../../widgets/page.model';
 
 @Component({
   selector: 'app-prestamos-list',
@@ -38,7 +38,6 @@ export class PrestamosListComponent implements OnInit {
   getPrestamos(page: number, size: number, campo: string, orden: string) {
     this.prestamosService.getPrestamos(page, size, campo, orden).subscribe(
       response => {
-        console.log(response);
         this.page = response.page;
         this.prestamos = this.page.content;
       },

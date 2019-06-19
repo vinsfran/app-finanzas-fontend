@@ -1,52 +1,51 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
 import swal from 'sweetalert2';
-import {RolesService} from '../../../../services/roles.service';
 import {AuthService} from '../../../../services/auth.service';
-import {RolModel} from '../rol.model';
+import {MesModel} from '../mes.model';
 import {PageModel} from '../../widgets/page.model';
+import {MesesService} from '../../../../services/meses.service';
 
 @Component({
-  selector: 'app-rol-list',
-  templateUrl: './roles-list.component.html',
-  styleUrls: ['./roles-list.component.css']
+  selector: 'app-meses-list',
+  templateUrl: './meses-list.component.html',
+  styleUrls: ['./meses-list.component.css']
 })
-export class RolesListComponent implements OnInit {
+export class MesesListComponent implements OnInit {
 
   titulo: string;
   lista: string[];
-  roles: RolModel[];
+  meses: MesModel[];
   page: PageModel;
   campo: string;
   orden: string;
 
-  constructor(private rolesService: RolesService, private activatedRoute: ActivatedRoute,
-              public authService: AuthService, private router: Router) {
+  constructor(private mesesService: MesesService,
+              public authService: AuthService) {
 
   }
 
   ngOnInit() {
-    this.titulo = 'Lista de Roles';
-    this.lista = ['Roles', this.titulo];
+    this.titulo = 'Lista de Meses';
+    this.lista = ['Meses', this.titulo];
     this.campo = 'id';
     this.orden = 'asc';
-    this.getRoles(0, 10, this.campo, this.orden);
+    this.getMeses(0, 10, this.campo, this.orden);
   }
 
-  getRoles(page: number, size: number, campo: string, orden: string) {
-    this.rolesService.getRoles(page, size, campo, orden).subscribe(
+  getMeses(page: number, size: number, campo: string, orden: string) {
+    this.mesesService.getPage(page, size, campo, orden).subscribe(
       response => {
         this.page = response.page;
-        this.roles = this.page.content;
+        this.meses = this.page.content;
       },
       (errors) => {
-        swal.fire('Ocurrió un error al listar los Roles', errors.message, 'error');
+        swal.fire('Ocurrió un error al listar los Meses', errors.message, 'error');
       }
     );
   }
 
   changePage(event) {
-    this.getRoles(event.page, event.size, this.campo, this.orden);
+    this.getMeses(event.page, event.size, this.campo, this.orden);
   }
 
   sortingPage(campo: string) {
@@ -56,7 +55,7 @@ export class RolesListComponent implements OnInit {
     } else {
       this.orden = 'asc';
     }
-    this.getRoles(this.page.number, this.page.size, this.campo, this.orden);
+    this.getMeses(this.page.number, this.page.size, this.campo, this.orden);
   }
 
   setClasses(campo: string) {
@@ -67,10 +66,10 @@ export class RolesListComponent implements OnInit {
     return classes;
   }
 
-  delete(rol: RolModel): void {
+  delete(mes: MesModel): void {
     swal.fire({
       title: 'Está seguro?',
-      text: `¿Seguro que desea eliminar al rol ${rol.nombre}?`,
+      text: `¿Seguro que desea eliminar el mes ${mes.nombre}?`,
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -84,12 +83,12 @@ export class RolesListComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
 
-        this.rolesService.delete(rol.id).subscribe(
+        this.mesesService.delete(mes.id).subscribe(
           response => {
-            this.roles = this.roles.filter(ro => ro !== rol);
+            this.meses = this.meses.filter(cli => cli !== mes);
             swal.fire(
-              'Rol Eliminado!',
-              `Rol ${rol.nombre} eliminado con éxito.`,
+              'Mes Eliminado!',
+              `Mes ${mes.nombre} eliminado con éxito.`,
               'success'
             );
           }

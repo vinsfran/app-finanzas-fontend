@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
 import swal from 'sweetalert2';
 import {AuthService} from '../../../../services/auth.service';
 import {MonedaModel} from '../moneda.model';
-import {PageModel} from '../../../../models/new/page.model';
+import {PageModel} from '../../widgets/page.model';
 import {MonedasService} from '../../../../services/monedas.service';
 
 @Component({
@@ -20,8 +19,8 @@ export class MonedasListComponent implements OnInit {
   campo: string;
   orden: string;
 
-  constructor(private monedasService: MonedasService, private activatedRoute: ActivatedRoute,
-              public authService: AuthService, private router: Router) {
+  constructor(private monedasService: MonedasService,
+              public authService: AuthService) {
 
   }
 
@@ -34,9 +33,8 @@ export class MonedasListComponent implements OnInit {
   }
 
   getMonedas(page: number, size: number, campo: string, orden: string) {
-    this.monedasService.getMonedas(page, size, campo, orden).subscribe(
+    this.monedasService.getPage(page, size, campo, orden).subscribe(
       response => {
-        console.log(response);
         this.page = response.page;
         this.monedas = this.page.content;
       },

@@ -4,7 +4,7 @@ import swal from 'sweetalert2';
 import {EntidadesFinancierasService} from '../../../../services/entidadesFinancieras.service';
 import {AuthService} from '../../../../services/auth.service';
 import {EntidadFinancieraModel} from '../entidadFinanciera.model';
-import {PageModel} from '../../../../models/new/page.model';
+import {PageModel} from '../../widgets/page.model';
 
 @Component({
   selector: 'app-entidades-financieras-list',
@@ -36,7 +36,6 @@ export class EntidadesFinancierasListComponent implements OnInit {
   getEntidadesFinancieras(page: number, size: number, campo: string, orden: string) {
     this.entidadesFinancierasService.getEntidadesFinancieras(page, size, campo, orden).subscribe(
       response => {
-        console.log(response);
         this.page = response.page;
         this.entidadesFinancieras = this.page.content;
       },

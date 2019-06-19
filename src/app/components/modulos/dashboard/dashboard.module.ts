@@ -7,6 +7,7 @@ import {ClientesService} from '../../../services/clientes.service';
 import {RolesService} from '../../../services/roles.service';
 import {PrestamosService} from '../../../services/prestamos.service';
 import {AhorrosService} from '../../../services/ahorros.service';
+import {DashboardService} from '../../../services/dashboard.service';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import {AhorrosService} from '../../../services/ahorros.service';
     DashboardComponent
   ],
   providers: [
+    DashboardService,
     AhorrosService,
     PrestamosService,
     ClientesService,

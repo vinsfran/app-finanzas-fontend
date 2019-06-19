@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import swal from 'sweetalert2';
 import {AuthService} from '../../../../services/auth.service';
 import {TipoAhorroModel} from '../tipoAhorro.model';
-import {PageModel} from '../../../../models/new/page.model';
+import {PageModel} from '../../widgets/page.model';
 import {TiposAhorrosService} from '../../../../services/tiposAhorros.service';
 
 @Component({
@@ -36,7 +36,6 @@ export class TiposAhorrosListComponent implements OnInit {
   getTiposAhorros(page: number, size: number, campo: string, orden: string) {
     this.tiposAhorrosService.getTiposAhorros(page, size, campo, orden).subscribe(
       response => {
-        console.log(response);
         this.page = response.page;
         this.tiposAhorros = this.page.content;
       },

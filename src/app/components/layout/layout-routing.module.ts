@@ -86,6 +86,18 @@ const routes: Routes = [
         loadChildren: '../modulos/movimientos/movimientos.module#MovimientosModule',
         canActivate: [AuthorizationGuard]
       },
+      // Ruta para Meses
+      {
+        path: '',
+        loadChildren: '../modulos/meses/meses.module#MesesModule',
+        canActivate: [AuthorizationGuard]
+      },
+      // Ruta para Presupuestos
+      {
+        path: '',
+        loadChildren: '../modulos/presupuestos/presupuestos.module#PresupuestosModule',
+        canActivate: [AuthorizationGuard]
+      }
     ]
 
   }

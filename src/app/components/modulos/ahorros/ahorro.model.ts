@@ -10,6 +10,7 @@ export class AhorroModel {
   montoCuota: number;
   montoInteresCuota: number;
   cantidadCobro: number;
+  estado: boolean;
   tipoAhorroId: number;
   tipoAhorroNombre: string;
   monedaId: number;

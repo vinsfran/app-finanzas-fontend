@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
 import {Observable, throwError} from 'rxjs';
 import {HttpClient, HttpEvent, HttpHeaders, HttpRequest} from '@angular/common/http';
-import {catchError, map, tap} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {Router} from '@angular/router';
-import {ConceptoModel} from '../components/modulos/conceptos/concepto.model';
+import {MesModel} from '../components/modulos/meses/mes.model';
 import {ResponseBasePageModel} from '../components/modulos/widgets/responseBasePage.model';
 
 
 @Injectable()
-export class ConceptosService {
+export class MesesService {
 
-  readonly urlEndPoint = '/api/conceptos';
+  readonly urlEndPoint = '/api/meses';
 
   private httpHeaders: HttpHeaders;
 
@@ -19,19 +19,20 @@ export class ConceptosService {
 
   getAll() {
     this.httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.get<ConceptoModel[]>(
-      this.urlEndPoint, {headers: this.httpHeaders});
+    return this.http.get<MesModel[]>(
+      this.urlEndPoint + '/', {headers: this.httpHeaders});
   }
 
-  getConceptos(page: number, size: number, campo: string, orden: string) {
+  getPage(page: number, size: number, campo: string, orden: string) {
     this.httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.get<ResponseBasePageModel>(
       this.urlEndPoint + `/page?page=${page}&size=${size}&sort=${campo},${orden}`, {headers: this.httpHeaders});
+
   }
 
-  create(concepto: ConceptoModel): Observable<ConceptoModel> {
-    return this.http.post<ConceptoModel>(this.urlEndPoint, concepto).pipe(
-      map((response: any) => response.concepto as ConceptoModel),
+  create(mes: MesModel): Observable<MesModel> {
+    return this.http.post<MesModel>(this.urlEndPoint, mes).pipe(
+      map((response: any) => response.mes as MesModel),
       catchError(e => {
         if (e.status === 400) {
           return throwError(e);
@@ -44,11 +45,11 @@ export class ConceptosService {
     );
   }
 
-  getConcepto(id: number): Observable<ConceptoModel> {
-    return this.http.get<ConceptoModel>(`${this.urlEndPoint}/${id}`).pipe(
+  get(id): Observable<MesModel> {
+    return this.http.get<MesModel>(`${this.urlEndPoint}/${id}`).pipe(
       catchError(e => {
         if (e.status !== 401 && e.error.mensaje) {
-          this.router.navigate(['/conceptos']);
+          this.router.navigate(['/meses']);
           console.error(e.error.mensaje);
         }
         return throwError(e);
@@ -56,8 +57,8 @@ export class ConceptosService {
     );
   }
 
-  update(concepto: ConceptoModel): Observable<any> {
-    return this.http.put<any>(this.urlEndPoint, concepto).pipe(
+  update(mes: MesModel): Observable<any> {
+    return this.http.put<any>(`${this.urlEndPoint}`, mes).pipe(
       catchError(e => {
         if (e.status === 400) {
           return throwError(e);
@@ -70,8 +71,8 @@ export class ConceptosService {
     );
   }
 
-  delete(id: number): Observable<ConceptoModel> {
-    return this.http.delete<ConceptoModel>(`${this.urlEndPoint}/${id}`).pipe(
+  delete(id: number): Observable<MesModel> {
+    return this.http.delete<MesModel>(`${this.urlEndPoint}/${id}`).pipe(
       catchError(e => {
         if (e.error.mensaje) {
           console.error(e.error.mensaje);

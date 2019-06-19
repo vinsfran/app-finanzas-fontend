@@ -4,7 +4,7 @@ import swal from 'sweetalert2';
 import {ClientesService} from '../../../../services/clientes.service';
 import {AuthService} from '../../../../services/auth.service';
 import {ClienteModel} from '../cliente.model';
-import {PageModel} from '../../../../models/new/page.model';
+import {PageModel} from '../../widgets/page.model';
 
 @Component({
   selector: 'app-clientes-list',
@@ -36,7 +36,6 @@ export class ClientesListComponent implements OnInit {
   getClientes(page: number, size: number, campo: string, orden: string) {
     this.clientesService.getClientes(page, size, campo, orden).subscribe(
       response => {
-        console.log(response);
         this.page = response.page;
         this.clientes = this.page.content;
       },

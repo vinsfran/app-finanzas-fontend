@@ -3,7 +3,7 @@ import {Observable, throwError} from 'rxjs';
 import {HttpClient, HttpEvent, HttpHeaders, HttpRequest} from '@angular/common/http';
 import {catchError, map, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
-import {ResponseBasePageModel} from '../models/new/responseBasePage.model';
+import {ResponseBasePageModel} from '../components/modulos/widgets/responseBasePage.model';
 import {TipoPagoModel} from '../components/modulos/tiposPagos/tipoPago.model';
 
 

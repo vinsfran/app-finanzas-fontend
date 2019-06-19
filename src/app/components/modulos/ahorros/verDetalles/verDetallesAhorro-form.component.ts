@@ -6,7 +6,7 @@ import {AhorroModel} from '../../ahorros/ahorro.model';
 import {TiposPagosService} from '../../../../services/tiposPagos.service';
 import {TipoPagoModel} from '../../tiposPagos/tipoPago.model';
 import {AhorrosService} from '../../../../services/ahorros.service';
-import {PageModel} from '../../../../models/new/page.model';
+import {PageModel} from '../../widgets/page.model';
 
 @Component({
   selector: 'app-detalles-ahorro-form',

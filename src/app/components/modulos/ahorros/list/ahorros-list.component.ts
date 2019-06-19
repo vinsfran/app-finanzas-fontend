@@ -4,7 +4,7 @@ import swal from 'sweetalert2';
 import {AhorrosService} from '../../../../services/ahorros.service';
 import {AuthService} from '../../../../services/auth.service';
 import {AhorroModel} from '../ahorro.model';
-import {PageModel} from '../../../../models/new/page.model';
+import {PageModel} from '../../widgets/page.model';
 
 @Component({
   selector: 'app-ahorros-list',
@@ -38,7 +38,6 @@ export class AhorrosListComponent implements OnInit {
   getAhorros(page: number, size: number, campo: string, orden: string) {
     this.ahorrosService.getAhorros(page, size, campo, orden).subscribe(
       response => {
-        console.log(response);
         this.page = response.page;
         this.ahorros = this.page.content;
       },

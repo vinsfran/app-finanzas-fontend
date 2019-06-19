@@ -4,7 +4,7 @@ import swal from 'sweetalert2';
 import {ConceptosService} from '../../../../services/conceptos.service';
 import {AuthService} from '../../../../services/auth.service';
 import {ConceptoModel} from '../concepto.model';
-import {PageModel} from '../../../../models/new/page.model';
+import {PageModel} from '../../widgets/page.model';
 
 @Component({
   selector: 'app-conceptos-list',
@@ -38,7 +38,6 @@ export class ConceptosListComponent implements OnInit {
   getConceptos(page: number, size: number, campo: string, orden: string) {
     this.conceptosService.getConceptos(page, size, campo, orden).subscribe(
       response => {
-        console.log(response);
         this.page = response.page;
         this.conceptos = this.page.content;
       },

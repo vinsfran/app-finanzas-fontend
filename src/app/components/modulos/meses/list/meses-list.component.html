@@ -11,43 +11,39 @@
           <div class="col-sm-6">
             <button *ngIf="authService.hasRole('ROLE_ADMIN')"
                     class="btn btn-primary float-left"
-                    [routerLink]="['/conceptos/form']"
+                    [routerLink]="['/meses/form']"
                     title="Agregar nuevo"
                     style="margin-right: 5px">
               <i class="fa fa-plus"></i>
-              Nuevo Prestamo
+              Nueva moneda
             </button>
           </div>
           <div class="col-sm-6">
             <div id="example1_filter" class="dataTables_filter">
               <label>Buscar:
-                <input class="form-control input-sm"
-                       placeholder=""
-                       aria-controls="example1"
-                       type="search"
-                       [(ngModel)]="inputDeBuscar"
-                       (keyup.enter)="buscar()">
+                <input class="form-control input-sm" placeholder="" aria-controls="example1" type="search">
               </label>
             </div>
           </div>
         </div>
-        <!--        {{inputDeBuscar | json}}-->
         <div class="row">
           <div class="col-sm-12">
-            <table class="table table-bordered table-striped dataTable" *ngIf="conceptos?.length > 0">
+            <table class="table table-bordered table-striped dataTable" *ngIf="meses?.length > 0">
               <thead>
               <tr role="row">
-                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                <th (click)="sortingPage('id')"
+                    [ngClass]="setClasses('id')"
+                    tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                     aria-sort="ascending"
-                    aria-label="Id: activate to sort column descending">Id
+                    aria-label="ID: activate to sort column descending">ID
                 </th>
-                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                    aria-sort="ascending"
-                    aria-label="Nombre: activate to sort column descending">Nombre
+                <th (click)="sortingPage('descripcion')"
+                    [ngClass]="setClasses('descripcion')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Nombre: activate to sort column ascending">Nombre
                 </th>
-                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                    aria-sort="ascending"
-                    aria-label="Signo: activate to sort column descending">Signo
+                <th (click)="sortingPage('numero')"
+                    [ngClass]="setClasses('numero')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Numero: activate to sort column ascending">Numero
                 </th>
 
                 <th width="20%">
@@ -56,26 +52,28 @@
               </tr>
               </thead>
               <tbody>
-              <tr class="odd" role="row" *ngFor="let concepto of conceptos; let i=index">
-                <td>{{concepto.id}}</td>
-                <td>{{concepto.nombre}}</td>
-                <td>{{concepto.signo}}</td>
+              <tr class="odd" role="row" *ngFor="let moneda of meses; let i=index">
+                <td>{{moneda.id}}</td>
+                <td>{{moneda.nombre}}</td>
+                <td>{{moneda.numero }}</td>
                 <td class="text-right">
                   <button *ngIf="authService.hasRole('ROLE_ADMIN')"
-                          [routerLink]="['/conceptos/form', concepto.id]"
+                          [routerLink]="['/meses/form', moneda.id]"
                           type="button"
-                          class="btn btn-sm btn-warning"
+                          class="btn btn-sm btn-light"
                           title="Editar"
                           style="margin-right: 5px">
                     <i class="fa fa-pencil"></i>
+                    Editar
                   </button>
                   <button *ngIf="authService.hasRole('ROLE_ADMIN')"
                           type="button"
                           class="btn btn-sm btn-danger"
                           title="Eliminar"
-                          (click)='delete(concepto)'
+                          (click)='delete(moneda)'
                           style="margin-right: 5px">
-                    <i class="fa fa-trash"></i>
+                    <i class="fa fa-eye"></i>
+                    Eliminar
                   </button>
                 </td>
               </tr>

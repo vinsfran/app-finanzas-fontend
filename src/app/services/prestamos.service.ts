@@ -4,7 +4,7 @@ import {HttpClient, HttpEvent, HttpHeaders, HttpRequest} from '@angular/common/h
 import {catchError, map, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {PrestamoModel} from '../components/modulos/prestamos/prestamo.model';
-import {ResponseBasePageModel} from '../models/new/responseBasePage.model';
+import {ResponseBasePageModel} from '../components/modulos/widgets/responseBasePage.model';
 
 
 @Injectable()

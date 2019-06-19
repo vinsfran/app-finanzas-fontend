@@ -4,7 +4,7 @@ import swal from 'sweetalert2';
 import {PrestamosPagosService} from '../../../../services/prestamosPagos.service';
 import {AuthService} from '../../../../services/auth.service';
 import {PrestamoPagoModel} from '../prestamoPago.model';
-import {PageModel} from '../../../../models/new/page.model';
+import {PageModel} from '../../widgets/page.model';
 
 @Component({
   selector: 'app-prestamos-pagos-list',
@@ -38,7 +38,6 @@ export class PrestamosPagosListComponent implements OnInit {
   getPage(page: number, size: number, campo: string, orden: string) {
     this.prestamosPagosService.getPage(page, size, campo, orden).subscribe(
       response => {
-        console.log(response);
         this.page = response.page;
         this.prestamosPagos = this.page.content;
       },

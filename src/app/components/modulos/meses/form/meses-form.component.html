@@ -6,11 +6,11 @@
 <section class="content">
   <div class="box box-primary">
     <div class="box-header with-border">
-      <h3 class="box-title">Datos de la moneda</h3>
+      <h3 class="box-title">Datos del mes</h3>
     </div>
     <!-- /.box-header -->
     <!-- form start -->
-    <form role="form" #monedaForm="ngForm">
+    <form role="form" #mesForm="ngForm">
       <div class="box-body">
 
         <div class="form-group mb10 clearfix">
@@ -18,10 +18,10 @@
           <div class="col-sm-10">
 
             <input id="nombre"
-                   placeholder="Ingrese un Nombre"
+                   placeholder="Ingrese una descripcion"
                    type="text"
                    class="form-control"
-                   [(ngModel)]="monedaModel.nombre"
+                   [(ngModel)]="mesModel.nombre"
                    name="nombre"
                    #nombre="ngModel"
                    required minlength="4">
@@ -40,27 +40,16 @@
 
 
         <div class="form-group mb10 clearfix">
-          <label for="codigo" class="col-sm-2">Codigo</label>
+          <label for="numero" class="col-sm-2">Codigo</label>
           <div class="col-sm-10">
 
-            <input id="codigo"
-                   placeholder="Ingrese un codigo"
-                   type="text"
+            <input id="numero"
+                   placeholder="Ingrese un numero"
+                   type="number"
                    class="form-control"
-                   [(ngModel)]="monedaModel.codigo"
-                   name="codigo"
-                   #codigo="ngModel"
-                   required minlength="2">
-
-            <div class="alert alert-warning mt10" role="alert"
-                 *ngIf="codigo.invalid && (codigo.dirty || codigo.touched)">
-              <div *ngIf="codigo.errors.required">
-                Codigo es requerido
-              </div>
-              <div *ngIf="codigo.errors.minlength">
-                Codigo debe tener al menos 2 caracteres
-              </div>
-            </div>
+                   [(ngModel)]="mesModel.numero"
+                   name="numero"
+                   #numero="ngModel">
           </div>
         </div>
       </div>
@@ -77,8 +66,8 @@
         <button class="btn btn-primary pull-right"
                 role="button"
                 (click)='create()'
-                *ngIf="!monedaModel.id else elseBlock"
-                [disabled]="!monedaForm.form.valid"
+                *ngIf="!mesModel.id else elseBlock"
+                [disabled]="!mesForm.form.valid"
                 style="margin-right: 5px">
           Guardar
         </button>
@@ -86,7 +75,7 @@
           <button class="btn btn-primary pull-right"
                   role="button"
                   (click)='update()'
-                  [disabled]="!monedaForm.form.valid"
+                  [disabled]="!mesForm.form.valid"
                   style="margin-right: 5px">
             Editar
           </button>

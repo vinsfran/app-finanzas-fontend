@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import swal from 'sweetalert2';
 import {AuthService} from '../../../../services/auth.service';
 import {MovimientoModel} from '../movimiento.model';
-import {PageModel} from '../../../../models/new/page.model';
+import {PageModel} from '../../widgets/page.model';
 import {MovimientosService} from '../../../../services/movimientos.service';
 
 @Component({
@@ -36,7 +36,6 @@ export class MovimientosListComponent implements OnInit {
   getMovimientos(page: number, size: number, campo: string, orden: string) {
     this.movimientosService.getPage(page, size, campo, orden).subscribe(
       response => {
-        console.log(response);
         this.page = response.page;
         this.movimientos = this.page.content;
       },

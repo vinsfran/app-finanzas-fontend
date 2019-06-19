@@ -18,7 +18,9 @@ export class MonedasFormComponent implements OnInit {
 
   monedaModel: MonedaModel;
 
-  constructor(private monedasService: MonedasService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private monedasService: MonedasService,
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -35,7 +37,7 @@ export class MonedasFormComponent implements OnInit {
       const id = params['id'];
       if (id) {
         this.titulo = 'Editar Moneda Nro: ' + id;
-        this.monedasService.getMoneda(id).subscribe((monedaModel) => this.monedaModel = monedaModel);
+        this.monedasService.get(id).subscribe((monedaModel) => this.monedaModel = monedaModel);
       }
     });
   }

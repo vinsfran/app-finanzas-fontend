@@ -8,7 +8,7 @@ import {TiposPagosService} from '../../../../services/tiposPagos.service';
 import {TipoPagoModel} from '../../tiposPagos/tipoPago.model';
 import {PrestamoPagoModel} from '../../prestamosPagos/prestamoPago.model';
 import {PrestamosService} from '../../../../services/prestamos.service';
-import {PageModel} from '../../../../models/new/page.model';
+import {PageModel} from '../../widgets/page.model';
 
 @Component({
   selector: 'app-detalles-prestamo-form',

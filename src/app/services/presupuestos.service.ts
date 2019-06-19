@@ -3,14 +3,14 @@ import {Observable, throwError} from 'rxjs';
 import {HttpClient, HttpEvent, HttpHeaders, HttpRequest} from '@angular/common/http';
 import {catchError, map, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
-import {ConceptoModel} from '../components/modulos/conceptos/concepto.model';
+import {PresupuestoModel} from '../components/modulos/presupuestos/presupuesto.model';
 import {ResponseBasePageModel} from '../components/modulos/widgets/responseBasePage.model';
 
 
 @Injectable()
-export class ConceptosService {
+export class PresupuestosService {
 
-  readonly urlEndPoint = '/api/conceptos';
+  readonly urlEndPoint = '/api/presupuestos';
 
   private httpHeaders: HttpHeaders;
 
@@ -19,19 +19,19 @@ export class ConceptosService {
 
   getAll() {
     this.httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.get<ConceptoModel[]>(
+    return this.http.get<PresupuestoModel[]>(
       this.urlEndPoint, {headers: this.httpHeaders});
   }
 
-  getConceptos(page: number, size: number, campo: string, orden: string) {
+  getPage(page: number, size: number, campo: string, orden: string) {
     this.httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.get<ResponseBasePageModel>(
       this.urlEndPoint + `/page?page=${page}&size=${size}&sort=${campo},${orden}`, {headers: this.httpHeaders});
   }
 
-  create(concepto: ConceptoModel): Observable<ConceptoModel> {
-    return this.http.post<ConceptoModel>(this.urlEndPoint, concepto).pipe(
-      map((response: any) => response.concepto as ConceptoModel),
+  create(presupuesto: PresupuestoModel): Observable<PresupuestoModel> {
+    return this.http.post<PresupuestoModel>(this.urlEndPoint, presupuesto).pipe(
+      map((response: any) => response.presupuesto as PresupuestoModel),
       catchError(e => {
         if (e.status === 400) {
           return throwError(e);
@@ -44,11 +44,11 @@ export class ConceptosService {
     );
   }
 
-  getConcepto(id: number): Observable<ConceptoModel> {
-    return this.http.get<ConceptoModel>(`${this.urlEndPoint}/${id}`).pipe(
+  get(id: number): Observable<PresupuestoModel> {
+    return this.http.get<PresupuestoModel>(`${this.urlEndPoint}/${id}`).pipe(
       catchError(e => {
         if (e.status !== 401 && e.error.mensaje) {
-          this.router.navigate(['/conceptos']);
+          this.router.navigate(['/presupuestos']);
           console.error(e.error.mensaje);
         }
         return throwError(e);
@@ -56,8 +56,8 @@ export class ConceptosService {
     );
   }
 
-  update(concepto: ConceptoModel): Observable<any> {
-    return this.http.put<any>(this.urlEndPoint, concepto).pipe(
+  update(presupuesto: PresupuestoModel): Observable<any> {
+    return this.http.put<any>(this.urlEndPoint, presupuesto).pipe(
       catchError(e => {
         if (e.status === 400) {
           return throwError(e);
@@ -70,8 +70,8 @@ export class ConceptosService {
     );
   }
 
-  delete(id: number): Observable<ConceptoModel> {
-    return this.http.delete<ConceptoModel>(`${this.urlEndPoint}/${id}`).pipe(
+  delete(id: number): Observable<PresupuestoModel> {
+    return this.http.delete<PresupuestoModel>(`${this.urlEndPoint}/${id}`).pipe(
       catchError(e => {
         if (e.error.mensaje) {
           console.error(e.error.mensaje);
