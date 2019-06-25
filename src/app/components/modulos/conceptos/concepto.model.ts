@@ -1,6 +1,6 @@
 export class ConceptoModel {
   id: number;
   nombre: string;
-  signo: string;
+  tipoConcepto: string;
   usuarioId: number;
 }

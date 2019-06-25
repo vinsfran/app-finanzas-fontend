@@ -11,6 +11,7 @@ import {MovimientosFormComponent} from './form/movimientos-form.component';
 import {MovimientosService} from '../../../services/movimientos.service';
 import {ConceptosService} from '../../../services/conceptos.service';
 import {MonedasService} from '../../../services/monedas.service';
+import {TiposPagosService} from '../../../services/tiposPagos.service';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import {MonedasService} from '../../../services/monedas.service';
   providers: [
     MovimientosService,
     ConceptosService,
-    MonedasService
+    MonedasService,
+    TiposPagosService
   ]
 })
 

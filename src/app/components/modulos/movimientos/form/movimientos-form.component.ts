@@ -8,6 +8,8 @@ import {ConceptosService} from '../../../../services/conceptos.service';
 import {MonedasService} from '../../../../services/monedas.service';
 import {MonedaModel} from '../../monedas/moneda.model';
 import {AuthService} from '../../../../services/auth.service';
+import {TipoPagoModel} from '../../tiposPagos/tipoPago.model';
+import {TiposPagosService} from '../../../../services/tiposPagos.service';
 
 @Component({
   selector: 'app-movimientos-form',
@@ -21,13 +23,16 @@ export class MovimientosFormComponent implements OnInit {
 
   conceptos: ConceptoModel[];
   monedas: MonedaModel[];
+  tiposPagos: TipoPagoModel[];
 
   movimientoModel: MovimientoModel;
+
 
   constructor(private authService: AuthService,
               private movimientosService: MovimientosService,
               private conceptosService: ConceptosService,
               private monedasService: MonedasService,
+              private tiposPagosService: TiposPagosService,
               private router: Router, private activatedRoute: ActivatedRoute) {
   }
 
@@ -43,6 +48,16 @@ export class MovimientosFormComponent implements OnInit {
     );
     this.monedasService.getAll().subscribe(getAll => {
         this.monedas = getAll;
+      },
+      err => {
+        this.errores = err.error.errors as string[];
+        console.error('Codigo del error desde el backend: ' + err.status);
+        console.error(err.error.errors);
+      }
+    );
+
+    this.tiposPagosService.getAll().subscribe(getAll => {
+        this.tiposPagos = getAll;
       },
       err => {
         this.errores = err.error.errors as string[];

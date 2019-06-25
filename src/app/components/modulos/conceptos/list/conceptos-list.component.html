@@ -12,10 +12,10 @@
             <button *ngIf="authService.hasRole('ROLE_ADMIN')"
                     class="btn btn-primary float-left"
                     [routerLink]="['/conceptos/form']"
-                    title="Agregar nuevo"
+                    title="NUEVO CONCEPTO"
                     style="margin-right: 5px">
               <i class="fa fa-plus"></i>
-              Nuevo Prestamo
+              NUEVO CONCEPTO
             </button>
           </div>
           <div class="col-sm-6">
@@ -47,7 +47,7 @@
                 </th>
                 <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                     aria-sort="ascending"
-                    aria-label="Signo: activate to sort column descending">Signo
+                    aria-label="Tipo de Concepto: activate to sort column descending">Tipo de Concepto
                 </th>
 
                 <th width="20%">
@@ -59,7 +59,7 @@
               <tr class="odd" role="row" *ngFor="let concepto of conceptos; let i=index">
                 <td>{{concepto.id}}</td>
                 <td>{{concepto.nombre}}</td>
-                <td>{{concepto.signo}}</td>
+                <td>{{concepto.tipoConcepto}}</td>
                 <td class="text-right">
                   <button *ngIf="authService.hasRole('ROLE_ADMIN')"
                           [routerLink]="['/conceptos/form', concepto.id]"

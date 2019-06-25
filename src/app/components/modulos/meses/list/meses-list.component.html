@@ -12,10 +12,10 @@
             <button *ngIf="authService.hasRole('ROLE_ADMIN')"
                     class="btn btn-primary float-left"
                     [routerLink]="['/meses/form']"
-                    title="Agregar nuevo"
+                    title="NUEVA MONEDA"
                     style="margin-right: 5px">
               <i class="fa fa-plus"></i>
-              Nueva moneda
+              NUEVA MONEDA
             </button>
           </div>
           <div class="col-sm-6">
@@ -35,15 +35,15 @@
                     [ngClass]="setClasses('id')"
                     tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                     aria-sort="ascending"
-                    aria-label="ID: activate to sort column descending">ID
+                    aria-label="Nro. Orden: activate to sort column descending">Nro. Orden
                 </th>
-                <th (click)="sortingPage('descripcion')"
-                    [ngClass]="setClasses('descripcion')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                <th (click)="sortingPage('nombre')"
+                    [ngClass]="setClasses('nombre')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                     aria-label="Nombre: activate to sort column ascending">Nombre
                 </th>
                 <th (click)="sortingPage('numero')"
                     [ngClass]="setClasses('numero')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                    aria-label="Numero: activate to sort column ascending">Numero
+                    aria-label="Numero de Mes: activate to sort column ascending">Numero de Mes
                 </th>
 
                 <th width="20%">

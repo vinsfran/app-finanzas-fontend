@@ -14,7 +14,9 @@ import {AuthService} from '../../../../services/auth.service';
 export class ConceptosFormComponent implements OnInit {
   titulo: string;
   lista: string[];
-  public errores: string[];
+  errores: string[];
+
+  tiposConceptos: string[] = ['Ingreso', 'Egreso'];
 
   conceptoModel: ConceptoModel;
 

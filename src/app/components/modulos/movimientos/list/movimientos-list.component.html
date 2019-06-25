@@ -1,103 +1,117 @@
 <app-content-header
-  [titulo]="titulo"
-  [lista]="lista">
+        [titulo]="titulo"
+        [lista]="lista">
 </app-content-header>
 <section class="content">
 
-  <div class="box">
-    <div class="box-body">
-      <div class="dataTables_wrapper form-inline dt-bootstrap">
-        <div class="row" style="padding-bottom: 5px">
-          <div class="col-sm-6">
-            <button *ngIf="authService.hasRole('ROLE_ADMIN')"
-                    class="btn btn-primary float-left"
-                    [routerLink]="['/movimientos/form']"
-                    title="Agregar nuevo"
-                    style="margin-right: 5px">
-              <i class="fa fa-plus"></i>
-              Nueva movimiento
-            </button>
-          </div>
-          <div class="col-sm-6">
-            <div id="example1_filter" class="dataTables_filter">
-              <label>Buscar:
-                <input class="form-control input-sm" placeholder="" aria-controls="example1" type="search">
-              </label>
+    <div class="box">
+        <div class="box-body">
+            <div class="dataTables_wrapper form-inline dt-bootstrap">
+                <div class="row" style="padding-bottom: 5px">
+                    <div class="col-sm-6">
+                        <button *ngIf="authService.hasRole('ROLE_ADMIN')"
+                                class="btn btn-primary float-left"
+                                [routerLink]="['/movimientos/form']"
+                                title="NUEVO MOVIMIENTO"
+                                style="margin-right: 5px">
+                            <i class="fa fa-plus"></i>
+                            NUEVO MOVIMIENTO
+                        </button>
+                    </div>
+                    <div class="col-sm-6">
+                        <div id="example1_filter" class="dataTables_filter">
+                            <label>Buscar:
+                                <input class="form-control input-sm" placeholder="" aria-controls="example1"
+                                       type="search">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered table-striped dataTable" *ngIf="movimientos?.length > 0">
+                            <thead>
+                            <tr role="row">
+                                <th (click)="sortingPage('numeroComprobante')"
+                                    [ngClass]="setClasses('numeroComprobante')"
+                                    tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                                    aria-sort="ascending"
+                                    aria-label="Comprobante: activate to sort column descending">Comprobante
+                                </th>
+                                <th (click)="sortingPage('descripcion')"
+                                    [ngClass]="setClasses('descripcion')" tabindex="0" aria-controls="example1"
+                                    rowspan="1" colspan="1"
+                                    aria-label="Fecha: activate to sort column ascending">Fecha
+                                </th>
+                                <th (click)="sortingPage('codigo')"
+                                    [ngClass]="setClasses('codigo')" tabindex="0" aria-controls="example1" rowspan="1"
+                                    colspan="1"
+                                    aria-label="Monto: activate to sort column ascending">Monto
+                                </th>
+                                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                                    aria-label="Moneda: activate to sort column ascending">Moneda
+                                </th>
+                                <th (click)="sortingPage('nombreEntidad')"
+                                    [ngClass]="setClasses('nombreEntidad')" tabindex="0" aria-controls="example1"
+                                    rowspan="1" colspan="1"
+                                    aria-label="Entidad: activate to sort column ascending">Entidad
+                                </th>
+                                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                                    aria-label="Concepto: activate to sort column ascending">Concepto
+                                </th>
+                                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                                    aria-label="Tipo Movimiento: activate to sort column ascending">Tipo Movimiento
+                                </th>
+                                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                                    aria-label="Tipo de Pago: activate to sort column ascending">Tipo de Pago
+                                </th>
+                                <th width="20%">
+                                    Acciones
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="odd" role="row" *ngFor="let movimiento of movimientos; let i=index">
+                                <td>{{movimiento.numeroComprobante}}</td>
+                                <td>{{movimiento.fechaMovimiento}}</td>
+                                <td>{{movimiento.monto}}</td>
+                                <td>{{movimiento.monedaNombre}}</td>
+                                <td>{{movimiento.nombreEntidad}}</td>
+                                <td>{{movimiento.conceptoNombre}}</td>
+                                <td>{{movimiento.tipoConcepto}}</td>
+                                <td>{{movimiento.tipoPagoNombre}}</td>
+                                <td class="text-right">
+                                    <button *ngIf="authService.hasRole('ROLE_ADMIN')"
+                                            [routerLink]="['/movimientos/form', movimiento.id]"
+                                            type="button"
+                                            class="btn btn-sm btn-light"
+                                            title="Editar"
+                                            style="margin-right: 5px">
+                                        <i class="fa fa-pencil"></i>
+                                        Editar
+                                    </button>
+                                    <button *ngIf="authService.hasRole('ROLE_ADMIN')"
+                                            type="button"
+                                            class="btn btn-sm btn-danger"
+                                            title="Eliminar"
+                                            (click)='delete(movimiento)'
+                                            style="margin-right: 5px">
+                                        <i class="fa fa-eye"></i>
+                                        Eliminar
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <app-pagination [page]="page" (paginationEvent)="changePage($event)"></app-pagination>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-        <div class="row">
-          <div class="col-sm-12">
-            <table class="table table-bordered table-striped dataTable" *ngIf="movimientos?.length > 0">
-              <thead>
-              <tr role="row">
-                <th (click)="sortingPage('id')"
-                    [ngClass]="setClasses('id')"
-                    tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                    aria-sort="ascending"
-                    aria-label="ID: activate to sort column descending">ID
-                </th>
-                <th (click)="sortingPage('descripcion')"
-                    [ngClass]="setClasses('descripcion')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                    aria-label="Fecha: activate to sort column ascending">Fecha
-                </th>
-                <th (click)="sortingPage('codigo')"
-                    [ngClass]="setClasses('codigo')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                    aria-label="Monto: activate to sort column ascending">Monto
-                </th>
-                <th (click)="sortingPage('codigo')"
-                    [ngClass]="setClasses('codigo')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                    aria-label="Moneda: activate to sort column ascending">Moneda
-                </th>
-                <th (click)="sortingPage('codigo')"
-                    [ngClass]="setClasses('codigo')" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                    aria-label="Tipo Movimiento: activate to sort column ascending">Tipo Movimiento
-                </th>
-
-                <th width="20%">
-                  Acciones
-                </th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr class="odd" role="row" *ngFor="let movimiento of movimientos; let i=index">
-                <td>{{movimiento.id}}</td>
-                <td>{{movimiento.fechaMovimiento}}</td>
-                <td>{{movimiento.monto}}</td>
-                <td>{{movimiento.monedaNombre}}</td>
-                <td>{{movimiento.conceptoNombre}}</td>
-                <td class="text-right">
-                  <button *ngIf="authService.hasRole('ROLE_ADMIN')"
-                          [routerLink]="['/movimientos/form', movimiento.id]"
-                          type="button"
-                          class="btn btn-sm btn-light"
-                          title="Editar"
-                          style="margin-right: 5px">
-                    <i class="fa fa-pencil"></i>
-                    Editar
-                  </button>
-                  <button *ngIf="authService.hasRole('ROLE_ADMIN')"
-                          type="button"
-                          class="btn btn-sm btn-danger"
-                          title="Eliminar"
-                          (click)='delete(movimiento)'
-                          style="margin-right: 5px">
-                    <i class="fa fa-eye"></i>
-                    Eliminar
-                  </button>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-12">
-            <app-pagination [page]="page" (paginationEvent)="changePage($event)"></app-pagination>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 
 </section>
