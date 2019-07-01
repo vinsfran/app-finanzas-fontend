@@ -6,47 +6,21 @@
 <section class="content">
     <div class="box box-primary">
         <div class="box-header with-border">
-            <h3 class="box-title">Datos de la movimiento</h3>
+            <h3 class="box-title">Datos del movimiento</h3>
         </div>
         <!-- /.box-header -->
         <!-- form start -->
         <form role="form" #movimientoForm="ngForm">
             <div class="box-body">
 
-              <div class="form-group mb10 clearfix">
-                <label for="numeroComprobante" class="col-sm-2">Numero de Comprobante</label>
-                <div class="col-sm-10">
-                  <input id="numeroComprobante"
-                         placeholder="Numero de Comprobante"
-                         type="text"
-                         class="form-control"
-                         [(ngModel)]="movimientoModel.numeroComprobante"
-                         name="numeroComprobante"
-                         #numeroComprobante="ngModel">
-                </div>
-              </div>
-
-                <div class="form-group mb10 clearfix">
-                    <label for="fechaMovimiento" class="col-sm-2">Fecha</label>
-                    <div class="col-sm-10">
-
-                        <input id="fechaMovimiento"
-                               placeholder="Ingrese un fecha"
-                               type="date"
-                               class="form-control"
-                               [(ngModel)]="movimientoModel.fechaMovimiento"
-                               name="fechaMovimiento"
-                               #fechaMovimiento="ngModel">
-
-                    </div>
-                </div>
-
                 <div class="form-group mb10 clearfix">
                     <label for="conceptoId" class="col-sm-2">Tipo de Movimiento</label>
                     <div class="col-sm-10">
-                        <select class="form-control" id="conceptoId"
-                                [(ngModel)]="movimientoModel.conceptoId"
-                                [ngModelOptions]="{standalone: true}">
+                        <select id="conceptoId"
+                                class="form-control"
+                                [(ngModel)]="movimiento.conceptoId"
+                                [ngModelOptions]="{standalone: true}"
+                                (change)="onChangeMovimiento()">
                             <option *ngFor="let concepto of conceptos" [value]="concepto.id">
                                 {{concepto.nombre}}
                             </option>
@@ -54,27 +28,31 @@
                     </div>
                 </div>
 
-                <div class="form-group mb10 clearfix">
-                    <label for="monto" class="col-sm-2">Monto</label>
+                <div class="form-group mb10 clearfix" *ngIf="movimiento.codigoConcepto == 'PP'">
+                    <label for="prestamoId" class="col-sm-2">Prestamo</label>
                     <div class="col-sm-10">
-                        <input id="monto"
-                               placeholder="Ingrese monto"
-                               type="number"
-                               class="form-control"
-                               [(ngModel)]="movimientoModel.monto"
-                               name="monto"
-                               #monto="ngModel">
+                        <select id="prestamoId"
+                                class="form-control"
+                                [(ngModel)]="movimiento.prestamoId"
+                                [ngModelOptions]="{standalone: true}"
+                                (change)="onChangePrestamo()">
+                            <option *ngFor="let prestamo of prestamos" [value]="prestamo.id">
+                                {{prestamo.destinoPrestamo}}
+                            </option>
+                        </select>
                     </div>
                 </div>
 
-                <div class="form-group mb10 clearfix">
-                    <label for="monedaId" class="col-sm-2">Tipo de Moneda</label>
+                <div class="form-group mb10 clearfix" *ngIf="movimiento.codigoConcepto == 'PA'">
+                    <label for="ahorroId" class="col-sm-2">Ahorro</label>
                     <div class="col-sm-10">
-                        <select class="form-control" id="monedaId"
-                                [(ngModel)]="movimientoModel.monedaId"
-                                [ngModelOptions]="{standalone: true}">
-                            <option *ngFor="let moneda of monedas" [value]="moneda.id">
-                                {{moneda.nombre }} - {{moneda.codigo}}
+                        <select id="ahorroId"
+                                class="form-control"
+                                [(ngModel)]="movimiento.ahorroId"
+                                [ngModelOptions]="{standalone: true}"
+                                (change)="onChangeAhorro()">
+                            <option *ngFor="let ahorro of ahorros" [value]="ahorro.id">
+                                {{ahorro.entidadFinancieraNombre}}
                             </option>
                         </select>
                     </div>
@@ -87,17 +65,87 @@
                                placeholder="Ingrese Nombre de Entidad"
                                type="text"
                                class="form-control"
-                               [(ngModel)]="movimientoModel.nombreEntidad"
+                               [(ngModel)]="movimiento.nombreEntidad"
                                name="nombreEntidad"
                                #nombreEntidad="ngModel">
                     </div>
                 </div>
 
                 <div class="form-group mb10 clearfix">
+                    <label for="numeroComprobante" class="col-sm-2">Numero de Comprobante</label>
+                    <div class="col-sm-10">
+                        <input id="numeroComprobante"
+                               placeholder="Numero de Comprobante"
+                               type="text"
+                               class="form-control"
+                               [(ngModel)]="movimiento.numeroComprobante"
+                               name="numeroComprobante"
+                               #numeroComprobante="ngModel">
+                    </div>
+                </div>
+
+                <div class="form-group mb10 clearfix">
+                    <label for="fechaMovimiento" class="col-sm-2">Fecha</label>
+                    <div class="col-sm-10">
+
+                        <input id="fechaMovimiento"
+                               placeholder="Ingrese un fecha"
+                               type="date"
+                               class="form-control"
+                               [ngModel]="movimiento.fechaMovimiento | date:'yyyy-MM-dd'"
+                               (ngModelChange)="movimiento.fechaMovimiento = $event"
+                               name="fechaMovimiento"
+                               #fechaMovimiento="ngModel">
+
+                    </div>
+                </div>
+
+
+                <div class="form-group mb10 clearfix">
+                    <label for="monto" class="col-sm-2">Monto</label>
+                    <div class="col-sm-10">
+                        <input id="monto"
+                               placeholder="Ingrese monto"
+                               type="number"
+                               class="form-control"
+                               [(ngModel)]="movimiento.montoPagado"
+                               name="monto"
+                               #monto="ngModel">
+                    </div>
+                </div>
+
+                <div class="form-group mb10 clearfix" *ngIf="mostrarNroCuota">
+                    <label for="numeroCuota" class="col-sm-2">Numero de cuota</label>
+                    <div class="col-sm-10">
+                        <input id="numeroCuota"
+                               placeholder="Ingrese Numero de cuota"
+                               type="number"
+                               class="form-control"
+                               [(ngModel)]="movimiento.numeroCuota"
+                               name="numeroCuota"
+                               #numeroCuota="ngModel">
+                    </div>
+                </div>
+
+                <div class="form-group mb10 clearfix">
+                    <label for="monedaId" class="col-sm-2">Tipo de Moneda</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="monedaId"
+                                [(ngModel)]="movimiento.monedaId"
+                                [ngModelOptions]="{standalone: true}">
+                            <option *ngFor="let moneda of monedas" [value]="moneda.id">
+                                {{moneda.nombre }} - {{moneda.codigo}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-group mb10 clearfix">
                     <label for="tipoPagoId" class="col-sm-2">Tipo de Pago</label>
                     <div class="col-sm-10">
                         <select class="form-control" id="tipoPagoId"
-                                [(ngModel)]="movimientoModel.tipoPagoId"
+                                [(ngModel)]="movimiento.tipoPagoId"
                                 [ngModelOptions]="{standalone: true}">
                             <option *ngFor="let tipoPago of tiposPagos" [value]="tipoPago.id">
                                 {{tipoPago.nombre }}
@@ -121,7 +169,7 @@
                 <button class="btn btn-primary pull-right"
                         role="button"
                         (click)='create()'
-                        *ngIf="!movimientoModel.id else elseBlock"
+                        *ngIf="!movimiento.id else elseBlock"
                         [disabled]="!movimientoForm.form.valid"
                         style="margin-right: 5px">
                     Guardar

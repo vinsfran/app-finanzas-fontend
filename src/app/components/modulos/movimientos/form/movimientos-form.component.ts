@@ -10,6 +10,10 @@ import {MonedaModel} from '../../monedas/moneda.model';
 import {AuthService} from '../../../../services/auth.service';
 import {TipoPagoModel} from '../../tiposPagos/tipoPago.model';
 import {TiposPagosService} from '../../../../services/tiposPagos.service';
+import {PrestamosService} from '../../../../services/prestamos.service';
+import {PrestamoModel} from '../../prestamos/prestamo.model';
+import {AhorroModel} from '../../ahorros/ahorro.model';
+import {AhorrosService} from '../../../../services/ahorros.service';
 
 @Component({
   selector: 'app-movimientos-form',
@@ -21,22 +25,35 @@ export class MovimientosFormComponent implements OnInit {
   lista: string[];
   public errores: string[];
 
+  prestamos: PrestamoModel[];
+  ahorros: AhorroModel[];
   conceptos: ConceptoModel[];
   monedas: MonedaModel[];
   tiposPagos: TipoPagoModel[];
 
-  movimientoModel: MovimientoModel;
+  movimiento: MovimientoModel;
+  prestamo: PrestamoModel;
+  ahorro: AhorroModel;
+  concepto: ConceptoModel;
 
+  mostrarNroCuota: boolean;
 
   constructor(private authService: AuthService,
               private movimientosService: MovimientosService,
               private conceptosService: ConceptosService,
               private monedasService: MonedasService,
               private tiposPagosService: TiposPagosService,
+              private prestamosService: PrestamosService,
+              private ahorrosService: AhorrosService,
               private router: Router, private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.movimiento = new MovimientoModel();
+    this.prestamo = new PrestamoModel();
+    this.ahorro = new AhorroModel();
+    this.concepto = new ConceptoModel();
+
     this.conceptosService.getAll().subscribe(getAll => {
         this.conceptos = getAll;
       },
@@ -66,11 +83,32 @@ export class MovimientosFormComponent implements OnInit {
       }
     );
 
-    this.movimientoModel = new MovimientoModel();
+    this.prestamosService.getAll().subscribe(getAll => {
+        this.prestamos = getAll;
+      },
+      err => {
+        this.errores = err.error.errors as string[];
+        console.error('Codigo del error desde el backend: ' + err.status);
+        console.error(err.error.errors);
+      }
+    );
+
+    this.ahorrosService.getAll().subscribe(getAll => {
+        this.ahorros = getAll;
+      },
+      err => {
+        this.errores = err.error.errors as string[];
+        console.error('Codigo del error desde el backend: ' + err.status);
+        console.error(err.error.errors);
+      }
+    );
+
+
     this.titulo = 'Crear Movimiento';
     this.cargarMovimiento();
     this.lista = ['Movimientos'];
     this.lista.push(this.titulo);
+    this.clearForm();
   }
 
   cargarMovimiento(): void {
@@ -78,14 +116,15 @@ export class MovimientosFormComponent implements OnInit {
       const id = params['id'];
       if (id) {
         this.titulo = 'Editar Movimiento Nro: ' + id;
-        this.movimientosService.get(id).subscribe((movimientoModel) => this.movimientoModel = movimientoModel);
+        this.movimientosService.get(id).subscribe((movimiento) => this.movimiento = movimiento);
       }
     });
   }
 
   create(): void {
-    this.movimientoModel.usuarioId = this.authService.usuario.id;
-    this.movimientosService.create(this.movimientoModel)
+    this.movimiento.usuarioId = this.authService.usuario.id;
+    this.movimiento.codigoConcepto = this.concepto.codigoConcepto;
+    this.movimientosService.create(this.movimiento)
       .subscribe(movimiento => {
           this.router.navigate(['/movimientos']);
           swal.fire('Nuevo movimiento', `El movimiento: ${movimiento.id} ha sido creada con exito`, 'success');
@@ -99,7 +138,7 @@ export class MovimientosFormComponent implements OnInit {
   }
 
   update(): void {
-    this.movimientosService.update(this.movimientoModel)
+    this.movimientosService.update(this.movimiento)
       .subscribe(json => {
           console.error(json);
           this.router.navigate(['/movimientos']);
@@ -116,5 +155,43 @@ export class MovimientosFormComponent implements OnInit {
   back() {
     this.router.navigate(['/movimientos']);
   }
+
+  onChangePrestamo() {
+    this.prestamo = this.prestamos.find(prestamo => prestamo.id == this.movimiento.prestamoId);
+    this.movimiento.nombreEntidad = this.prestamo.entidadFinancieraNombre;
+    this.movimiento.montoPagado = this.prestamo.montoCuota;
+    this.movimiento.numeroCuota = this.prestamo.cantidadCuotasPagadas + 1;
+  }
+
+  onChangeAhorro() {
+    this.ahorro = this.ahorros.find(ahorro => ahorro.id == this.movimiento.ahorroId);
+    this.movimiento.nombreEntidad = this.ahorro.entidadFinancieraNombre;
+    this.movimiento.montoPagado = this.ahorro.montoCuota;
+    this.movimiento.numeroCuota = this.ahorro.cantidadCuotasPagadas + 1;
+  }
+
+  onChangeMovimiento() {
+    this.concepto = this.conceptos.find(concepto => concepto.id == this.movimiento.conceptoId);
+    this.movimiento.codigoConcepto = this.concepto.codigoConcepto;
+    if (this.concepto.codigoConcepto !== 'PS') {
+      this.mostrarNroCuota = true;
+    }
+    this.clearForm();
+  }
+
+  clearForm() {
+    // this.movimiento.codigoConcepto = 'PS';
+    this.movimiento.prestamoId = 0;
+    this.movimiento.ahorroId = 0;
+    this.movimiento.numeroCuota = 0;
+    this.movimiento.numeroComprobante = '';
+    this.movimiento.fechaMovimiento = new Date();
+    this.movimiento.montoPagado = 0;
+    this.movimiento.monedaId = 1;
+    this.movimiento.nombreEntidad = '';
+    this.movimiento.tipoPagoId = 1;
+
+  }
+
 
 }

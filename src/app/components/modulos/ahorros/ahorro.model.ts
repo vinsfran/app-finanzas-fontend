@@ -7,6 +7,7 @@ export class AhorroModel {
   interes: number;
   tasa: number;
   cantidadCuotas: number;
+  cantidadCuotasPagadas: number;
   montoCuota: number;
   montoInteresCuota: number;
   cantidadCobro: number;
