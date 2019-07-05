@@ -1,0 +1,123 @@
+<app-content-header
+  [titulo]="titulo"
+  [lista]="lista">
+</app-content-header>
+<section class="content">
+
+  <div class="box">
+    <div class="box-body">
+      <div class="dataTables_wrapper form-inline dt-bootstrap">
+        <div class="row" style="padding-bottom: 5px">
+          <div class="col-sm-6">
+            <button *ngIf="authService.hasRole('ROLE_ADMIN')"
+                    class="btn btn-primary float-left"
+                    [routerLink]="['/tarjetas/form']"
+                    title="Agregar nuevo"
+                    style="margin-right: 5px">
+              <i class="fa fa-plus"></i>
+              Nuevo Prestamo
+            </button>
+          </div>
+          <div class="col-sm-6">
+            <div id="example1_filter" class="dataTables_filter">
+              <label>Buscar:
+                <input class="form-control input-sm"
+                       placeholder=""
+                       aria-controls="example1"
+                       type="search"
+                       [(ngModel)]="inputDeBuscar"
+                       (keyup.enter)="buscar()">
+              </label>
+            </div>
+          </div>
+        </div>
+        <!--        {{inputDeBuscar | json}}-->
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="table table-bordered table-striped dataTable" *ngIf="tarjetas?.length > 0">
+              <thead>
+              <tr role="row">
+                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-sort="ascending"
+                    aria-label="Numero de Tarjeta: activate to sort column descending">Numero de Tarjeta
+                </th>
+                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-sort="ascending"
+                    aria-label="Marca: activate to sort column descending">Marca
+                </th>
+                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-sort="ascending"
+                    aria-label="Linea de Credito: activate to sort column descending">Linea de Credito
+                </th>
+                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Moneda: activate to sort column ascending">Vencimiento
+                </th>
+                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Estado: activate to sort column ascending">Estado
+                </th>
+                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                    aria-label="Entidad Financiera: activate to sort column ascending">Entidad Financiera
+                </th>
+
+                <th width="20%">
+                  Acciones
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr class="odd" role="row" *ngFor="let tarjeta of tarjetas; let i=index">
+                <td>{{tarjeta.numeroTarjeta}}</td>
+                <td>{{tarjeta.marca}}</td>
+                <td>{{tarjeta.lineaCredito}}</td>
+                <td>{{tarjeta.fechaVencimiento}}</td>
+                <td>{{tarjeta.estado}}</td>
+                <td>{{tarjeta.entidadFinancieraNombre}}</td>
+                <td class="text-right">
+                  <button *ngIf="authService.hasRole('ROLE_ADMIN')"
+                          [routerLink]="['/tarjetas/pagar', tarjeta.id]"
+                          type="button"
+                          class="btn btn-sm btn-success"
+                          title="Realizar Pago"
+                          style="margin-right: 5px">
+                    <i class="fa fa-money"></i>
+                  </button>
+                  <button *ngIf="authService.hasRole('ROLE_ADMIN')"
+                          [routerLink]="['/tarjetas/detalles', tarjeta.id]"
+                          type="button"
+                          class="btn btn-sm btn-info"
+                          title="Ver Detalles"
+                          style="margin-right: 5px">
+                    <i class="fa fa-eye"></i>
+                  </button>
+                  <button *ngIf="authService.hasRole('ROLE_ADMIN')"
+                          [routerLink]="['/tarjetas/form', tarjeta.id]"
+                          type="button"
+                          class="btn btn-sm btn-warning"
+                          title="Editar"
+                          style="margin-right: 5px">
+                    <i class="fa fa-pencil"></i>
+                  </button>
+                  <button *ngIf="authService.hasRole('ROLE_ADMIN')"
+                          type="button"
+                          class="btn btn-sm btn-danger"
+                          title="Eliminar"
+                          (click)='delete(tarjeta)'
+                          style="margin-right: 5px">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <app-pagination [page]="page" (paginationEvent)="changePage($event)"></app-pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

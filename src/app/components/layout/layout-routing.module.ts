@@ -97,7 +97,13 @@ const routes: Routes = [
         path: '',
         loadChildren: '../modulos/presupuestos/presupuestos.module#PresupuestosModule',
         canActivate: [AuthorizationGuard]
-      }
+      },
+      // Ruta para Tarjetas
+      {
+        path: '',
+        loadChildren: '../modulos/tarjetas/tarjetas.module#TarjetasModule',
+        canActivate: [AuthorizationGuard]
+      },
     ]
 
   }
