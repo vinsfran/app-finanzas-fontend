@@ -10,15 +10,15 @@ const routes: Routes = [
     component: TarjetasComponent,
     children: [
       {
-        path: 'ahorros',
+        path: 'tarjetas',
         component: TarjetasListComponent
       },
       {
-        path: 'ahorros/form',
+        path: 'tarjetas/form',
         component: TarjetasFormComponent
       },
       {
-        path: 'ahorros/form/:id',
+        path: 'tarjetas/form/:id',
         component: TarjetasFormComponent
       }
     ]

@@ -24,43 +24,20 @@ export class TarjetasFormComponent implements OnInit {
   tarjetaModel: TarjetaModel;
 
   entidadesFinancieras: EntidadFinancieraModel[];
-  tipoCobros: TipoCobroModel[];
-  monedas: MonedaModel[];
-  monedaModel: MonedaModel;
 
 
   constructor(private authService: AuthService,
               private tarjetasService: TarjetasService,
-              private monedasService: MonedasService,
               private entidadesFinancierasService: EntidadesFinancierasService,
-              private tiposCobrosService: TiposCobrosService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.monedaModel = new MonedaModel();
     this.tarjetaModel = new TarjetaModel();
-    this.monedasService.getAll().subscribe(getAll => {
-        this.monedas = getAll;
-      },
-      err => {
-        this.errores = err.error.errors as string[];
-        console.error('Codigo del error desde el backend: ' + err.status);
-        console.error(err.error.errors);
-      }
-    );
+
     this.entidadesFinancierasService.getAll().subscribe(getAll => {
         this.entidadesFinancieras = getAll;
-      },
-      err => {
-        this.errores = err.error.errors as string[];
-        console.error('Codigo del error desde el backend: ' + err.status);
-        console.error(err.error.errors);
-      }
-    );
-    this.tiposCobrosService.getAll().subscribe(getAll => {
-        this.tipoCobros = getAll;
       },
       err => {
         this.errores = err.error.errors as string[];
@@ -93,7 +70,7 @@ export class TarjetasFormComponent implements OnInit {
     this.tarjetasService.create(this.tarjetaModel)
       .subscribe(tarjeta => {
           this.router.navigate(['/tarjetas']);
-          swal.fire('Nuevo Tarjeta', `El Tarjeta: ${tarjeta.id} ha sido creado con exito`, 'success');
+          swal.fire('Nueva Tarjeta', `La Tarjeta: ${tarjeta.id} ha sido creada con exito`, 'success');
         },
         err => {
           this.errores = err.error.errors as string[];
