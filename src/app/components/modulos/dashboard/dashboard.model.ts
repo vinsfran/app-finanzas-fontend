@@ -12,4 +12,8 @@ export class DashboardModel {
   totalMontoInteresAhorros: number;
   totalMontoCapitalAhorros: number;
   proximoVencimientoAhorros: Date;
+
+  cantidadTarjetas: number;
+  totalDeudaTarjetas: number;
+  totalLineaTarjetas: number;
 }

@@ -14,6 +14,7 @@ import {MonedasService} from '../../../services/monedas.service';
 import {TiposPagosService} from '../../../services/tiposPagos.service';
 import {PrestamosService} from '../../../services/prestamos.service';
 import {AhorrosService} from '../../../services/ahorros.service';
+import {TarjetasService} from '../../../services/tarjetas.service';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import {AhorrosService} from '../../../services/ahorros.service';
     MonedasService,
     TiposPagosService,
     PrestamosService,
-    AhorrosService
+    AhorrosService,
+    TarjetasService
   ]
 })
 

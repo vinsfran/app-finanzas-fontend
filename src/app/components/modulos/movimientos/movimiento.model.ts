@@ -6,6 +6,7 @@ export class MovimientoModel {
   nombreEntidad: string;
   prestamoId: number;
   ahorroId: number;
+  tarjetaId: number;
   numeroCuota: number;
   conceptoId: number;
   conceptoNombre: string;

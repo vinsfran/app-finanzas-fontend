@@ -14,6 +14,8 @@ import {PrestamosService} from '../../../../services/prestamos.service';
 import {PrestamoModel} from '../../prestamos/prestamo.model';
 import {AhorroModel} from '../../ahorros/ahorro.model';
 import {AhorrosService} from '../../../../services/ahorros.service';
+import {TarjetaModel} from '../../tarjetas/tarjeta.model';
+import {TarjetasService} from '../../../../services/tarjetas.service';
 
 @Component({
   selector: 'app-movimientos-form',
@@ -27,6 +29,7 @@ export class MovimientosFormComponent implements OnInit {
 
   prestamos: PrestamoModel[];
   ahorros: AhorroModel[];
+  tarjetas: TarjetaModel[];
   conceptos: ConceptoModel[];
   monedas: MonedaModel[];
   tiposPagos: TipoPagoModel[];
@@ -34,6 +37,7 @@ export class MovimientosFormComponent implements OnInit {
   movimiento: MovimientoModel;
   prestamo: PrestamoModel;
   ahorro: AhorroModel;
+  tarjeta: TarjetaModel;
   concepto: ConceptoModel;
 
   mostrarNroCuota: boolean;
@@ -45,6 +49,7 @@ export class MovimientosFormComponent implements OnInit {
               private tiposPagosService: TiposPagosService,
               private prestamosService: PrestamosService,
               private ahorrosService: AhorrosService,
+              private tarjetasService: TarjetasService,
               private router: Router, private activatedRoute: ActivatedRoute) {
   }
 
@@ -103,6 +108,15 @@ export class MovimientosFormComponent implements OnInit {
       }
     );
 
+    this.tarjetasService.getAll().subscribe(getAll => {
+        this.tarjetas = getAll;
+      },
+      err => {
+        this.errores = err.error.errors as string[];
+        console.error('Codigo del error desde el backend: ' + err.status);
+        console.error(err.error.errors);
+      }
+    );
 
     this.titulo = 'Crear Movimiento';
     this.cargarMovimiento();
@@ -170,11 +184,18 @@ export class MovimientosFormComponent implements OnInit {
     this.movimiento.numeroCuota = this.ahorro.cantidadCuotasPagadas + 1;
   }
 
+  onChangeTarjeta() {
+    this.tarjeta = this.tarjetas.find(tarjeta => tarjeta.id == this.movimiento.tarjetaId);
+    this.movimiento.nombreEntidad = this.tarjeta.entidadFinancieraNombre;
+  }
+
   onChangeMovimiento() {
     this.concepto = this.conceptos.find(concepto => concepto.id == this.movimiento.conceptoId);
     this.movimiento.codigoConcepto = this.concepto.codigoConcepto;
-    if (this.concepto.codigoConcepto !== 'PS') {
+    if (this.concepto.codigoConcepto === 'PP' || this.concepto.codigoConcepto === 'PA') {
       this.mostrarNroCuota = true;
+    }else {
+      this.mostrarNroCuota = false;
     }
     this.clearForm();
   }
