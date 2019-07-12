@@ -10,6 +10,9 @@ import {TarjetasListComponent} from './list/tarjetas-list.component';
 import {TarjetasFormComponent} from './form/tarjetas-form.component';
 import {TarjetasService} from '../../../services/tarjetas.service';
 import {EntidadesFinancierasService} from '../../../services/entidadesFinancieras.service';
+import {MovimientosService} from '../../../services/movimientos.service';
+import {VerDetallesTarjetaFormComponent} from './verDetalles/verDetallesTarjeta-form.component';
+import {TiposPagosService} from '../../../services/tiposPagos.service';
 
 @NgModule({
   imports: [
@@ -23,12 +26,14 @@ import {EntidadesFinancierasService} from '../../../services/entidadesFinanciera
   declarations: [
     TarjetasComponent,
     TarjetasFormComponent,
-    TarjetasListComponent
+    TarjetasListComponent,
+    VerDetallesTarjetaFormComponent
   ],
   providers: [
     TarjetasService,
     EntidadesFinancierasService,
-
+    MovimientosService,
+    TiposPagosService
   ]
 })
 

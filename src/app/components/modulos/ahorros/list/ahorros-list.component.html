@@ -76,14 +76,14 @@
                 <td>{{ahorro.montoCuota}}</td>
                 <td>{{ahorro.fechaVencimiento}}</td>
                 <td class="text-right">
-                  <button *ngIf="authService.hasRole('ROLE_ADMIN')"
-                          [routerLink]="['/ahorros/pagar', ahorro.id]"
-                          type="button"
-                          class="btn btn-sm btn-success"
-                          title="Realizar Pago"
-                          style="margin-right: 5px">
-                    <i class="fa fa-money"></i>
-                  </button>
+<!--                  <button *ngIf="authService.hasRole('ROLE_ADMIN')"-->
+<!--                          [routerLink]="['/ahorros/pagar', ahorro.id]"-->
+<!--                          type="button"-->
+<!--                          class="btn btn-sm btn-success"-->
+<!--                          title="Realizar Pago"-->
+<!--                          style="margin-right: 5px">-->
+<!--                    <i class="fa fa-money"></i>-->
+<!--                  </button>-->
                   <button *ngIf="authService.hasRole('ROLE_ADMIN')"
                           [routerLink]="['/ahorros/detalles', ahorro.id]"
                           type="button"

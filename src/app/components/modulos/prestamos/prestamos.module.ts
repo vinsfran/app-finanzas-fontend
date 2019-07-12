@@ -12,9 +12,9 @@ import {PrestamosService} from '../../../services/prestamos.service';
 import {MonedasService} from '../../../services/monedas.service';
 import {EntidadesFinancierasService} from '../../../services/entidadesFinancieras.service';
 import {RealizarPagoPrestamoFormComponent} from './realizarPagoPrestamo/realizarPagoPrestamo-form.component';
-import {PrestamosPagosService} from '../../../services/prestamosPagos.service';
 import {TiposPagosService} from '../../../services/tiposPagos.service';
 import {VerDetallesPrestamoFormComponent} from './verDetalles/verDetallesPrestamo-form.component';
+import {MovimientosService} from '../../../services/movimientos.service';
 
 @NgModule({
   imports: [
@@ -36,7 +36,7 @@ import {VerDetallesPrestamoFormComponent} from './verDetalles/verDetallesPrestam
     PrestamosService,
     EntidadesFinancierasService,
     MonedasService,
-    PrestamosPagosService,
+    MovimientosService,
     TiposPagosService
   ]
 })

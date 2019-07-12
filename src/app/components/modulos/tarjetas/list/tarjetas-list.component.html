@@ -73,14 +73,14 @@
                 <td>{{tarjeta.estado}}</td>
                 <td>{{tarjeta.entidadFinancieraNombre}}</td>
                 <td class="text-right">
-                  <button *ngIf="authService.hasRole('ROLE_ADMIN')"
-                          [routerLink]="['/tarjetas/pagar', tarjeta.id]"
-                          type="button"
-                          class="btn btn-sm btn-success"
-                          title="Realizar Pago"
-                          style="margin-right: 5px">
-                    <i class="fa fa-money"></i>
-                  </button>
+<!--                  <button *ngIf="authService.hasRole('ROLE_ADMIN')"-->
+<!--                          [routerLink]="['/tarjetas/pagar', tarjeta.id]"-->
+<!--                          type="button"-->
+<!--                          class="btn btn-sm btn-success"-->
+<!--                          title="Realizar Pago"-->
+<!--                          style="margin-right: 5px">-->
+<!--                    <i class="fa fa-money"></i>-->
+<!--                  </button>-->
                   <button *ngIf="authService.hasRole('ROLE_ADMIN')"
                           [routerLink]="['/tarjetas/detalles', tarjeta.id]"
                           type="button"

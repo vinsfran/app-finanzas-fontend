@@ -2,28 +2,28 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import swal from 'sweetalert2';
 import {AuthService} from '../../../../services/auth.service';
-import {AhorroModel} from '../../ahorros/ahorro.model';
+import {TarjetaModel} from '../../tarjetas/tarjeta.model';
 import {TiposPagosService} from '../../../../services/tiposPagos.service';
 import {TipoPagoModel} from '../../tiposPagos/tipoPago.model';
-import {AhorrosService} from '../../../../services/ahorros.service';
+import {TarjetasService} from '../../../../services/tarjetas.service';
 import {PageModel} from '../../widgets/page.model';
 import {MovimientosService} from '../../../../services/movimientos.service';
 import {MovimientoModel} from '../../movimientos/movimiento.model';
 
 @Component({
-  selector: 'app-detalles-ahorro-form',
-  templateUrl: './verDetallesAhorro-form.component.html',
-  styleUrls: ['./verDetallesAhorro-form.component.css']
+  selector: 'app-detalles-tarjeta-form',
+  templateUrl: './verDetallesTarjeta-form.component.html',
+  styleUrls: ['./verDetallesTarjeta-form.component.css']
 })
-export class VerDetallesAhorroFormComponent implements OnInit {
+export class VerDetallesTarjetaFormComponent implements OnInit {
   titulo: string;
   lista: string[];
   public errores: string[];
 
-  ahorro: AhorroModel;
-  ahorroId: number;
+  tarjeta: TarjetaModel;
+  tarjetaId: number;
 
-  ahorros: AhorroModel[];
+  tarjetas: TarjetaModel[];
   tiposPagos: TipoPagoModel[];
   movimientos: MovimientoModel[];
 
@@ -33,7 +33,7 @@ export class VerDetallesAhorroFormComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private movimientosService: MovimientosService,
-              private ahorrosService: AhorrosService,
+              private tarjetasService: TarjetasService,
               private tiposPagosService: TiposPagosService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
@@ -42,8 +42,8 @@ export class VerDetallesAhorroFormComponent implements OnInit {
   ngOnInit() {
     this.campo = 'id';
     this.orden = 'asc';
-    this.ahorro = new AhorroModel();
-    this.cargarAhorro();
+    this.tarjeta = new TarjetaModel();
+    this.cargarTarjeta();
     this.tiposPagosService.getAll().subscribe(getAll => {
         this.tiposPagos = getAll;
       },
@@ -54,27 +54,27 @@ export class VerDetallesAhorroFormComponent implements OnInit {
       }
     );
     this.titulo = 'Ver Detalles';
-    this.lista = ['Ahorros Pago'];
+    this.lista = ['Tarjetas Pago'];
     this.lista.push(this.titulo);
   }
 
 
-  cargarAhorro(): void {
+  cargarTarjeta(): void {
     this.activatedRoute.params.subscribe(params => {
       const id = params['id'];
       if (id) {
-        this.ahorrosService.getAhorro(id)
-          .subscribe((ahorroModel) => {
-            this.ahorro = ahorroModel;
-            this.ahorroId = this.ahorro.id;
-            this.getMovimientosPageByAhorroId(0, 10, this.campo, this.orden, this.ahorroId);
+        this.tarjetasService.getTarjeta(id)
+          .subscribe((tarjetaModel) => {
+            this.tarjeta = tarjetaModel;
+            this.tarjetaId = this.tarjeta.id;
+            this.getMovimientosPageByTarjetaId(0, 10, this.campo, this.orden, this.tarjetaId);
           });
       }
     });
   }
 
-  getMovimientosPageByAhorroId(page: number, size: number, campo: string, orden: string, ahorroId: number) {
-    this.movimientosService.getMovimientosPageByAhorroId(page, size, campo, orden, ahorroId).subscribe(
+  getMovimientosPageByTarjetaId(page: number, size: number, campo: string, orden: string, tarjetaId: number) {
+    this.movimientosService.getMovimientosPageByTarjetaId(page, size, campo, orden, tarjetaId).subscribe(
       response => {
         console.log(response);
         this.page = response.page;
@@ -87,11 +87,11 @@ export class VerDetallesAhorroFormComponent implements OnInit {
   }
 
   changePage(event) {
-    this.getMovimientosPageByAhorroId(0, 10, this.campo, this.orden, this.ahorroId);
+    this.getMovimientosPageByTarjetaId(0, 10, this.campo, this.orden, this.tarjetaId);
   }
 
   back() {
-    this.router.navigate(['/ahorros']);
+    this.router.navigate(['/tarjetas']);
   }
 
 

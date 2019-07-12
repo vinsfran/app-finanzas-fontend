@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {TarjetasListComponent} from './list/tarjetas-list.component';
 import {TarjetasComponent} from './tarjetas.component';
 import {TarjetasFormComponent} from './form/tarjetas-form.component';
+import {VerDetallesTarjetaFormComponent} from './verDetalles/verDetallesTarjeta-form.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,10 @@ const routes: Routes = [
       {
         path: 'tarjetas/form/:id',
         component: TarjetasFormComponent
+      },
+      {
+        path: 'tarjetas/detalles/:id',
+        component: VerDetallesTarjetaFormComponent
       }
     ]
   },

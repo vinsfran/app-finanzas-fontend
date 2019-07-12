@@ -76,14 +76,14 @@
                 <td>{{prestamo.montoPrestamo - prestamo.montoPagado}}</td>
                 <td>{{prestamo.monedaCodigo}}</td>
                 <td class="text-right">
-                  <button *ngIf="authService.hasRole('ROLE_ADMIN')"
-                          [routerLink]="['/prestamos/pagar', prestamo.id]"
-                          type="button"
-                          class="btn btn-sm btn-success"
-                          title="Realizar Pago"
-                          style="margin-right: 5px">
-                    <i class="fa fa-money"></i>
-                  </button>
+<!--                  <button *ngIf="authService.hasRole('ROLE_ADMIN')"-->
+<!--                          [routerLink]="['/prestamos/pagar', prestamo.id]"-->
+<!--                          type="button"-->
+<!--                          class="btn btn-sm btn-success"-->
+<!--                          title="Realizar Pago"-->
+<!--                          style="margin-right: 5px">-->
+<!--                    <i class="fa fa-money"></i>-->
+<!--                  </button>-->
                   <button *ngIf="authService.hasRole('ROLE_ADMIN')"
                           [routerLink]="['/prestamos/detalles', prestamo.id]"
                           type="button"

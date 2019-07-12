@@ -6,80 +6,51 @@
 <section class="content">
   <div class="box box-primary">
     <div class="box-header with-border">
-      <h3 class="box-title">Detalles del Prestamo</h3>
+      <h3 class="box-title">Detalles de la Tarjeta</h3>
     </div>
 
 
     <!-- /.box-header -->
     <!-- form start -->
-    <form role="form" #prestamoForm="ngForm">
+    <form role="form" #tarjetaForm="ngForm">
       <div class="box-body">
 
         <div class="form-group mb10 clearfix">
-          <label for="destinoPrestamo" class="col-sm-2 col-form-label">Destino del Prestamo</label>
+          <label for="numeroTarjeta" class="col-sm-2 col-form-label">Numero de Tarjeta</label>
           <div class="col-sm-10">
-            <span class="form-control-plaintext" id="destinoPrestamo">{{prestamo.destinoPrestamo}}</span>
+            <span class="form-control-plaintext" id="numeroTarjeta">{{tarjeta.numeroTarjeta}}</span>
           </div>
         </div>
 
         <div class="form-group mb10 clearfix">
-          <label for="entidadFinancieraNombre" class="col-sm-2 col-form-label">Entidad FinancieraNombre</label>
+          <label for="marca" class="col-sm-2 col-form-label">Marca</label>
+          <div class="col-sm-10">
+            <span class="form-control-plaintext" id="marca">{{tarjeta.marca}}</span>
+          </div>
+        </div>
+
+        <div class="form-group mb10 clearfix">
+          <label for="entidadFinancieraNombre" class="col-sm-2 col-form-label">Entidad Financiera</label>
           <div class="col-sm-10">
             <span class="form-control-plaintext"
-                  id="entidadFinancieraNombre">{{prestamo.entidadFinancieraNombre}}</span>
+                  id="entidadFinancieraNombre">{{tarjeta.entidadFinancieraNombre}}</span>
           </div>
         </div>
 
         <div class="form-group mb10 clearfix">
-          <label for="montoPrestamo" class="col-sm-2">Monto Total</label>
+          <label for="fechaVencimiento" class="col-sm-2">Fecha de Vencimiento</label>
           <div class="col-sm-10">
             <div class="col-sm-10">
-              <span class="form-control-plaintext" id="montoPrestamo">{{prestamo.montoPrestamo}}</span>
+              <span class="form-control-plaintext" id="fechaVencimiento">{{tarjeta.fechaVencimiento}}</span>
             </div>
           </div>
         </div>
 
         <div class="form-group mb10 clearfix">
-          <label for="numeroCuota" class="col-sm-2">Cantidad de Cuotas</label>
+          <label for="lineaCredito" class="col-sm-2">Linea de Credito</label>
           <div class="col-sm-10">
             <div class="col-sm-10">
-              <span class="form-control-plaintext" id="numeroCuota">{{prestamo.cantidadCuotas}}</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group mb10 clearfix">
-          <label for="tasa" class="col-sm-2">Tasa</label>
-          <div class="col-sm-10">
-            <div class="col-sm-10">
-              <span class="form-control-plaintext" id="tasa">{{prestamo.tasa}}</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group mb10 clearfix">
-          <label for="fechaDesembolso" class="col-sm-2">Fecha Desembolso</label>
-          <div class="col-sm-10">
-            <div class="col-sm-10">
-              <span class="form-control-plaintext" id="fechaDesembolso">{{prestamo.fechaDesembolso}}</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group mb10 clearfix">
-          <label for="fechaVencimiento" class="col-sm-2">Fecha Vencimiento</label>
-          <div class="col-sm-10">
-            <div class="col-sm-10">
-              <span class="form-control-plaintext" id="fechaVencimiento">{{prestamo.fechaVencimiento}}</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group mb10 clearfix">
-          <label for="interes" class="col-sm-2">Interes</label>
-          <div class="col-sm-10">
-            <div class="col-sm-10">
-              <span class="form-control-plaintext" id="interes">{{prestamo.interes}}</span>
+              <span class="form-control-plaintext" id="lineaCredito">{{tarjeta.lineaCredito}}</span>
             </div>
           </div>
         </div>
@@ -90,9 +61,6 @@
               <table class="table table-bordered table-striped dataTable" *ngIf="movimientos?.length > 0">
                 <thead>
                 <tr role="row">
-                  <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                      aria-label="Saldo: activate to sort column ascending">Cuota
-                  </th>
                   <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                       aria-label="Numero de Cuota: activate to sort column ascending">Fecha de pago
                   </th>
@@ -106,7 +74,6 @@
                 </thead>
                 <tbody>
                 <tr class="odd" role="row" *ngFor="let movimiento of movimientos; let i=index">
-                  <td>{{movimiento.numeroCuota}}</td>
                   <td>{{movimiento.fechaMovimiento}}</td>
                   <td>{{movimiento.montoPagado}}</td>
                   <td>{{movimiento.tipoPagoNombre}}</td>
@@ -122,7 +89,7 @@
             </div>
           </div>
         </div>
-        <!--        {{prestamoPagoModel | json}}-->
+        <!--        {{ahorroPagoModel | json}}-->
       </div>
 
       <!-- /.box-body -->

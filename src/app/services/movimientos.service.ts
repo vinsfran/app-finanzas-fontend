@@ -93,4 +93,25 @@ export class MovimientosService {
     return this.http.request(req);
   }
 
+  getMovimientosPageByPrestamoId(page: number, size: number, campo: string, orden: string, prestamoId: number) {
+    this.httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.get<ResponseBasePageModel>(
+      this.urlEndPoint + `/page/by-prestamo-id?prestamoId=${prestamoId}&page=${page}&size=${size}&sort=${campo},${orden}`,
+      {headers: this.httpHeaders});
+  }
+
+  getMovimientosPageByAhorroId(page: number, size: number, campo: string, orden: string, ahorroId: number) {
+    this.httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.get<ResponseBasePageModel>(
+      this.urlEndPoint + `/page/by-ahorro-id?ahorroId=${ahorroId}&page=${page}&size=${size}&sort=${campo},${orden}`,
+      {headers: this.httpHeaders});
+  }
+
+  getMovimientosPageByTarjetaId(page: number, size: number, campo: string, orden: string, tarjetaId: number) {
+    this.httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.get<ResponseBasePageModel>(
+      this.urlEndPoint + `/page/by-tarjeta-id?tarjetaId=${tarjetaId}&page=${page}&size=${size}&sort=${campo},${orden}`,
+      {headers: this.httpHeaders});
+  }
+
 }

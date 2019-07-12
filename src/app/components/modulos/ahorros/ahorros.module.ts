@@ -15,6 +15,7 @@ import {TiposPagosService} from '../../../services/tiposPagos.service';
 import {VerDetallesAhorroFormComponent} from './verDetalles/verDetallesAhorro-form.component';
 import {TiposAhorrosService} from '../../../services/tiposAhorros.service';
 import {TiposCobrosService} from '../../../services/tiposCobros.service';
+import {MovimientosService} from '../../../services/movimientos.service';
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import {TiposCobrosService} from '../../../services/tiposCobros.service';
   ],
   providers: [
     AhorrosService,
+    MovimientosService,
     TiposAhorrosService,
     TiposCobrosService,
     EntidadesFinancierasService,

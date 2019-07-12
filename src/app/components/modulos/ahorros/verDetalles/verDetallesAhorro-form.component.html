@@ -76,32 +76,32 @@
         <div class="dataTables_wrapper form-inline dt-bootstrap">
           <div class="row">
             <div class="col-sm-12">
-              <!--<table class="table table-bordered table-striped dataTable" *ngIf="ahorrosPagos?.length > 0">-->
-                <!--<thead>-->
-                <!--<tr role="row">-->
-                  <!--<th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"-->
-                      <!--aria-label="Saldo: activate to sort column ascending">Cuota-->
-                  <!--</th>-->
-                  <!--<th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"-->
-                      <!--aria-label="Numero de Cuota: activate to sort column ascending">Fecha de pago-->
-                  <!--</th>-->
-                  <!--<th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"-->
-                      <!--aria-label="Monto Pagado: activate to sort column ascending">Monto Pagado-->
-                  <!--</th>-->
-                  <!--<th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"-->
-                      <!--aria-label="Tipo de Pago: activate to sort column ascending">Tipo de Pago-->
-                  <!--</th>-->
-                <!--</tr>-->
-                <!--</thead>-->
-                <!--<tbody>-->
-                <!--<tr class="odd" role="row" *ngFor="let ahorroPago of ahorrosPagos; let i=index">-->
-                  <!--<td>{{ahorroPago.numeroCuota}}</td>-->
-                  <!--<td>{{ahorroPago.fechaPago}}</td>-->
-                  <!--<td>{{ahorroPago.montoPagado}}</td>-->
-                  <!--<td>{{ahorroPago.tipoPagoNombre}}</td>-->
-                <!--</tr>-->
-                <!--</tbody>-->
-              <!--</table>-->
+              <table class="table table-bordered table-striped dataTable" *ngIf="movimientos?.length > 0">
+                <thead>
+                <tr role="row">
+                  <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                      aria-label="Saldo: activate to sort column ascending">Cuota
+                  </th>
+                  <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                      aria-label="Numero de Cuota: activate to sort column ascending">Fecha de pago
+                  </th>
+                  <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                      aria-label="Monto Pagado: activate to sort column ascending">Monto Pagado
+                  </th>
+                  <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                      aria-label="Tipo de Pago: activate to sort column ascending">Tipo de Pago
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="odd" role="row" *ngFor="let movimiento of movimientos; let i=index">
+                  <td>{{movimiento.numeroCuota}}</td>
+                  <td>{{movimiento.fechaMovimiento}}</td>
+                  <td>{{movimiento.montoPagado}}</td>
+                  <td>{{movimiento.tipoPagoNombre}}</td>
+                </tr>
+                </tbody>
+              </table>
             </div>
           </div>
 

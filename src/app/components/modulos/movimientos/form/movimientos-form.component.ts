@@ -204,6 +204,7 @@ export class MovimientosFormComponent implements OnInit {
     // this.movimiento.codigoConcepto = 'PS';
     this.movimiento.prestamoId = 0;
     this.movimiento.ahorroId = 0;
+    this.movimiento.tarjetaId = 0;
     this.movimiento.numeroCuota = 0;
     this.movimiento.numeroComprobante = '';
     this.movimiento.fechaMovimiento = new Date();
