@@ -9,31 +9,28 @@
             <div class="dataTables_wrapper form-inline dt-bootstrap">
                 <div class="row" style="padding-bottom: 5px">
                     <div class="col-sm-6">
-                        <button *ngIf="authService.hasRole('ROLE_ADMIN')"
-                                class="btn btn-primary float-left"
-                                [routerLink]="['/movimientos/form']"
-                                title="NUEVO MOVIMIENTO"
-                                style="margin-right: 5px">
-                            <i class="fa fa-plus"></i>
-                            NUEVO MOVIMIENTO
-                        </button>
+<!--                        <button *ngIf="authService.hasRole('ROLE_ADMIN')"-->
+<!--                                class="btn btn-primary float-left"-->
+<!--                                [routerLink]="['/movimientos/form']"-->
+<!--                                title="NUEVO MOVIMIENTO"-->
+<!--                                style="margin-right: 5px">-->
+<!--                            <i class="fa fa-plus"></i>-->
+<!--                            NUEVO MOVIMIENTO-->
+<!--                        </button>-->
 
-<!--                        <div class="dropdown">-->
-<!--                            <button *ngIf="authService.hasRole('ROLE_ADMIN')"-->
-<!--                                    class="btn btn-primary float-left" type="button" id="dropdownMenu1"-->
-<!--                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
-<!--                                <i class="fa fa-plus"></i>-->
-<!--                                REGISTRAR MOVIMIENTO-->
-<!--                                <span class="caret"></span>-->
-<!--                            </button>-->
-<!--                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">-->
-<!--                                <li><a [routerLink]="['/prestamos/form']">Pago de Prestamo</a></li>-->
-<!--                                <li><a href="#">Cobro de Ahorro</a></li>-->
-<!--                                <li><a href="#">Realizar Ahorro</a></li>-->
-<!--                                <li><a href="#">Pago de Tarjetas</a></li>-->
-<!--                                <li><a [routerLink]="['/movimientos/form']">Otros</a></li>-->
-<!--                            </ul>-->
-<!--                        </div>-->
+                        <div class="dropdown">
+                            <button *ngIf="authService.hasRole('ROLE_ADMIN')"
+                                    class="btn btn-primary float-left" type="button" id="dropdownMenu1"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <i class="fa fa-plus"></i>
+                                REGISTRAR MOVIMIENTO
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li><a href="#">Ingresos</a></li>
+                                <li><a [routerLink]="['/movimientos/form']">Egresos</a></li>
+                            </ul>
+                        </div>
                     </div>
 
 
