@@ -4,6 +4,7 @@ import {AhorrosListComponent} from './list/ahorros-list.component';
 import {AhorrosComponent} from './ahorros.component';
 import {AhorrosFormComponent} from './form/ahorros-form.component';
 import {VerDetallesAhorroFormComponent} from './verDetalles/verDetallesAhorro-form.component';
+import {RetirarAhorroFormComponent} from './retirarAhorro/retirarAhorro-form.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
       {
         path: 'ahorros/form/:id',
         component: AhorrosFormComponent
+      },
+      {
+        path: 'ahorros/retirar/:id',
+        component: RetirarAhorroFormComponent
       },
       {
         path: 'ahorros/detalles/:id',
