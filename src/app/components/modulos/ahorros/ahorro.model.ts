@@ -22,4 +22,5 @@ export class AhorroModel {
   tipoCobroId: number;
   tipoCobroNombre: string;
   usuarioId: number;
+  // tipoPagoId: number;
 }

@@ -4,6 +4,8 @@ import {AhorroModel} from '../ahorro.model';
 import {AuthService} from '../../../../services/auth.service';
 import {AhorrosService} from '../../../../services/ahorros.service';
 import swal from 'sweetalert2';
+import {TipoPagoModel} from '../../tiposPagos/tipoPago.model';
+import {TiposPagosService} from '../../../../services/tiposPagos.service';
 
 @Component({
   selector: 'app-retirar-ahorro-form',
@@ -19,10 +21,11 @@ export class RetirarAhorroFormComponent implements OnInit {
   ahorroId: number;
 
   ahorros: AhorroModel[];
-
+  tiposPagos: TipoPagoModel[];
 
   constructor(private authService: AuthService,
               private ahorrosService: AhorrosService,
+              private tiposPagosService: TiposPagosService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
   }
@@ -33,6 +36,15 @@ export class RetirarAhorroFormComponent implements OnInit {
     this.titulo = 'Ver Detalles';
     this.lista = ['Ahorros Pago'];
     this.lista.push(this.titulo);
+    this.tiposPagosService.getAll().subscribe(getAll => {
+        this.tiposPagos = getAll;
+      },
+      err => {
+        this.errores = err.error.errors as string[];
+        console.error('Codigo del error desde el backend: ' + err.status);
+        console.error(err.error.errors);
+      }
+    );
   }
 
 
