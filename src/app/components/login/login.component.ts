@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     document.body.className = 'hold-transition login-page';
     if (this.authService.isAuthenticated()) {
-      swal.fire('Login', `Hola ${this.authService.usuario.username}, ya estas autenticado!`, 'info');
+      swal.fire('Login', `Hola ${this.authService.usuario.email}, ya estas autenticado!`, 'info');
       this.router.navigate(['']);
     }
   }
@@ -39,8 +39,8 @@ export class LoginComponent implements OnInit {
         this.authService.guardarUsuario(response.accessToken);
         this.authService.guardarToken(response.accessToken);
         const usuario = this.authService.usuario;
-        this.router.navigate(['dashboard']);
-        swal.fire('Login', `Hola ${usuario.username}, has iniciado sesión con éxito!`, 'success');
+        this.router.navigate(['/']);
+        swal.fire('Login', `Hola ${usuario.email}, has iniciado sesión con éxito!`, 'success');
       }, err => {
         if (err.status === 400) {
           swal.fire('Error Login', 'Usuario o clave incorrectas!', 'error');

@@ -61,10 +61,10 @@ export class AuthService {
     console.log(payload);
     this._usuario = new UsuarioModel();
     this._usuario.id = payload.id;
-    this._usuario.nombre = payload.nombre;
-    this._usuario.apellido = payload.apellido;
+    // this._usuario.nombre = payload.nombre;
+    // this._usuario.apellido = payload.apellido;
     this._usuario.email = payload.email;
-    this._usuario.username = payload.user_name;
+    // this._usuario.username = payload.user_name;
     this._usuario.roles = payload.authorities;
     sessionStorage.setItem('usuario', JSON.stringify(this._usuario));
   }
@@ -83,7 +83,7 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     const payload = this.obtenerDatosToken(this.token);
-    if (payload != null && payload.user_name && payload.user_name.length > 0) {
+    if (payload != null && payload.email && payload.email.length > 0) {
       return true;
     }
     return false;
