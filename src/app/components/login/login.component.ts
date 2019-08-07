@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import swal from 'sweetalert2';
-import {UsuarioModel} from '../../models/usuario.model';
 import {AuthService} from '../../services/auth.service';
+import {LoginModel} from '../../models/login.model';
 
 declare var $;
 
@@ -14,10 +14,10 @@ declare var $;
 export class LoginComponent implements OnInit {
 
   titulo: string = 'Por favor Sign In!';
-  usuario: UsuarioModel;
+  loginModel: LoginModel;
 
   constructor(private authService: AuthService, private router: Router) {
-    this.usuario = new UsuarioModel();
+    this.loginModel = new LoginModel();
   }
 
   ngOnInit() {
@@ -29,14 +29,15 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    if (this.usuario.username == null || this.usuario.password == null) {
+    if (this.loginModel.email == null || this.loginModel.password == null) {
       swal.fire('Error Login', 'Username o password vacías!', 'error');
       return;
     }
 
-    this.authService.login(this.usuario).subscribe(response => {
-        this.authService.guardarUsuario(response.access_token);
-        this.authService.guardarToken(response.access_token);
+    this.authService.login(this.loginModel).subscribe(response => {
+        console.log(response);
+        this.authService.guardarUsuario(response.accessToken);
+        this.authService.guardarToken(response.accessToken);
         const usuario = this.authService.usuario;
         this.router.navigate(['dashboard']);
         swal.fire('Login', `Hola ${usuario.username}, has iniciado sesión con éxito!`, 'success');
