@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {UsuarioModel} from '../models/usuario.model';
-import {LoginModel} from '../models/login.model';
+import {LoginModel} from '../components/login/login.model';
+import {SignupModel} from '../components/signup/signup.model';
 
 @Injectable({
   providedIn: 'root'
@@ -36,24 +37,22 @@ export class AuthService {
   }
 
   login(loginModel: LoginModel): Observable<any> {
-    // const urlEndpoint = 'http://localhost:8080/oauth/token';
-    // const urlEndpoint = '/oauth/token';
     const urlEndpoint = '/auth/login';
-
-    const credenciales = btoa('angularapp' + ':' + '12345');
-
     const httpHeaders = new HttpHeaders({
-      // 'Content-Type': 'application/x-www-form-urlencoded',
       'Content-Type': 'application/json',
-      // 'Authorization': 'Basic ' + credenciales
     });
 
-    const params = new URLSearchParams();
-    // params.set('grant_type', 'password');
-    // params.set('email', usuario.username);
-    // params.set('password', usuario.password);
     console.log(JSON.stringify(loginModel));
     return this.http.post<any>(urlEndpoint, loginModel, {headers: httpHeaders});
+  }
+
+  signup(signupModel: SignupModel): Observable<any> {
+    const urlEndpoint = '/auth/signup';
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    console.log(JSON.stringify(signupModel));
+    return this.http.post<any>(urlEndpoint, signupModel, {headers: httpHeaders});
   }
 
   guardarUsuario(accessToken: string): void {

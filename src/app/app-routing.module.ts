@@ -9,10 +9,13 @@ const routes: Routes = [
     loadChildren: dirComponents + 'login/login.module#LoginModule'
   },
   {
+    path: 'signup',
+    loadChildren: dirComponents + 'signup/signup.module#SignupModule'
+  },
+  {
     path: '',
     loadChildren: dirComponents + 'layout/layout.module#LayoutModule'
   }
-
 ];
 
 @NgModule({

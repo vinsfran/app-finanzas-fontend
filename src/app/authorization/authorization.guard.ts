@@ -17,6 +17,7 @@ export class AuthorizationGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    console.log('canActivate');
     if (this.authService.isAuthenticated()) {
       if (this.isTokenExpirado()) {
         this.authService.logout();

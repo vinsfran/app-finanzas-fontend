@@ -5,22 +5,29 @@
   <!-- /.login-logo -->
   <div class="login-box-body">
 
-    <div class="col">
-      <a href="http://localhost:8080/oauth2/authorize/facebook?redirect_uri=http://localhost:4200/login" class="fb btn btn-block btn-lg">
-        <i class="fa fa-facebook fa-fw"></i> Login con Facebook
-      </a>
-      <a href="http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:4200/login" class="google btn btn-block btn-lg">
-        <i class="fa fa-google fa-fw"></i> Login con Google+
-      </a>
-    </div>
-
-    <div class="or-seperator"><i>O inicie una sesión</i></div>
-
     <form role="form" method="post">
+
+      <div class="form-group has-feedback">
+        <input id="name"
+               class="form-control input-lg"
+               [(ngModel)]="signupModel.name"
+               type="text"
+               name="name"
+               placeholder="Nombre"
+               autofocus
+               required>
+
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        <!--<div class="alert alert-warning" role="alert"-->
+        <!--*ngIf="!rForm.controls['username'].valid  && rForm.controls['username'].touched">-->
+        <!--El campo es requerido y debe tener un minimo de 3 caracteres.-->
+        <!--</div>-->
+      </div>
+
       <div class="form-group has-feedback">
         <input id="email"
                class="form-control input-lg"
-               [(ngModel)]="loginModel.email"
+               [(ngModel)]="signupModel.email"
                type="text"
                name="email"
                placeholder="Email"
@@ -36,7 +43,7 @@
       <div class="form-group has-feedback">
         <input id="password"
                class="form-control input-lg"
-               [(ngModel)]="loginModel.password"
+               [(ngModel)]="signupModel.password"
                type="password"
                name="password"
                placeholder="Contraseña"
@@ -54,9 +61,9 @@
           <!--<input [disabled]="!rForm.valid" type="submit" class="btn btn-primary btn-block btn-flat"-->
           <!--value="Entrar"/> -->
           <input class="btn btn-success btn-block btn-lg"
-                 (click)='login()'
+                 (click)='signup()'
                  type="submit"
-                 value="Entrar">
+                 value="Registrar">
 
         </div>
         <!-- /.col -->
@@ -64,7 +71,7 @@
     </form>
     <br>
     <div class="clearfix">
-      <div class="hint-text pull-right">No tienes una cuenta? <a routerLink="/signup" class="text-success">Registrate ahora!</a>
+      <div class="hint-text pull-right">Ya tienes una cuenta? <a routerLink="/login" class="text-success">Ingresa ahora!</a>
       </div>
     </div>
 
